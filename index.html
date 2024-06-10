@@ -20,16 +20,25 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
         }
         header h1 {
             font-size: 3em;
             margin: 0;
+            padding: 0.5em 0;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+        header nav {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
         }
         header nav a {
             color: #fff;
             margin: 0 15px;
             text-decoration: none;
             font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
         }
         nav {
             background: rgba(0, 0, 0, 0.5);
@@ -49,6 +58,11 @@
             font-size: 2.5em;
             margin-bottom: 20px;
         }
+        .content p {
+            font-size: 1.1em;
+            line-height: 1.6em;
+            color: #555;
+        }
         .resume-link, .linkedin-link {
             display: inline-block;
             margin: 20px 10px;
@@ -62,19 +76,30 @@
         .resume-link:hover, .linkedin-link:hover {
             background: #555;
         }
-        .projects, .skills, .contact {
+        .projects, .skills, .publications, .contact {
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin: 20px 0;
             padding: 20px;
             border-radius: 10px;
+            text-align: left;
         }
-        .publications {
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
-            padding: 20px;
-            border-radius: 10px;
+        .projects ul, .skills ul, .publications ul {
+            list-style: none;
+            padding: 0;
+        }
+        .projects li, .skills li, .publications li {
+            margin-bottom: 10px;
+        }
+        .projects li strong, .skills li strong, .publications li strong {
+            color: #333;
+        }
+        .section-bg {
+            background: url('section-bg.jpg') no-repeat center center/cover;
+            color: #fff;
+        }
+        .section-bg h2 {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
         }
         footer {
             background: #333;
@@ -82,16 +107,6 @@
             text-align: center;
             padding: 1em 0;
             margin-top: 20px;
-        }
-        video {
-            width: 100%;
-            height: auto;
-            margin: 0;
-            padding: 0;
-        }
-        .section-bg {
-            background: url('section-bg.jpg') no-repeat center center/cover;
-            color: #fff;
         }
     </style>
 </head>
@@ -130,15 +145,22 @@
         <div class="container">
             <h2>Resume</h2>
             <a class="resume-link" href="resume.pdf" target="_blank">Download My Resume</a>
-            <p><strong>Professional Experiences:</strong></p>
             <div class="skills">
+                <p><strong>Professional Experiences:</strong></p>
                 <ul>
                     <li>Project Assistant at Technical University of Wien, Vienna, Austria (Oct 2022 - current)</li>
                     <li>Research Assistant at Universität der Bundeswehr Munchen, Munich, Germany (Aug 2022 - Nov 2022)</li>
                     <li>Student Research Assistant at Technical University of Munich, Munich, Germany (Feb 2022 - Jun 2022)</li>
                     <li>CAE Automation Engineer at BETA CAE Systems, Bangalore, India (Sep 2018 - Aug 2019)</li>
                 </ul>
-                <p><strong>Skills:</strong> Python, MATLAB, IDL, C, Julia, Linux, MacOS, Windows, Google Earth Engine, ESA SNAP, LaTex, Docker, ArcGIS, QGIS, Git, CI/CD, English, Kannada, Hindi, Telugu.</p>
+                <p><strong>Skills:</strong></p>
+                <ul>
+                    <li>Python, MATLAB, IDL, C, Julia, Linux, MacOS, Windows</li>
+                    <li>Google Earth Engine, ESA SNAP, LaTex, Docker</li>
+                    <li>ArcGIS, QGIS</li>
+                    <li>Git, CI/CD</li>
+                    <li>Languages: English, Kannada, Hindi, Telugu</li>
+                </ul>
             </div>
         </div>
     </section>
@@ -148,26 +170,28 @@
             <h2>Projects</h2>
             <div class="projects">
                 <ul>
-                    <li>Modelling Uncertainties in Urban Land Use Segmentation using Probabilistic U-Net</li>
-                    <li>Geo-spatial Assessment of Urban Farming Potential in Metropolitan Areas</li>
-                    <li>Design and Analysis of Halo Orbit Mission around L1 Libration Point in Sun-Earth System</li>
+                    <li><strong>Modelling Uncertainties in Urban Land Use Segmentation using Probabilistic U-Net:</strong> Developed a pipeline in Python for data loading, training, and testing, and generated uncertainty maps from segmentation variants.</li>
+                    <li><strong>Geo-spatial Assessment of Urban Farming Potential in Metropolitan Areas:</strong> Detected potential rooftops and vacant parcels in cities, with coding and visualization of results in Google Earth Engine.</li>
+                    <li><strong>Design and Analysis of Halo Orbit Mission around L1 Libration Point in Sun-Earth System:</strong> Implemented differential correction and differential evolution methods to determine initial conditions for Halo orbits near the L1 libration point.</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <section id="publications" class="content publications">
+    <section id="publications" class="content">
         <div class="container">
             <h2>Publications</h2>
-            <ul>
-                <li><strong>Metop ASCAT soil moisture trends: Mitigating the effects of long-term land cover changes</strong>, Hahn, Sebastian; Wagner, Wolfgang; Alves, Oto; Muguda Sanjeevamurthy, Pavan; Vreugdenhil, Mariette; Melzer, Thomas, <em>EGU General Assembly Conference Abstracts</em>, EGU-16205, 2023.</li>
-                <li><strong>Improving 1km Sentinel-1 Soil Moisture Retrievals by Optimizing Backscatter Preprocessing Workflows</strong>, Wagner, Wolfgang; Massart, Samuel; Raml, Bernhard; Quast, Raphael; Muguda Sanjeevamurthy, Pavan; Navacchi, Claudio; Reu{\ss}, Felix; Bauer-Marschallinger, Bernhard; Vreugdenhil, Mariette, <em>EGU General Assembly Conference Abstracts</em>, EGU-7441, 2023.</li>
-                <li><strong>Self-Supervised Learning for InSAR Phase and Coherence Estimation</strong>, Sica, Francescopaolo; Sanjeevamurthy, Pavan Muguda; Schmitt, Michael, <em>IGARSS 2023-2023 IEEE International Geoscience and Remote Sensing Symposium</em>, 722--725, 2023.</li>
-                <li><strong>Sensitivity of Sentinel-1 Backscatter Signal to Vegetation Dynamics over Mozambique: A comparison with MODIS data</strong>, Villegas-Lituma, Carina; Vreugdenhil, Mariette; Massart, Samuel; Sanjeevamurthy, Pavan Muguda; Raml, Bernhard; Wagner, Wolfgang, <em>Copernicus Meetings</em>, 2024.</li>
-                <li><strong>A Case Study on Agricultural Drought Monitoring using ASCAT Surface Soil Moisture at 6.25 km sampling over Eastern Africa</strong>, Sanjeevamurthy, Pavan Muguda; Vreugdenhil, Mariette; Hahn, Sebastian; Massart, Samuel; Villegas-Lituma, Carina; Lindorfer, Roland; Wagner, Wolfgang, <em>Copernicus Meetings</em>, 2024.</li>
-                <li><strong>Drought monitoring and early warning with satellite soil moisture data</strong>, Vreugdenhil, Mariette; Massart, Samuel; Sanjeevamurthy, Pavan Muguda; Villegas-Lituma, Carina; Enenkel, Markus; Wagner, Wolfgang, <em>Copernicus Meetings</em>, 2024.</li>
-                <li><strong>High-resolution drought monitoring with Sentinel-1: A case-study over Mozambique</strong>, Massart, Samuel; Vreugdenhil, Mariette; Hahn, Sebastian; Sanjeevamurthy, Pavan Muguda; Villegas-Lituma, Carina; Wagner, Wolfgang, <em>Copernicus Meetings</em>, 2024.</li>
-            </ul>
+            <div class="publications">
+                <ul>
+                    <li><strong>Metop ASCAT soil moisture trends: Mitigating the effects of long-term land cover changes</strong>, Hahn, Sebastian; Wagner, Wolfgang; Alves, Oto; Muguda Sanjeevamurthy, Pavan; Vreugdenhil, Mariette; Melzer, Thomas, <em>EGU General Assembly Conference Abstracts</em>, EGU-16205, 2023.</li>
+                    <li><strong>Improving 1km Sentinel-1 Soil Moisture Retrievals by Optimizing Backscatter Preprocessing Workflows</strong>, Wagner, Wolfgang; Massart, Samuel; Raml, Bernhard; Quast, Raphael; Muguda Sanjeevamurthy, Pavan; Navacchi, Claudio; Reu{\ss}, Felix; Bauer-Marschallinger, Bernhard; Vreugdenhil, Mariette, <em>EGU General Assembly Conference Abstracts</em>, EGU-7441, 2023.</li>
+                    <li><strong>Self-Supervised Learning for InSAR Phase and Coherence Estimation</strong>, Sica, Francescopaolo; Sanjeevamurthy, Pavan Muguda; Schmitt, Michael, <em>IGARSS 2023-2023 IEEE International Geoscience and Remote Sensing Symposium</em>, 722--725, 2023.</li>
+                    <li><strong>Sensitivity of Sentinel-1 Backscatter Signal to Vegetation Dynamics over Mozambique: A comparison with MODIS data</strong>, Villegas-Lituma, Carina; Vreugdenhil, Mariette; Massart, Samuel; Sanjeevamurthy, Pavan Muguda; Raml, Bernhard; Wagner, Wolfgang, <em>Copernicus Meetings</em>, 2024.</li>
+                    <li><strong>A Case Study on Agricultural Drought Monitoring using ASCAT Surface Soil Moisture at 6.25 km sampling over Eastern Africa</strong>, Sanjeevamurthy, Pavan Muguda; Vreugdenhil, Mariette; Hahn, Sebastian; Massart, Samuel; Villegas-Lituma, Carina; Lindorfer, Roland; Wagner, Wolfgang, <em>Copernicus Meetings</em>, 2024.</li>
+                    <li><strong>Drought monitoring and early warning with satellite soil moisture data</strong>, Vreugdenhil, Mariette; Massart, Samuel; Sanjeevamurthy, Pavan Muguda; Villegas-Lituma, Carina; Enenkel, Markus; Wagner, Wolfgang, <em>Copernicus Meetings</em>, 2024.</li>
+                    <li><strong>High-resolution drought monitoring with Sentinel-1: A case-study over Mozambique</strong>, Massart, Samuel; Vreugdenhil, Mariette; Hahn, Sebastian; Sanjeevamurthy, Pavan Muguda; Villegas-Lituma, Carina; Wagner, Wolfgang, <em>Copernicus Meetings</em>, 2024.</li>
+                </ul>
+            </div>
         </div>
     </section>
 
@@ -175,7 +199,7 @@
         <div class="container">
             <h2>Contact</h2>
             <p>Feel free to reach out to me via email or LinkedIn.</p>
-            <p>Email: <a href="mailto:pmugudasanjeevamurthy@gmail.com">pmugudasanjeevamurthy@gmail.com</a></p>
+            <p>Email: <a href="mailto:pmugudasanjeevamurthy@gmail.com" style="color: #fff;">pmugudasanjeevamurthy@gmail.com</a></p>
             <a class="linkedin-link" href="https://www.linkedin.com/in/pavan-muguda-sanjeevamurthy-318098114" target="_blank">Connect on LinkedIn</a>
         </div>
     </section>
