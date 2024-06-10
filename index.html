@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pavan Muguda Sanjeevamurthy - Personal Website</title>
+    <title>Pavan Muguda Sanjeevamurthy - Earth Observation & Remote Sensing</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,58 +12,109 @@
             background-color: #f4f4f4;
             color: #333;
         }
-        header, footer {
-            background: #333;
+        header {
+            background: url('header-bg.jpg') no-repeat center center/cover;
+            height: 100vh;
             color: #fff;
             text-align: center;
-            padding: 1em 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        nav a {
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+        header nav a {
             color: #fff;
             margin: 0 15px;
             text-decoration: none;
             font-weight: bold;
         }
+        nav {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1em 0;
+        }
         .container {
             width: 80%;
             margin: auto;
             overflow: hidden;
-        }
-        .content {
             padding: 20px 0;
         }
-        .resume-link, .linkedin-link {
-            display: block;
-            margin: 20px 0;
+        .content {
+            padding: 50px 0;
             text-align: center;
+        }
+        .content h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .resume-link, .linkedin-link {
+            display: inline-block;
+            margin: 20px 10px;
+            padding: 10px 20px;
+            background: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .resume-link:hover, .linkedin-link:hover {
+            background: #555;
+        }
+        .projects, .skills, .contact {
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 20px;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            margin: 0;
+            padding: 0;
+        }
+        .section-bg {
+            background: url('section-bg.jpg') no-repeat center center/cover;
+            color: #fff;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Pavan Muguda Sanjeevamurthy</h1>
-            <nav>
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#resume">Resume</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
-            </nav>
-        </div>
+        <h1>Pavan Muguda Sanjeevamurthy</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#resume">Resume</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </header>
 
     <section id="home" class="content">
         <div class="container">
-            <h2>Welcome to My Personal Website</h2>
-            <p>With a Master’s in remote sensing and over three years of professional experience, I specialize in developing data processing pipelines for diverse Earth observation applications. I am passionate about applying my expertise in algorithm development, utilizing a vast spectrum of EO datasets and machine learning techniques.</p>
+            <video autoplay muted loop>
+                <source src="earth-observation.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h2>Welcome to My World of Earth Observation</h2>
+            <p>Exploring the beauty and intricacies of our planet through remote sensing and data analysis.</p>
         </div>
     </section>
 
-    <section id="about" class="content">
+    <section id="about" class="content section-bg">
         <div class="container">
             <h2>About Me</h2>
-            <p>I am actively seeking full-time opportunities to contribute to the forefront of remote sensing innovation. I hold a Master of Science in Earth Oriented Space Science Technology from the Technical University of Munich and a Bachelor of Engineering in Mechanical Engineering from the Nitte Meenakshi Institute of Technology.</p>
+            <p>With a Master’s in remote sensing and over three years of professional experience, I specialize in developing data processing pipelines for diverse Earth observation applications. I am passionate about applying my expertise in algorithm development, utilizing a vast spectrum of EO datasets and machine learning techniques.</p>
         </div>
     </section>
 
@@ -72,28 +123,32 @@
             <h2>Resume</h2>
             <a class="resume-link" href="resume.pdf" target="_blank">Download My Resume</a>
             <p><strong>Professional Experiences:</strong></p>
-            <ul>
-                <li>Project Assistant at Technical University of Wien, Vienna, Austria (Oct 2022 - current)</li>
-                <li>Research Assistant at Universität der Bundeswehr Munchen, Munich, Germany (Aug 2022 - Nov 2022)</li>
-                <li>Student Research Assistant at Technical University of Munich, Munich, Germany (Feb 2022 - Jun 2022)</li>
-                <li>CAE Automation Engineer at BETA CAE Systems, Bangalore, India (Sep 2018 - Aug 2019)</li>
-            </ul>
-            <p><strong>Skills:</strong> Python, MATLAB, IDL, C, Julia, Linux, MacOS, Windows, Google Earth Engine, ESA SNAP, LaTex, Docker, ArcGIS, QGIS, Git, CI/CD, English, Kannada, Hindi, Telugu.</p>
+            <div class="skills">
+                <ul>
+                    <li>Project Assistant at Technical University of Wien, Vienna, Austria (Oct 2022 - current)</li>
+                    <li>Research Assistant at Universität der Bundeswehr Munchen, Munich, Germany (Aug 2022 - Nov 2022)</li>
+                    <li>Student Research Assistant at Technical University of Munich, Munich, Germany (Feb 2022 - Jun 2022)</li>
+                    <li>CAE Automation Engineer at BETA CAE Systems, Bangalore, India (Sep 2018 - Aug 2019)</li>
+                </ul>
+                <p><strong>Skills:</strong> Python, MATLAB, IDL, C, Julia, Linux, MacOS, Windows, Google Earth Engine, ESA SNAP, LaTex, Docker, ArcGIS, QGIS, Git, CI/CD, English, Kannada, Hindi, Telugu.</p>
+            </div>
         </div>
     </section>
 
     <section id="projects" class="content">
         <div class="container">
             <h2>Projects</h2>
-            <ul>
-                <li>Modelling Uncertainties in Urban Land Use Segmentation using Probabilistic U-Net</li>
-                <li>Geo-spatial Assessment of Urban Farming Potential in Metropolitan Areas</li>
-                <li>Design and Analysis of Halo Orbit Mission around L1 Libration Point in Sun-Earth System</li>
-            </ul>
+            <div class="projects">
+                <ul>
+                    <li>Modelling Uncertainties in Urban Land Use Segmentation using Probabilistic U-Net</li>
+                    <li>Geo-spatial Assessment of Urban Farming Potential in Metropolitan Areas</li>
+                    <li>Design and Analysis of Halo Orbit Mission around L1 Libration Point in Sun-Earth System</li>
+                </ul>
+            </div>
         </div>
     </section>
 
-    <section id="contact" class="content">
+    <section id="contact" class="content section-bg">
         <div class="container">
             <h2>Contact</h2>
             <p>Feel free to reach out to me via email or LinkedIn.</p>
