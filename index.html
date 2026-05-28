@@ -355,7 +355,25 @@
             background: var(--bg3); border: 1px solid var(--border);
             border-radius: var(--r); padding: 1.1rem;
             transition: var(--t); position: relative; overflow: hidden;
+            isolation: isolate;
         }
+        /* ── GEO BACKGROUND: country outline in experience cards ── */
+        .card-geo-bg {
+            position: absolute; inset: 0; z-index: -1;
+            pointer-events: none; overflow: hidden;
+        }
+        .card-geo-bg svg {
+            position: absolute; top: 50%; right: -8%;
+            transform: translateY(-50%);
+            width: 95%; height: auto; opacity: 0.13;
+        }
+        .geo-path {
+            fill: rgba(208,151,61,0.05);
+            stroke: var(--amber); stroke-width: 0.8;
+            stroke-linejoin: round;
+        }
+        .geo-city { fill: var(--amber); opacity: 0.85; }
+        .geo-city-ring { fill: none; stroke: var(--amber); stroke-width: 0.7; opacity: 0.55; }
         .htl-card::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
             background: linear-gradient(90deg, transparent, var(--cyan), transparent);
@@ -976,6 +994,7 @@
 
                     <div class="htl-cell-top has-card">
                         <div class="htl-card current">
+                            <div class="card-geo-bg" aria-hidden="true"><svg viewBox="0 0 110 75" preserveAspectRatio="xMidYMid meet"><path d="M16.2,42.2L16.2,32.3L32.0,20.6L45.7,11.8L61.4,12.0L73.5,12.3L80.0,9.8L88.5,7.0L93.5,20.1L93.8,35.6L84.5,48.9L84.5,68.0L40.3,68.0L16.2,44.3L16.2,42.2Z" class="geo-path"/><circle cx="61.1" cy="35.3" r="1.8" class="geo-city"/><circle cx="61.1" cy="35.3" r="5" class="geo-city-ring"/></svg></div>
                             <span class="org-badge">S42</span>
                             <div class="htl-period">Oct 2025 — Present</div>
                             <div class="htl-role">Data Scientist – Remote Sensing</div>
@@ -988,6 +1007,7 @@
 
                     <div class="htl-cell-top has-card">
                         <div class="htl-card">
+                            <div class="card-geo-bg" aria-hidden="true"><svg viewBox="0 0 110 75" preserveAspectRatio="xMidYMid meet"><path d="M47.4,8.8L55.2,7.0L66.4,12.2L73.7,16.3L75.0,23.8L76.2,27.2L78.4,38.6L76.1,40.8L70.6,43.7L65.0,45.3L72.3,59.2L68.2,66.7L63.6,66.7L54.9,67.9L45.2,68.0L42.4,66.7L40.1,68.0L40.0,61.5L36.4,54.9L33.1,52.4L32.8,47.1L31.6,39.7L32.6,31.8L35.9,27.4L37.7,19.7L42.3,17.6L46.1,13.1L47.4,8.8Z" class="geo-path"/><circle cx="60.7" cy="63.1" r="1.8" class="geo-city"/><circle cx="60.7" cy="63.1" r="5" class="geo-city-ring"/></svg></div>
                             <span class="org-badge">UBW</span>
                             <div class="htl-period">Aug 2022 — Nov 2022</div>
                             <div class="htl-role">Research Assistant</div>
@@ -1000,6 +1020,7 @@
 
                     <div class="htl-cell-top has-card">
                         <div class="htl-card">
+                            <div class="card-geo-bg" aria-hidden="true"><svg viewBox="0 0 110 75" preserveAspectRatio="xMidYMid meet"><path d="M47.4,8.8L55.2,7.0L66.4,12.2L73.7,16.3L75.0,23.8L76.2,27.2L78.4,38.6L76.1,40.8L70.6,43.7L65.0,45.3L72.3,59.2L68.2,66.7L63.6,66.7L54.9,67.9L45.2,68.0L42.4,66.7L40.1,68.0L40.0,61.5L36.4,54.9L33.1,52.4L32.8,47.1L31.6,39.7L32.6,31.8L35.9,27.4L37.7,19.7L42.3,17.6L46.1,13.1L47.4,8.8Z" class="geo-path"/><circle cx="59.2" cy="63.5" r="1.8" class="geo-city"/><circle cx="59.2" cy="63.5" r="5" class="geo-city-ring"/></svg></div>
                             <span class="org-badge">DLR</span>
                             <div class="htl-period">Apr 2020 — Sep 2021</div>
                             <div class="htl-role">Student Asst. – SAR Signal Processing</div>
@@ -1029,6 +1050,7 @@
 
                     <div class="htl-cell-bot has-card">
                         <div class="htl-card">
+                            <div class="card-geo-bg" aria-hidden="true"><svg viewBox="0 0 110 75" preserveAspectRatio="xMidYMid meet"><path d="M7.0,46.5L14.4,49.9L27.1,49.9L39.9,55.5L42.9,44.3L51.0,48.0L61.0,46.1L64.7,47.6L75.3,43.9L88.2,42.4L89.6,40.7L103.0,38.3L101.7,38.3L100.2,27.4L87.9,19.5L75.5,19.5L66.6,21.2L60.2,28.9L47.8,36.2L38.1,26.6L19.2,38.6L7.5,46.5L7.0,46.5Z" class="geo-path"/><circle cx="93.0" cy="34.7" r="1.8" class="geo-city"/><circle cx="93.0" cy="34.7" r="5" class="geo-city-ring"/></svg></div>
                             <span class="org-badge">TUW</span>
                             <div class="htl-period">Oct 2022 — Sep 2025</div>
                             <div class="htl-role">Project Assistant &amp; PhD Researcher</div>
@@ -1041,6 +1063,7 @@
 
                     <div class="htl-cell-bot has-card">
                         <div class="htl-card">
+                            <div class="card-geo-bg" aria-hidden="true"><svg viewBox="0 0 110 75" preserveAspectRatio="xMidYMid meet"><path d="M47.4,8.8L55.2,7.0L66.4,12.2L73.7,16.3L75.0,23.8L76.2,27.2L78.4,38.6L76.1,40.8L70.6,43.7L65.0,45.3L72.3,59.2L68.2,66.7L63.6,66.7L54.9,67.9L45.2,68.0L42.4,66.7L40.1,68.0L40.0,61.5L36.4,54.9L33.1,52.4L32.8,47.1L31.6,39.7L32.6,31.8L35.9,27.4L37.7,19.7L42.3,17.6L46.1,13.1L47.4,8.8Z" class="geo-path"/><circle cx="60.7" cy="63.1" r="1.8" class="geo-city"/><circle cx="60.7" cy="63.1" r="5" class="geo-city-ring"/></svg></div>
                             <span class="org-badge">TUM</span>
                             <div class="htl-period">Nov 2021 — Jun 2022</div>
                             <div class="htl-role">Master Thesis + Student Research Asst.</div>
@@ -1053,6 +1076,7 @@
 
                     <div class="htl-cell-bot has-card">
                         <div class="htl-card">
+                            <div class="card-geo-bg" aria-hidden="true"><svg viewBox="0 0 110 75" preserveAspectRatio="xMidYMid meet"><path d="M37.6,35.2L41.1,39.7L42.1,41.4L46.3,42.1L46.6,45.0L46.7,49.7L49.1,53.1L50.1,55.4L50.8,59.8L53.4,63.8L55.7,68.0L58.4,64.6L61.1,57.7L61.3,55.6L60.8,51.6L61.5,50.3L64.8,49.3L66.4,47.2L68.9,42.9L70.4,38.6L74.1,38.7L77.2,37.8L78.7,38.7L80.8,37.6L83.1,37.0L84.3,34.8L84.7,31.7L83.8,28.6L80.3,30.0L79.5,28.2L76.4,27.0L77.6,26.1L74.6,26.5L70.8,28.6L68.2,27.2L64.2,26.3L60.7,24.4L57.6,20.0L56.1,20.9L53.8,18.2L49.8,16.7L47.9,13.3L45.0,12.4L42.9,13.5L41.0,14.3L40.4,10.1L43.3,8.3L45.0,9.3L42.1,7.0L38.1,8.1L34.4,19.8L26.7,31.5L25.3,30.0L26.0,34.5L37.6,35.2Z" class="geo-path"/><circle cx="55.9" cy="57.7" r="1.8" class="geo-city"/><circle cx="55.9" cy="57.7" r="5" class="geo-city-ring"/></svg></div>
                             <span class="org-badge">CAE</span>
                             <div class="htl-period">Sep 2018 — Aug 2019</div>
                             <div class="htl-role">CAE Automation Engineer</div>
