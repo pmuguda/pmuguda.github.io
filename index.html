@@ -283,83 +283,127 @@
         .tag:hover { background: rgba(0,212,255,0.1); border-color: var(--cyan); color: var(--cyan); }
         .tag.g { background: rgba(57,255,20,0.05); border-color: rgba(57,255,20,0.25); color: #39ff14; }
 
-        /* ── EXPERIENCE ──────────────────────── */
+        /* ── EXPERIENCE HORIZONTAL TIMELINE ──── */
         #experience { background: var(--bg2); }
-        .timeline { position: relative; max-width: 780px; margin: 3rem auto 0; }
-        .timeline::before {
-            content: ''; position: absolute; left: 19px; top: 0; bottom: 0;
-            width: 1px; background: linear-gradient(var(--border), var(--border-h) 40%, var(--border));
+        .htl-outer {
+            overflow-x: auto; margin-top: 3rem; padding-bottom: 1rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0,212,255,0.3) transparent;
         }
-        .tl-item { position: relative; padding-left: 55px; padding-bottom: 2.5rem; }
-        .tl-item:last-child { padding-bottom: 0; }
-        .tl-dot {
-            position: absolute; left: 13px; top: 5px;
-            width: 13px; height: 13px; border-radius: 50%;
-            background: var(--bg2); border: 2px solid var(--cyan); transition: var(--t);
-        }
-        .tl-dot.current { background: var(--cyan); box-shadow: var(--glow); }
-        .tl-item:hover .tl-dot { background: var(--cyan); box-shadow: var(--glow); }
-        .tl-period { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--cyan); letter-spacing: 0.05em; margin-bottom: 0.4rem; }
-        .tl-role { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
-        .tl-org { font-size: 0.875rem; color: var(--text2); margin-bottom: 0.6rem; }
-        .tl-desc { font-size: 0.875rem; color: var(--text3); line-height: 1.75; }
-        .tl-desc ul { padding-left: 1.1rem; margin-top: 0.4rem; }
-        .tl-desc ul li { margin-bottom: 0.3rem; }
-        .tl-sub { font-size: 0.8rem; font-weight: 600; color: var(--text2); margin-top: 0.6rem; margin-bottom: 0.2rem; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; }
-
-        /* ── EXPERIENCE CARDS ───────────────── */
-        .exp-grid {
+        .htl-outer::-webkit-scrollbar { height: 3px; }
+        .htl-outer::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.3); border-radius: 2px; }
+        .htl { display: flex; min-width: 1060px; padding: 0 1rem; }
+        .htl-item {
+            flex: 1; min-width: 165px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-            gap: 1.25rem; margin-top: 3rem;
+            grid-template-rows: 220px 34px 220px;
+            padding: 0 0.5rem;
         }
-        .exp-card {
+        .htl-top {
+            display: flex; flex-direction: column;
+            justify-content: flex-end; padding-bottom: 14px;
+            position: relative;
+        }
+        .htl-item.has-top .htl-top::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 1px; height: 14px;
+            background: rgba(0,212,255,0.3);
+        }
+        .htl-bot {
+            display: flex; flex-direction: column;
+            justify-content: flex-start; padding-top: 14px;
+            position: relative;
+        }
+        .htl-item.has-bot .htl-bot::before {
+            content: ''; position: absolute; top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 1px; height: 14px;
+            background: rgba(0,212,255,0.3);
+        }
+        .htl-mid {
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+        }
+        .htl-mid::before {
+            content: ''; position: absolute; left: 0; right: 0; top: 50%;
+            height: 1px; background: rgba(0,212,255,0.22);
+            transform: translateY(-50%);
+        }
+        .htl-item:first-child .htl-mid::before { left: 50%; }
+        .htl-item:last-child .htl-mid::before { right: 50%; }
+        .htl-dot {
+            width: 12px; height: 12px; border-radius: 50%;
+            border: 2px solid var(--cyan); background: var(--bg2);
+            z-index: 2; flex-shrink: 0; transition: var(--t);
+        }
+        .htl-dot.current {
+            background: var(--cyan);
+            box-shadow: 0 0 0 4px rgba(0,212,255,0.15), var(--glow);
+        }
+        .htl-card {
             background: var(--bg3); border: 1px solid var(--border);
-            border-radius: var(--r); padding: 1.5rem;
+            border-radius: var(--r); padding: 1rem;
             transition: var(--t); position: relative; overflow: hidden;
-            display: flex; flex-direction: column; gap: 0.5rem;
+            height: 100%;
         }
-        .exp-card::before {
+        .htl-card::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
             background: linear-gradient(90deg, transparent, var(--cyan), transparent);
             transform: scaleX(0); transition: var(--t);
         }
-        .exp-card:hover::before { transform: scaleX(1); }
-        .exp-card:hover { border-color: var(--border-h); box-shadow: var(--glow); transform: translateY(-3px); }
-        .exp-card.current { border-color: rgba(0,212,255,0.3); }
-        .exp-card.current::before { transform: scaleX(1); opacity: 0.6; }
-        .exp-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
-        .exp-org-icon {
-            width: 38px; height: 38px; border-radius: 8px; flex-shrink: 0;
-            background: rgba(0,212,255,0.07); border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+        .htl-card:hover::before { transform: scaleX(1); }
+        .htl-card:hover { border-color: var(--border-h); box-shadow: var(--glow); }
+        .htl-card.current { border-color: rgba(0,212,255,0.28); }
+        .htl-card.current::before { transform: scaleX(0.6); opacity: 0.5; }
+        .org-badge {
+            display: inline-block; margin-bottom: 0.45rem;
+            padding: 0.15rem 0.5rem;
+            background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+            color: var(--cyan); letter-spacing: 0.1em; font-weight: 700;
         }
-        .exp-period {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
-            color: var(--text3); letter-spacing: 0.04em; white-space: nowrap;
+        .htl-period {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+            color: var(--text3); letter-spacing: 0.04em; margin-bottom: 0.3rem;
         }
-        .exp-role {
-            font-family: 'Space Grotesk', sans-serif; font-size: 0.97rem;
-            font-weight: 600; color: var(--text); line-height: 1.35;
+        .htl-role {
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem;
+            font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 0.2rem;
         }
-        .exp-org {
-            font-size: 0.82rem; color: var(--cyan);
-            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+        .htl-org {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+            color: var(--cyan); margin-bottom: 0.15rem;
         }
-        .exp-loc { font-size: 0.78rem; color: var(--text3); margin-bottom: 0.25rem; }
-        .exp-bullets { list-style: none; padding: 0; margin-top: 0.5rem; }
-        .exp-bullets li {
-            font-size: 0.82rem; color: var(--text3); line-height: 1.65;
-            padding-left: 1rem; position: relative; margin-bottom: 0.25rem;
+        .htl-loc { font-size: 0.72rem; color: var(--text3); margin-bottom: 0.4rem; }
+        .htl-pts { list-style: none; padding: 0; margin: 0; }
+        .htl-pts li {
+            font-size: 0.76rem; color: var(--text3); line-height: 1.6;
+            padding-left: 0.9rem; position: relative; margin-bottom: 0.2rem;
         }
-        .exp-bullets li::before {
-            content: '›'; position: absolute; left: 0; color: var(--cyan);
+        .htl-pts li::before { content: '›'; position: absolute; left: 0; color: var(--cyan); }
+        .htl-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.45rem; }
+        .htl-tag {
+            padding: 0.12rem 0.45rem; background: rgba(0,212,255,0.05);
+            border: 1px solid rgba(0,212,255,0.1); border-radius: 3px;
+            font-size: 0.64rem; color: var(--text3); font-family: 'JetBrains Mono', monospace;
         }
-        .exp-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
-        .exp-tag {
-            padding: 0.15rem 0.5rem; background: rgba(0,212,255,0.05);
-            border: 1px solid rgba(0,212,255,0.1); border-radius: 4px;
-            font-size: 0.68rem; color: var(--text3); font-family: 'JetBrains Mono', monospace;
+        @media (max-width: 768px) {
+            .htl { flex-direction: column; min-width: unset; padding: 0 0 0 2rem; position: relative; }
+            .htl::before {
+                content: ''; position: absolute; left: 6px; top: 0; bottom: 0;
+                width: 1px; background: rgba(0,212,255,0.2);
+            }
+            .htl-item { display: block; padding-bottom: 1.5rem; position: relative; }
+            .htl-top, .htl-bot { display: none; padding: 0; }
+            .htl-item.has-top .htl-top,
+            .htl-item.has-bot .htl-bot { display: block; }
+            .htl-item.has-top .htl-top::after,
+            .htl-item.has-bot .htl-bot::before { display: none; }
+            .htl-mid { position: absolute; left: -1.9rem; top: 0.4rem; }
+            .htl-mid::before { display: none; }
+            .htl-card { height: auto; }
         }
 
         /* ── EDUCATION ───────────────────────── */
@@ -375,7 +419,14 @@
         }
         .edu-card:hover { border-color: var(--border-h); box-shadow: var(--glow); transform: translateY(-2px); }
         .edu-card.phd { border-color: rgba(0,212,255,0.25); }
-        .edu-degree-icon { font-size: 1.6rem; margin-bottom: 0.75rem; }
+        .edu-degree-tag {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 44px; height: 44px; border-radius: 8px;
+            background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.2);
+            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+            font-weight: 700; color: var(--cyan); letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
         .edu-degree {
             font-family: 'Space Grotesk', sans-serif; font-size: 0.97rem;
             font-weight: 700; color: var(--text); margin-bottom: 0.2rem; line-height: 1.35;
@@ -493,13 +544,12 @@
 
         /* ── HONOURS ─────────────────────────── */
         .honour-card {
-            display: flex; align-items: flex-start; gap: 1.25rem;
-            background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r);
+            background: var(--bg3); border: 1px solid var(--border);
+            border-left: 3px solid var(--amber);
+            border-radius: 0 var(--r) var(--r) 0;
             padding: 1.4rem; transition: var(--t); margin-top: 3rem;
         }
-        .honour-card:hover { border-color: var(--border-h); box-shadow: var(--glow); }
-        .honour-icon { font-size: 2rem; flex-shrink: 0; }
-        .honour-body {}
+        .honour-card:hover { border-color: var(--border-h); box-shadow: 0 0 20px rgba(245,158,11,0.15); }
         .honour-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
         .honour-org { font-size: 0.85rem; color: var(--cyan); margin-bottom: 0.35rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
         .honour-desc { font-size: 0.85rem; color: var(--text3); }
@@ -703,114 +753,146 @@
             <div class="sec-label">Career</div>
             <h2 class="sec-title">Professional <span>Experience</span></h2>
         </div>
-        <div class="exp-grid fade-in delay-1">
+        <div class="htl-outer fade-in delay-1">
+            <div class="htl">
 
-            <div class="exp-card current">
-                <div class="exp-header">
-                    <div class="exp-org-icon">🛰️</div>
-                    <span class="exp-period">Oct 2025 — Present</span>
+                <!-- 1. Space42 — above -->
+                <div class="htl-item has-top">
+                    <div class="htl-top">
+                        <div class="htl-card current">
+                            <span class="org-badge">S42</span>
+                            <div class="htl-period">Oct 2025 — Present</div>
+                            <div class="htl-role">Data Scientist – Remote Sensing</div>
+                            <div class="htl-org">Space42</div>
+                            <div class="htl-loc">Abu Dhabi, UAE</div>
+                            <ul class="htl-pts">
+                                <li>SAR &amp; InSAR pipelines for operational geospatial intelligence.</li>
+                                <li>Deep learning for building-height estimation from VHR SAR imagery.</li>
+                                <li>SBAS InSAR pipelines for surface deformation monitoring.</li>
+                            </ul>
+                            <div class="htl-tags">
+                                <span class="htl-tag">SAR/InSAR</span><span class="htl-tag">SBAS</span><span class="htl-tag">PyTorch</span><span class="htl-tag">VHR SAR</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="htl-mid"><div class="htl-dot current"></div></div>
+                    <div class="htl-bot"></div>
                 </div>
-                <div class="exp-role">Data Scientist – Remote Sensing</div>
-                <div class="exp-org">Space42</div>
-                <div class="exp-loc">Abu Dhabi, UAE</div>
-                <ul class="exp-bullets">
-                    <li>SAR &amp; InSAR pipelines for operational geospatial intelligence.</li>
-                    <li>Deep learning for building-height estimation from VHR SAR imagery.</li>
-                    <li>SBAS InSAR pipelines for surface deformation monitoring.</li>
-                </ul>
-                <div class="exp-tags">
-                    <span class="exp-tag">SAR/InSAR</span><span class="exp-tag">SBAS</span><span class="exp-tag">PyTorch</span><span class="exp-tag">VHR SAR</span>
+
+                <!-- 2. TU Wien — below -->
+                <div class="htl-item has-bot">
+                    <div class="htl-top"></div>
+                    <div class="htl-mid"><div class="htl-dot"></div></div>
+                    <div class="htl-bot">
+                        <div class="htl-card">
+                            <span class="org-badge">TUW</span>
+                            <div class="htl-period">Oct 2022 — Sep 2025</div>
+                            <div class="htl-role">Project Assistant &amp; PhD Researcher</div>
+                            <div class="htl-org">TU Wien, Dept. of Geodesy &amp; Geoinformation</div>
+                            <div class="htl-loc">Vienna, Austria</div>
+                            <ul class="htl-pts">
+                                <li>SCATSAR SWI pipeline fusing Sentinel-1 &amp; ASCAT at 0.5 km (CGLOPS).</li>
+                                <li>Drought indicators for ASCAT SSM at 6.25 km over East Africa (ROSSIHNI).</li>
+                                <li>ASCAT disaggregated SSM at 0.5 km; monsoon climate use case (Clim4Cast).</li>
+                            </ul>
+                            <div class="htl-tags">
+                                <span class="htl-tag">Copernicus</span><span class="htl-tag">ASCAT</span><span class="htl-tag">Sentinel-1</span><span class="htl-tag">NRT</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- 3. Universität der Bundeswehr — above -->
+                <div class="htl-item has-top">
+                    <div class="htl-top">
+                        <div class="htl-card">
+                            <span class="org-badge">UBW</span>
+                            <div class="htl-period">Aug 2022 — Nov 2022</div>
+                            <div class="htl-role">Research Assistant</div>
+                            <div class="htl-org">Universität der Bundeswehr München</div>
+                            <div class="htl-loc">Munich, Germany</div>
+                            <ul class="htl-pts">
+                                <li>Self-supervised learning for InSAR phase &amp; coherence estimation.</li>
+                                <li>Pre-processing pipeline for Persistent Scatterer Interferometry (Sentinel-1).</li>
+                            </ul>
+                            <div class="htl-tags">
+                                <span class="htl-tag">InSAR</span><span class="htl-tag">PSI</span><span class="htl-tag">Self-Supervised</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="htl-mid"><div class="htl-dot"></div></div>
+                    <div class="htl-bot"></div>
+                </div>
+
+                <!-- 4. TU Munich — below -->
+                <div class="htl-item has-bot">
+                    <div class="htl-top"></div>
+                    <div class="htl-mid"><div class="htl-dot"></div></div>
+                    <div class="htl-bot">
+                        <div class="htl-card">
+                            <span class="org-badge">TUM</span>
+                            <div class="htl-period">Nov 2021 — Jun 2022</div>
+                            <div class="htl-role">Master Thesis + Student Research Asst.</div>
+                            <div class="htl-org">Technical University of Munich</div>
+                            <div class="htl-loc">Munich, Germany</div>
+                            <ul class="htl-pts">
+                                <li>Complex-valued U-Net with non-local attention for InSAR phase denoising.</li>
+                                <li>SAR interferogram simulation pipelines; benchmarked vs. state-of-the-art.</li>
+                                <li>Building filtering in 3D city models &amp; shadow volume computation.</li>
+                            </ul>
+                            <div class="htl-tags">
+                                <span class="htl-tag">InSAR</span><span class="htl-tag">U-Net</span><span class="htl-tag">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. DLR — above -->
+                <div class="htl-item has-top">
+                    <div class="htl-top">
+                        <div class="htl-card">
+                            <span class="org-badge">DLR</span>
+                            <div class="htl-period">Apr 2020 — Sep 2021</div>
+                            <div class="htl-role">Student Asst. – SAR Signal Processing</div>
+                            <div class="htl-org">German Aerospace Center (DLR)</div>
+                            <div class="htl-loc">Oberpfaffenhofen, Germany</div>
+                            <ul class="htl-pts">
+                                <li>Python GUI for SAR image chip extraction from Sentinel-1 SLC.</li>
+                                <li>Ported ESD co-registration algorithm from IDL to Python.</li>
+                                <li>SNAP plugins for multitemporal SAR/InSAR analysis.</li>
+                            </ul>
+                            <div class="htl-tags">
+                                <span class="htl-tag">Sentinel-1 SLC</span><span class="htl-tag">ESA SNAP</span><span class="htl-tag">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="htl-mid"><div class="htl-dot"></div></div>
+                    <div class="htl-bot"></div>
+                </div>
+
+                <!-- 6. BETA CAE — below -->
+                <div class="htl-item has-bot">
+                    <div class="htl-top"></div>
+                    <div class="htl-mid"><div class="htl-dot"></div></div>
+                    <div class="htl-bot">
+                        <div class="htl-card">
+                            <span class="org-badge">CAE</span>
+                            <div class="htl-period">Sep 2018 — Aug 2019</div>
+                            <div class="htl-role">CAE Automation Engineer</div>
+                            <div class="htl-org">BETA CAE Systems</div>
+                            <div class="htl-loc">Bangalore, India</div>
+                            <ul class="htl-pts">
+                                <li>Automated computer-aided engineering workflows and simulation pipelines.</li>
+                                <li>Tooling for structural analysis and CAE pre/post-processing.</li>
+                            </ul>
+                            <div class="htl-tags">
+                                <span class="htl-tag">CAE</span><span class="htl-tag">Automation</span><span class="htl-tag">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-
-            <div class="exp-card">
-                <div class="exp-header">
-                    <div class="exp-org-icon">🎓</div>
-                    <span class="exp-period">Oct 2022 — Sep 2025</span>
-                </div>
-                <div class="exp-role">Project Assistant (Research) &amp; PhD Researcher</div>
-                <div class="exp-org">TU Wien, Dept. of Geodesy &amp; Geoinformation</div>
-                <div class="exp-loc">Vienna, Austria</div>
-                <ul class="exp-bullets">
-                    <li>SCATSAR SWI pipeline fusing Sentinel-1 &amp; ASCAT at 0.5 km for Europe (CGLOPS).</li>
-                    <li>Drought indicators for MetOp ASCAT SSM at 6.25 km over East Africa (ROSSIHNI).</li>
-                    <li>ASCAT disaggregated SSM at 0.5 km; monsoon climate use case (Clim4Cast).</li>
-                </ul>
-                <div class="exp-tags">
-                    <span class="exp-tag">Copernicus</span><span class="exp-tag">ASCAT</span><span class="exp-tag">Sentinel-1</span><span class="exp-tag">NRT</span>
-                </div>
-            </div>
-
-            <div class="exp-card">
-                <div class="exp-header">
-                    <div class="exp-org-icon">🔬</div>
-                    <span class="exp-period">Aug 2022 — Nov 2022</span>
-                </div>
-                <div class="exp-role">Research Assistant</div>
-                <div class="exp-org">Universität der Bundeswehr München</div>
-                <div class="exp-loc">Munich, Germany</div>
-                <ul class="exp-bullets">
-                    <li>Self-supervised learning framework for InSAR phase &amp; coherence estimation.</li>
-                    <li>Pre-processing pipeline for Persistent Scatterer Interferometry (Sentinel-1).</li>
-                </ul>
-                <div class="exp-tags">
-                    <span class="exp-tag">InSAR</span><span class="exp-tag">PSI</span><span class="exp-tag">Self-Supervised</span>
-                </div>
-            </div>
-
-            <div class="exp-card">
-                <div class="exp-header">
-                    <div class="exp-org-icon">📡</div>
-                    <span class="exp-period">Nov 2021 — Jun 2022</span>
-                </div>
-                <div class="exp-role">Master Thesis + Student Research Asst.</div>
-                <div class="exp-org">Technical University of Munich</div>
-                <div class="exp-loc">Munich, Germany</div>
-                <ul class="exp-bullets">
-                    <li>Complex-valued U-Net with non-local attention for InSAR phase denoising (thesis).</li>
-                    <li>SAR interferogram simulation pipelines; benchmarked vs. state-of-the-art filters.</li>
-                    <li>Algorithms for building filtering in 3D city models &amp; shadow volume computation.</li>
-                </ul>
-                <div class="exp-tags">
-                    <span class="exp-tag">InSAR</span><span class="exp-tag">U-Net</span><span class="exp-tag">Python</span>
-                </div>
-            </div>
-
-            <div class="exp-card">
-                <div class="exp-header">
-                    <div class="exp-org-icon">🚀</div>
-                    <span class="exp-period">Apr 2020 — Sep 2021</span>
-                </div>
-                <div class="exp-role">Student Assistant – SAR Signal Processing</div>
-                <div class="exp-org">German Aerospace Center (DLR)</div>
-                <div class="exp-loc">Oberpfaffenhofen, Germany</div>
-                <ul class="exp-bullets">
-                    <li>Python GUI for SAR image chip extraction &amp; visualisation from Sentinel-1 SLC.</li>
-                    <li>Ported ESD co-registration algorithm from IDL to Python.</li>
-                    <li>SNAP plugins and libraries for multitemporal SAR/InSAR analysis.</li>
-                </ul>
-                <div class="exp-tags">
-                    <span class="exp-tag">Sentinel-1 SLC</span><span class="exp-tag">ESA SNAP</span><span class="exp-tag">Python</span>
-                </div>
-            </div>
-
-            <div class="exp-card">
-                <div class="exp-header">
-                    <div class="exp-org-icon">⚙️</div>
-                    <span class="exp-period">Sep 2018 — Aug 2019</span>
-                </div>
-                <div class="exp-role">CAE Automation Engineer</div>
-                <div class="exp-org">BETA CAE Systems</div>
-                <div class="exp-loc">Bangalore, India</div>
-                <ul class="exp-bullets">
-                    <li>Automated computer-aided engineering workflows and simulation pipelines.</li>
-                    <li>Tooling for structural analysis and CAE pre/post-processing.</li>
-                </ul>
-                <div class="exp-tags">
-                    <span class="exp-tag">CAE</span><span class="exp-tag">Automation</span><span class="exp-tag">Python</span>
-                </div>
-            </div>
-
         </div>
     </div>
 </section>
@@ -825,7 +907,7 @@
         <div class="edu-grid fade-in delay-1">
 
             <div class="edu-card phd">
-                <div class="edu-degree-icon">🎓</div>
+                <div class="edu-degree-tag">PhD</div>
                 <div class="edu-degree">PhD in Remote Sensing</div>
                 <div class="edu-field">Dept. of Geodesy and Geoinformation</div>
                 <div class="edu-inst">TU Wien</div>
@@ -834,7 +916,7 @@
             </div>
 
             <div class="edu-card">
-                <div class="edu-degree-icon">🛰️</div>
+                <div class="edu-degree-tag">MSc</div>
                 <div class="edu-degree">M.Sc. Earth Oriented Space Science &amp; Technology</div>
                 <div class="edu-field">ESPACE · Specialisation: Remote Sensing</div>
                 <div class="edu-inst">Technical University of Munich</div>
@@ -843,7 +925,7 @@
             </div>
 
             <div class="edu-card">
-                <div class="edu-degree-icon">⚙️</div>
+                <div class="edu-degree-tag">B.E.</div>
                 <div class="edu-degree">B.E. in Mechanical Engineering</div>
                 <div class="edu-field">Engineering Sciences</div>
                 <div class="edu-inst">Nitte Meenakshi Institute of Technology</div>
@@ -864,7 +946,6 @@
         </div>
         <div class="proj-grid fade-in delay-1">
             <div class="proj-card">
-                <div class="proj-icon">🛰️</div>
                 <div class="proj-title">SCATSAR Soil Water Index Pipeline (Copernicus)</div>
                 <div class="proj-desc">Near-real-time fusion of Sentinel-1 SAR and ASCAT surface soil moisture for Copernicus CGLOPS. Produces Soil Water Index at 0.5 km resolution across Europe using recursive exponential filter formulations.</div>
                 <div class="proj-tags">
@@ -873,7 +954,6 @@
                 </div>
             </div>
             <div class="proj-card">
-                <div class="proj-icon">🧠</div>
                 <div class="proj-title">InSAR Denoising via Self-Supervised Learning</div>
                 <div class="proj-desc">Complex-valued U-Net with non-local attention blocks for InSAR phase denoising. Includes SAR interferogram simulation pipelines and benchmarking against state-of-the-art filters on real Sentinel-1 data.</div>
                 <div class="proj-tags">
@@ -882,7 +962,6 @@
                 </div>
             </div>
             <div class="proj-card">
-                <div class="proj-icon">🌍</div>
                 <div class="proj-title">Drought Monitoring – ASCAT over East Africa</div>
                 <div class="proj-desc">Operational drought indicator workflow for MetOp ASCAT SSM at 6.25 km, covering both climate data records and near-real-time applications for humanitarian early warning over East Africa (ROSSIHNI project).</div>
                 <div class="proj-tags">
@@ -1034,12 +1113,9 @@
             <h2 class="sec-title">Honours &amp; <span>Awards</span></h2>
         </div>
         <div class="honour-card fade-in delay-1">
-            <div class="honour-icon">🏅</div>
-            <div class="honour-body">
-                <div class="honour-title">Deutschlandstipendium Scholarship</div>
-                <div class="honour-org">Federal Government of Germany &nbsp;·&nbsp; Oct 2019 – Sep 2020</div>
-                <div class="honour-desc">Merit-based national scholarship awarded by the Federal Government of Germany for academic excellence, supporting studies at Technical University of Munich.</div>
-            </div>
+            <div class="honour-title">Deutschlandstipendium Scholarship</div>
+            <div class="honour-org">Federal Government of Germany &nbsp;·&nbsp; Oct 2019 – Sep 2020</div>
+            <div class="honour-desc">Merit-based national scholarship awarded by the Federal Government of Germany for academic excellence, supporting studies at Technical University of Munich.</div>
         </div>
     </div>
 </section>
