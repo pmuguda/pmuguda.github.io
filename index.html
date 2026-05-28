@@ -362,6 +362,48 @@
         .pub-authors { font-size: 0.82rem; color: var(--text3); }
         .pub-authors strong { color: var(--cyan); }
 
+        /* ── UNDER REVIEW ───────────────────── */
+        .pub.under-review {
+            border-left-color: #f59e0b;
+            background: rgba(245,158,11,0.03);
+            position: relative;
+            overflow: hidden;
+        }
+        .pub.under-review::after {
+            content: '';
+            position: absolute; inset: 0;
+            border: 1px solid rgba(245,158,11,0.0);
+            border-radius: 0 var(--r) var(--r) 0;
+            animation: reviewPulse 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes reviewPulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,0); }
+            50%      { box-shadow: 0 0 18px 2px rgba(245,158,11,0.18); }
+        }
+        .pub-badge.review {
+            background: rgba(245,158,11,0.12);
+            border-color: rgba(245,158,11,0.4);
+            color: var(--amber);
+            animation: badgeBlink 2.5s ease-in-out infinite;
+        }
+        @keyframes badgeBlink { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
+        .pub-section-label {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+            color: var(--text3); letter-spacing: 0.18em; text-transform: uppercase;
+            margin: 2.25rem 0 0.9rem;
+            display: flex; align-items: center; gap: 0.7rem;
+        }
+        .pub-section-label::after {
+            content: ''; flex: 1; height: 1px;
+            background: linear-gradient(90deg, var(--border), transparent);
+        }
+        .pub-yr.conf {
+            background: rgba(148,163,184,0.08);
+            border-color: rgba(148,163,184,0.2);
+            color: var(--text2);
+        }
+
         /* ── HONOURS ─────────────────────────── */
         .honour-card {
             display: flex; align-items: flex-start; gap: 1.25rem;
@@ -470,7 +512,7 @@
                 </div>
                 <div class="stats-row">
                     <div class="stat"><div class="stat-n">5+</div><div class="stat-l">Yrs Research</div></div>
-                    <div class="stat"><div class="stat-n">8+</div><div class="stat-l">Publications</div></div>
+                    <div class="stat"><div class="stat-n">12+</div><div class="stat-l">Publications</div></div>
                     <div class="stat"><div class="stat-n">15+</div><div class="stat-l">Tools &amp; Libs</div></div>
                 </div>
             </div>
@@ -701,15 +743,97 @@
     <div class="container">
         <div class="fade-in">
             <div class="sec-label">Research Output</div>
-            <h2 class="sec-title">Selected <span>Publications</span></h2>
+            <h2 class="sec-title">Publications &amp; <span>Research</span></h2>
         </div>
+        <!-- ── UNDER REVIEW ── -->
+        <div class="pub-section-label fade-in" style="margin-top:3rem">Under Review</div>
         <div class="pub-list fade-in delay-1">
+            <div class="pub under-review">
+                <div class="pub-meta">
+                    <span class="pub-badge review">Under Review</span>
+                    <span class="pub-venue">IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing (JSTARS)</span>
+                </div>
+                <div class="pub-title">Analysis of the New 6.25 km ASCAT Soil Moisture Data Record for Improved Anomaly Detection over Eastern Africa</div>
+                <div class="pub-authors"><strong>Muguda Sanjeevamurthy, P.</strong>; Vreugdenhil, M.; Hahn, S.; Massart, S.; Wagner, W.</div>
+            </div>
+        </div>
 
+        <!-- ── JOURNAL ARTICLES ── -->
+        <div class="pub-section-label fade-in">Journal Articles</div>
+        <div class="pub-list fade-in delay-1">
             <div class="pub journal">
                 <div class="pub-meta">
                     <span class="pub-yr journal">2025</span>
-                    <span class="pub-badge">Journal Article</span>
-                    <span class="pub-venue">Agricultural Water Management, 318(109638)</span>
+                    <span class="pub-badge">Journal</span>
+                    <span class="pub-venue">Agricultural Water Management, 318, 109638</span>
+                </div>
+                <div class="pub-title">High-resolution Drought Monitoring with Sentinel-1 and ASCAT: A Case-study over Mozambique</div>
+                <div class="pub-authors">Massart, S.; Vreugdenhil, M.; Borguete, R.R.; Villegas-Lituma, C.; Hahn, S.; <strong>Muguda Sanjeevamurthy, P.</strong>; Wagner, W.</div>
+            </div>
+        </div>
+
+        <!-- ── CONFERENCE PAPERS ── -->
+        <div class="pub-section-label fade-in">Conference &amp; Symposium Papers</div>
+        <div class="pub-list fade-in delay-1">
+
+            <div class="pub">
+                <div class="pub-meta">
+                    <span class="pub-yr conf">2026</span>
+                    <span class="pub-venue">ISPRS Annals of Photogrammetry, Remote Sensing and Spatial Information Sciences</span>
+                </div>
+                <div class="pub-title">Analyzing the Potential of ASCAT Surface Soil Moisture 6.25 km for Drought Monitoring over Mexico</div>
+                <div class="pub-authors">Vázquez Rodríguez, D.A.; <strong>Muguda Sanjeevamurthy, P.</strong>; Wagner, W.; Hahn, S.; et al.</div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    <span class="pub-yr conf">2025</span>
+                    <span class="pub-venue">EGU General Assembly — EGU25-20319</span>
+                </div>
+                <div class="pub-title">Observing Changes of India's Summer Monsoon</div>
+                <div class="pub-authors">Vreugdenhil, M.; Roebling, R.; <strong>Sanjeevamurthy, P.</strong>; Hahn, S.; Wagner, W.</div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    <span class="pub-yr conf">2025</span>
+                    <span class="pub-venue">Living Planet Symposium — ESA</span>
+                </div>
+                <div class="pub-title">H SAF ASCAT Disaggregated Surface Soil Moisture at 0.5 km: First Validation Results with ISMN Data Over Europe</div>
+                <div class="pub-authors"><strong>Muguda Sanjeevamurthy, P.</strong>; Hahn, S.; Vreugdenhil, M.; Raml, B.; Wagner, W.</div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    <span class="pub-yr conf">2024</span>
+                    <span class="pub-venue">EGU General Assembly — EGU24-6782</span>
+                </div>
+                <div class="pub-title">A Case Study on Agricultural Drought Monitoring using ASCAT Surface Soil Moisture at 6.25 km over Eastern Africa</div>
+                <div class="pub-authors"><strong>Muguda Sanjeevamurthy, P.</strong>; Vreugdenhil, M.; Hahn, S.; Massart, S.; Villegas-Lituma, C.; Lindorfer, R.; Wagner, W.</div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    <span class="pub-yr conf">2024</span>
+                    <span class="pub-venue">EGU General Assembly 2024</span>
+                </div>
+                <div class="pub-title">Drought Monitoring and Early Warning with Satellite Soil Moisture Data</div>
+                <div class="pub-authors">Vreugdenhil, M.; Massart, S.; <strong>Muguda Sanjeevamurthy, P.</strong>; Villegas-Lituma, C.; Enenkel, M.; Wagner, W.</div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    <span class="pub-yr conf">2024</span>
+                    <span class="pub-venue">EGU General Assembly 2024</span>
+                </div>
+                <div class="pub-title">Sensitivity of Sentinel-1 Backscatter Signal to Vegetation Dynamics over Mozambique: A Comparison with MODIS Data</div>
+                <div class="pub-authors">Villegas-Lituma, C.; Vreugdenhil, M.; Massart, S.; <strong>Muguda Sanjeevamurthy, P.</strong>; Raml, B.; Wagner, W.</div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    <span class="pub-yr conf">2024</span>
+                    <span class="pub-venue">EGU General Assembly 2024</span>
                 </div>
                 <div class="pub-title">High-resolution Drought Monitoring with Sentinel-1: A Case-study over Mozambique</div>
                 <div class="pub-authors">Massart, S.; Vreugdenhil, M.; Hahn, S.; <strong>Muguda Sanjeevamurthy, P.</strong>; Villegas-Lituma, C.; Wagner, W.</div>
@@ -717,29 +841,29 @@
 
             <div class="pub">
                 <div class="pub-meta">
-                    <span class="pub-yr">2025</span>
-                    <span class="pub-venue">Living Planet Symposium — ESA</span>
-                </div>
-                <div class="pub-title">H SAF ASCAT Disaggregated SSM at 0.5 km: First Validation Results with ISMN Data Over Europe</div>
-                <div class="pub-authors"><strong>Muguda Sanjeevamurthy, P.</strong>; Hahn, S.; Vreugdenhil, M.; Raml, B.; Wagner, W.</div>
-            </div>
-
-            <div class="pub">
-                <div class="pub-meta">
-                    <span class="pub-yr">2024</span>
-                    <span class="pub-venue">EGU General Assembly — EGU24-6782</span>
-                </div>
-                <div class="pub-title">A Case Study on Agricultural Drought Monitoring using ASCAT SSM at 6.25 km over Eastern Africa</div>
-                <div class="pub-authors"><strong>Muguda Sanjeevamurthy, P.</strong>; Vreugdenhil, M.; Hahn, S.; Massart, S.; Villegas-Lituma, C.; Lindorfer, R.; Wagner, W.</div>
-            </div>
-
-            <div class="pub">
-                <div class="pub-meta">
-                    <span class="pub-yr">2023</span>
+                    <span class="pub-yr conf">2023</span>
                     <span class="pub-venue">IGARSS 2023 — IEEE GRSS</span>
                 </div>
                 <div class="pub-title">Self-Supervised Learning for InSAR Phase and Coherence Estimation</div>
                 <div class="pub-authors">Sica, F.; <strong>Muguda Sanjeevamurthy, P.</strong>; Schmitt, M.</div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    <span class="pub-yr conf">2023</span>
+                    <span class="pub-venue">EGU General Assembly — EGU23-7441</span>
+                </div>
+                <div class="pub-title">Improving 1 km Sentinel-1 Soil Moisture Retrievals by Optimizing Backscatter Preprocessing Workflows</div>
+                <div class="pub-authors">Wagner, W.; Massart, S.; Raml, B.; Quast, R.; <strong>Muguda Sanjeevamurthy, P.</strong>; Navacchi, C.; Reuß, F.; Bauer-Marschallinger, B.; Vreugdenhil, M.</div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    <span class="pub-yr conf">2023</span>
+                    <span class="pub-venue">EGU General Assembly — EGU23-16205</span>
+                </div>
+                <div class="pub-title">MetOp ASCAT Soil Moisture Trends: Mitigating the Effects of Long-term Land Cover Changes</div>
+                <div class="pub-authors">Hahn, S.; Wagner, W.; Alves, O.; <strong>Muguda Sanjeevamurthy, P.</strong>; Vreugdenhil, M.; Melzer, T.</div>
             </div>
 
         </div>
