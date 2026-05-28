@@ -350,32 +350,26 @@
             background: var(--cyan);
             box-shadow: 0 0 0 4px rgba(255,255,255,0.15), var(--glow);
         }
+        /* ── TIMELINE DOT: country map badge aligned on city ──── */
+        .htl-row-mid  { overflow: visible; }
+        .htl-cell-mid { overflow: visible; }
+        .dot-country-svg {
+            position: absolute; z-index: 0;
+            width: 90px; height: 62px;
+            pointer-events: none; opacity: 0.50;
+        }
+        .dot-country-path {
+            fill: rgba(208,151,61,0.07);
+            stroke: var(--amber); stroke-width: 1.1;
+            stroke-linejoin: round; stroke-linecap: round;
+        }
         /* ── CARD ── */
         .htl-card {
             background: var(--bg3); border: 1px solid var(--border);
             border-radius: var(--r); padding: 1.1rem;
             transition: var(--t); position: relative; overflow: hidden;
-            isolation: isolate;
         }
-        /* ── GEO BACKGROUND: country outline in experience cards ── */
-        .card-geo-bg {
-            position: absolute; inset: 0; z-index: 0;
-            pointer-events: none; overflow: hidden;
-        }
-        .card-geo-bg svg {
-            position: absolute; top: 50%; right: -8%;
-            transform: translateY(-50%);
-            width: 95%; height: auto; opacity: 0.18;
-        }
-        .geo-path {
-            fill: rgba(208,151,61,0.05);
-            stroke: var(--amber); stroke-width: 0.8;
-            stroke-linejoin: round;
-        }
-        .geo-city { fill: var(--amber); opacity: 0.85; }
-        .geo-city-ring { fill: none; stroke: var(--amber); stroke-width: 0.7; opacity: 0.55; }
-        /* content must paint above geo background */
-        .htl-card > *:not(.card-geo-bg) { position: relative; z-index: 1; }
+
         .htl-card::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
             background: linear-gradient(90deg, transparent, var(--cyan), transparent);
@@ -996,7 +990,6 @@
 
                     <div class="htl-cell-top has-card">
                         <div class="htl-card current">
-                            <div class="card-geo-bg" aria-hidden="true"><svg viewBox="0 0 110 75" preserveAspectRatio="xMidYMid meet"><path d="M16.2,42.2L16.2,32.3L32.0,20.6L45.7,11.8L61.4,12.0L73.5,12.3L80.0,9.8L88.5,7.0L93.5,20.1L93.8,35.6L84.5,48.9L84.5,68.0L40.3,68.0L16.2,44.3L16.2,42.2Z" class="geo-path"/><circle cx="61.1" cy="35.3" r="1.8" class="geo-city"/><circle cx="61.1" cy="35.3" r="5" class="geo-city-ring"/></svg></div>
                             <span class="org-badge">S42</span>
                             <div class="htl-period">Oct 2025 — Present</div>
                             <div class="htl-role">Data Scientist – Remote Sensing</div>
@@ -1009,7 +1002,6 @@
 
                     <div class="htl-cell-top has-card">
                         <div class="htl-card">
-                            <div class="card-geo-bg" aria-hidden="true"><svg viewBox="0 0 110 75" preserveAspectRatio="xMidYMid meet"><path d="M47.4,8.8L55.2,7.0L66.4,12.2L73.7,16.3L75.0,23.8L76.2,27.2L78.4,38.6L76.1,40.8L70.6,43.7L65.0,45.3L72.3,59.2L68.2,66.7L63.6,66.7L54.9,67.9L45.2,68.0L42.4,66.7L40.1,68.0L40.0,61.5L36.4,54.9L33.1,52.4L32.8,47.1L31.6,39.7L32.6,31.8L35.9,27.4L37.7,19.7L42.3,17.6L46.1,13.1L47.4,8.8Z" class="geo-path"/><circle cx="60.7" cy="63.1" r="1.8" class="geo-city"/><circle cx="60.7" cy="63.1" r="5" class="geo-city-ring"/></svg></div>
                             <span class="org-badge">UBW</span>
                             <div class="htl-period">Aug 2022 — Nov 2022</div>
                             <div class="htl-role">Research Assistant</div>
@@ -1022,7 +1014,6 @@
 
                     <div class="htl-cell-top has-card">
                         <div class="htl-card">
-                            <div class="card-geo-bg" aria-hidden="true"><svg viewBox="0 0 110 75" preserveAspectRatio="xMidYMid meet"><path d="M47.4,8.8L55.2,7.0L66.4,12.2L73.7,16.3L75.0,23.8L76.2,27.2L78.4,38.6L76.1,40.8L70.6,43.7L65.0,45.3L72.3,59.2L68.2,66.7L63.6,66.7L54.9,67.9L45.2,68.0L42.4,66.7L40.1,68.0L40.0,61.5L36.4,54.9L33.1,52.4L32.8,47.1L31.6,39.7L32.6,31.8L35.9,27.4L37.7,19.7L42.3,17.6L46.1,13.1L47.4,8.8Z" class="geo-path"/><circle cx="59.2" cy="63.5" r="1.8" class="geo-city"/><circle cx="59.2" cy="63.5" r="5" class="geo-city-ring"/></svg></div>
                             <span class="org-badge">DLR</span>
                             <div class="htl-period">Apr 2020 — Sep 2021</div>
                             <div class="htl-role">Student Asst. – SAR Signal Processing</div>
@@ -1035,14 +1026,14 @@
 
                 </div>
 
-                <!-- ── ROW 2: horizontal line + dots ── -->
+                <!-- ── ROW 2: horizontal line + dots (geo-enhanced) ── -->
                 <div class="htl-row htl-row-mid">
-                    <div class="htl-cell-mid"><div class="htl-dot current"></div></div>
-                    <div class="htl-cell-mid"><div class="htl-dot"></div></div>
-                    <div class="htl-cell-mid"><div class="htl-dot"></div></div>
-                    <div class="htl-cell-mid"><div class="htl-dot"></div></div>
-                    <div class="htl-cell-mid"><div class="htl-dot"></div></div>
-                    <div class="htl-cell-mid"><div class="htl-dot"></div></div>
+                    <div class="htl-cell-mid"><svg class="dot-country-svg" viewBox="0 0 100 68" preserveAspectRatio="none" style="left:calc(50% - 50.0px);top:calc(50% - 28.3px)"><path d="M15.4,34.5L18.0,33.7L18.5,38.0L29.8,35.6L41.6,36.0L50.3,36.4L60.1,25.8L70.8,15.7L79.9,6.0L82.6,11.4L84.6,23.8L77.2,23.9L76.1,34.1L78.6,36.3L72.1,39.4L72.1,45.8L67.9,52.3L67.5,58.7L64.6,62.0L21.5,54.1L16.0,38.1L15.4,34.5Z" class="dot-country-path"/></svg><div class="htl-dot current"></div></div>
+                    <div class="htl-cell-mid"><svg class="dot-country-svg" viewBox="0 0 100 68" preserveAspectRatio="none" style="left:calc(50% - 78.1px);top:calc(50% - 23.4px)"><path d="M94.0,27.2L93.1,34.4L86.5,34.4L88.8,38.2L84.9,49.4L82.6,52.4L72.4,52.8L66.5,56.7L56.8,55.4L40.0,50.9L37.4,44.8L25.8,47.9L24.4,51.2L17.3,48.7L11.3,48.2L6.0,45.0L7.8,40.8L7.3,37.7L10.9,36.7L16.8,41.6L18.5,36.9L28.8,37.7L37.2,34.6L42.9,35.1L46.5,38.7L47.6,35.7L45.9,24.3L50.2,22.1L54.3,14.1L63.0,19.7L69.6,12.6L73.7,11.3L82.9,16.6L88.4,15.7L93.8,19.0L92.8,21.2L94.0,27.2Z" class="dot-country-path"/></svg><div class="htl-dot"></div></div>
+                    <div class="htl-cell-mid"><svg class="dot-country-svg" viewBox="0 0 100 68" preserveAspectRatio="none" style="left:calc(50% - 49.4px);top:calc(50% - 51.0px)"><path d="M66.5,14.9L67.6,18.6L66.3,20.6L68.0,23.2L69.1,27.1L68.8,29.6L70.6,34.3L68.6,35.0L67.4,34.2L66.3,35.6L63.0,37.0L61.3,38.8L57.9,40.4L58.7,42.6L59.2,45.6L61.6,47.4L64.1,50.5L62.5,53.9L60.9,54.8L61.5,59.6L61.1,60.8L59.7,59.3L57.5,59.1L54.2,60.4L50.2,60.1L49.5,62.0L47.2,60.0L45.8,60.4L40.9,58.1L40.0,59.7L36.1,59.7L36.7,54.5L39.0,49.5L32.4,48.2L30.3,46.2L30.5,43.0L29.6,41.4L30.1,36.5L29.4,28.8L32.1,28.8L33.3,26.1L34.4,19.4L33.5,16.9L34.4,15.4L38.3,15.0L39.1,16.6L42.2,13.0L41.2,10.3L41.0,6.1L44.4,7.1L47.3,6.0L47.4,8.8L52.0,10.5L52.0,13.1L56.6,11.7L59.2,9.7L64.4,12.6L66.5,14.9Z" class="dot-country-path"/></svg><div class="htl-dot"></div></div>
+                    <div class="htl-cell-mid"><svg class="dot-country-svg" viewBox="0 0 100 68" preserveAspectRatio="none" style="left:calc(50% - 49.4px);top:calc(50% - 51.0px)"><path d="M66.5,14.9L67.6,18.6L66.3,20.6L68.0,23.2L69.1,27.1L68.8,29.6L70.6,34.3L68.6,35.0L67.4,34.2L66.3,35.6L63.0,37.0L61.3,38.8L57.9,40.4L58.7,42.6L59.2,45.6L61.6,47.4L64.1,50.5L62.5,53.9L60.9,54.8L61.5,59.6L61.1,60.8L59.7,59.3L57.5,59.1L54.2,60.4L50.2,60.1L49.5,62.0L47.2,60.0L45.8,60.4L40.9,58.1L40.0,59.7L36.1,59.7L36.7,54.5L39.0,49.5L32.4,48.2L30.3,46.2L30.5,43.0L29.6,41.4L30.1,36.5L29.4,28.8L32.1,28.8L33.3,26.1L34.4,19.4L33.5,16.9L34.4,15.4L38.3,15.0L39.1,16.6L42.2,13.0L41.2,10.3L41.0,6.1L44.4,7.1L47.3,6.0L47.4,8.8L52.0,10.5L52.0,13.1L56.6,11.7L59.2,9.7L64.4,12.6L66.5,14.9Z" class="dot-country-path"/></svg><div class="htl-dot"></div></div>
+                    <div class="htl-cell-mid"><svg class="dot-country-svg" viewBox="0 0 100 68" preserveAspectRatio="none" style="left:calc(50% - 49.4px);top:calc(50% - 51.0px)"><path d="M66.5,14.9L67.6,18.6L66.3,20.6L68.0,23.2L69.1,27.1L68.8,29.6L70.6,34.3L68.6,35.0L67.4,34.2L66.3,35.6L63.0,37.0L61.3,38.8L57.9,40.4L58.7,42.6L59.2,45.6L61.6,47.4L64.1,50.5L62.5,53.9L60.9,54.8L61.5,59.6L61.1,60.8L59.7,59.3L57.5,59.1L54.2,60.4L50.2,60.1L49.5,62.0L47.2,60.0L45.8,60.4L40.9,58.1L40.0,59.7L36.1,59.7L36.7,54.5L39.0,49.5L32.4,48.2L30.3,46.2L30.5,43.0L29.6,41.4L30.1,36.5L29.4,28.8L32.1,28.8L33.3,26.1L34.4,19.4L33.5,16.9L34.4,15.4L38.3,15.0L39.1,16.6L42.2,13.0L41.2,10.3L41.0,6.1L44.4,7.1L47.3,6.0L47.4,8.8L52.0,10.5L52.0,13.1L56.6,11.7L59.2,9.7L64.4,12.6L66.5,14.9Z" class="dot-country-path"/></svg><div class="htl-dot"></div></div>
+                    <div class="htl-cell-mid"><svg class="dot-country-svg" viewBox="0 0 100 68" preserveAspectRatio="none" style="left:calc(50% - 36.2px);top:calc(50% - 47.2px)"><path d="M77.5,20.7L77.6,21.5L77.0,21.9L77.1,23.1L75.8,22.7L73.3,24.1L73.4,25.3L72.3,27.0L72.2,28.0L71.4,29.7L69.9,29.2L69.8,31.3L69.4,32.0L69.6,32.9L68.7,33.4L67.7,30.1L67.2,30.1L66.9,31.4L65.8,30.4L66.4,29.2L67.2,29.1L68.1,27.4L67.0,27.0L65.3,27.1L63.5,26.8L63.3,25.4L62.4,25.3L60.9,24.4L60.2,25.8L61.6,26.9L60.4,27.6L60.0,28.4L61.2,28.9L60.8,30.1L61.5,31.7L61.8,33.3L61.5,34.1L60.2,34.1L57.9,34.5L58.0,36.0L57.0,37.2L54.3,38.6L52.2,41.0L50.8,42.3L48.9,43.6L48.9,44.5L47.9,45.0L46.2,45.8L45.3,45.9L44.8,47.4L45.2,50.1L45.3,51.7L44.5,53.7L44.5,57.1L43.5,57.2L42.6,58.8L43.2,59.5L41.5,60.0L40.8,61.4L40.1,62.0L38.3,60.1L37.4,57.3L36.7,55.2L36.0,54.2L35.0,52.3L34.6,49.7L34.2,48.5L32.5,45.7L31.7,41.7L31.2,39.1L31.2,36.7L30.8,34.8L28.1,36.0L26.7,35.7L24.3,33.3L25.2,32.5L24.6,31.7L22.4,30.0L23.6,28.7L27.8,28.7L27.4,26.9L26.4,25.9L26.2,24.3L24.9,23.4L27.0,21.3L29.2,21.4L31.2,19.3L32.4,17.2L34.2,15.2L34.2,13.7L35.8,12.6L34.2,11.6L33.6,10.2L32.9,8.4L33.8,7.5L36.7,8.0L38.8,7.7L40.6,6.0L42.7,8.4L42.5,10.0L43.2,11.1L43.2,12.1L41.8,11.9L42.3,14.1L44.2,15.4L46.8,16.8L45.6,17.7L44.9,19.6L46.7,20.4L48.5,21.4L51.0,22.5L53.6,22.8L54.7,23.8L56.1,24.0L58.4,24.5L60.0,24.5L60.2,23.7L59.9,22.4L60.1,21.5L61.2,21.1L61.4,22.7L61.4,23.1L63.1,23.8L64.3,23.5L65.9,23.7L67.5,23.6L67.6,22.4L66.8,21.7L68.4,21.5L70.1,19.9L72.3,18.6L73.8,19.1L75.2,18.3L76.1,19.6L75.4,20.4L77.5,20.7Z" class="dot-country-path"/></svg><div class="htl-dot"></div></div>
                 </div>
 
                 <!-- ── ROW 3: bottom cards (TUW, TUM, CAE) ── -->
@@ -1052,7 +1043,6 @@
 
                     <div class="htl-cell-bot has-card">
                         <div class="htl-card">
-                            <div class="card-geo-bg" aria-hidden="true"><svg viewBox="0 0 110 75" preserveAspectRatio="xMidYMid meet"><path d="M7.0,46.5L14.4,49.9L27.1,49.9L39.9,55.5L42.9,44.3L51.0,48.0L61.0,46.1L64.7,47.6L75.3,43.9L88.2,42.4L89.6,40.7L103.0,38.3L101.7,38.3L100.2,27.4L87.9,19.5L75.5,19.5L66.6,21.2L60.2,28.9L47.8,36.2L38.1,26.6L19.2,38.6L7.5,46.5L7.0,46.5Z" class="geo-path"/><circle cx="93.0" cy="34.7" r="1.8" class="geo-city"/><circle cx="93.0" cy="34.7" r="5" class="geo-city-ring"/></svg></div>
                             <span class="org-badge">TUW</span>
                             <div class="htl-period">Oct 2022 — Sep 2025</div>
                             <div class="htl-role">Project Assistant &amp; PhD Researcher</div>
@@ -1065,7 +1055,6 @@
 
                     <div class="htl-cell-bot has-card">
                         <div class="htl-card">
-                            <div class="card-geo-bg" aria-hidden="true"><svg viewBox="0 0 110 75" preserveAspectRatio="xMidYMid meet"><path d="M47.4,8.8L55.2,7.0L66.4,12.2L73.7,16.3L75.0,23.8L76.2,27.2L78.4,38.6L76.1,40.8L70.6,43.7L65.0,45.3L72.3,59.2L68.2,66.7L63.6,66.7L54.9,67.9L45.2,68.0L42.4,66.7L40.1,68.0L40.0,61.5L36.4,54.9L33.1,52.4L32.8,47.1L31.6,39.7L32.6,31.8L35.9,27.4L37.7,19.7L42.3,17.6L46.1,13.1L47.4,8.8Z" class="geo-path"/><circle cx="60.7" cy="63.1" r="1.8" class="geo-city"/><circle cx="60.7" cy="63.1" r="5" class="geo-city-ring"/></svg></div>
                             <span class="org-badge">TUM</span>
                             <div class="htl-period">Nov 2021 — Jun 2022</div>
                             <div class="htl-role">Master Thesis + Student Research Asst.</div>
@@ -1078,7 +1067,6 @@
 
                     <div class="htl-cell-bot has-card">
                         <div class="htl-card">
-                            <div class="card-geo-bg" aria-hidden="true"><svg viewBox="0 0 110 75" preserveAspectRatio="xMidYMid meet"><path d="M37.6,35.2L41.1,39.7L42.1,41.4L46.3,42.1L46.6,45.0L46.7,49.7L49.1,53.1L50.1,55.4L50.8,59.8L53.4,63.8L55.7,68.0L58.4,64.6L61.1,57.7L61.3,55.6L60.8,51.6L61.5,50.3L64.8,49.3L66.4,47.2L68.9,42.9L70.4,38.6L74.1,38.7L77.2,37.8L78.7,38.7L80.8,37.6L83.1,37.0L84.3,34.8L84.7,31.7L83.8,28.6L80.3,30.0L79.5,28.2L76.4,27.0L77.6,26.1L74.6,26.5L70.8,28.6L68.2,27.2L64.2,26.3L60.7,24.4L57.6,20.0L56.1,20.9L53.8,18.2L49.8,16.7L47.9,13.3L45.0,12.4L42.9,13.5L41.0,14.3L40.4,10.1L43.3,8.3L45.0,9.3L42.1,7.0L38.1,8.1L34.4,19.8L26.7,31.5L25.3,30.0L26.0,34.5L37.6,35.2Z" class="geo-path"/><circle cx="55.9" cy="57.7" r="1.8" class="geo-city"/><circle cx="55.9" cy="57.7" r="5" class="geo-city-ring"/></svg></div>
                             <span class="org-badge">CAE</span>
                             <div class="htl-period">Sep 2018 — Aug 2019</div>
                             <div class="htl-role">CAE Automation Engineer</div>
