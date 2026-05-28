@@ -714,7 +714,8 @@
         #insarBg {
             position: absolute; inset: 0;
             width: 100%; height: 100%;
-            opacity: 0.09; filter: blur(2px);
+            object-fit: cover; object-position: center top;
+            opacity: 0.18;
             mix-blend-mode: screen;
             pointer-events: none;
         }
@@ -783,7 +784,7 @@
             <div class="radar-ring"></div>
             <div class="radar-ring"></div>
         </div>
-        <canvas id="insarBg"></canvas>
+        <img id="insarBg" src="hero-sar.jpg" alt="">
         <svg class="sar-orbit-svg" viewBox="0 0 1200 580" preserveAspectRatio="xMidYMid slice">
             <!-- Orbit track dashes -->
             <line x1="-60" y1="85" x2="1260" y2="85"
@@ -1466,46 +1467,7 @@
         tick();
     }());
 
-    // InSAR interferogram — hero background canvas
-    (function renderInsar() {
-        const canvas = document.getElementById('insarBg');
-        if (!canvas) return;
-        const W = 800, H = 500;
-        canvas.width = W; canvas.height = H;
-        const ctx = canvas.getContext('2d');
-        const img = ctx.createImageData(W, H);
-        // Gaussian deformation sources (simulate wrapped interferometric phase)
-        const sources = [
-            { cx: W*0.28, cy: H*0.62, sx: W*0.22, sy: H*0.20, amp: 18 },
-            { cx: W*0.70, cy: H*0.42, sx: W*0.18, sy: H*0.22, amp: 11 },
-            { cx: W*0.50, cy: H*0.78, sx: W*0.28, sy: H*0.14, amp:  8 },
-            { cx: W*0.15, cy: H*0.35, sx: W*0.16, sy: H*0.18, amp:  6 },
-        ];
-        const TAU = 2 * Math.PI;
-        for (let y = 0; y < H; y++) {
-            for (let x = 0; x < W; x++) {
-                let phase = 0;
-                for (const s of sources) {
-                    const nx = (x - s.cx) / s.sx;
-                    const ny = (y - s.cy) / s.sy;
-                    phase += s.amp * Math.exp(-0.5 * (nx*nx + ny*ny));
-                }
-                // wrap phase to [0, 2π] → map to HSV hue 0-360
-                const wrapped = ((phase % TAU) + TAU) % TAU;
-                const h6 = (wrapped / TAU) * 6;
-                const qi = Math.floor(h6) % 6;
-                const f  = h6 - Math.floor(h6);
-                const v = 210, q = v*(1-f), t = v*f;
-                const rgb = [[v,t,0],[q,v,0],[0,v,t],[0,q,v],[t,0,v],[v,0,q]];
-                const idx = (y * W + x) * 4;
-                img.data[idx]   = rgb[qi][0];
-                img.data[idx+1] = rgb[qi][1];
-                img.data[idx+2] = rgb[qi][2];
-                img.data[idx+3] = 255;
-            }
-        }
-        ctx.putImageData(img, 0, 0);
-    }());
+    // hero-sar.jpg used as background image (replaces synthetic InSAR canvas)
 
     // ── SPOTLIGHT MODE SAR — beam continuously steered to hero name (AOI) ──
     (function sarSpotlightMode() {
