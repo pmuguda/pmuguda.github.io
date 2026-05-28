@@ -156,7 +156,7 @@
         .hero-name {
             font-size: clamp(2.4rem,5.5vw,4.2rem); font-weight: 700; line-height: 1.1;
             margin-bottom: 1.1rem;
-            background: linear-gradient(135deg, #fff 0%, #c7e8ff 50%, #ffffff 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #e8d5a8 45%, #ffffff 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
         .hero-title {
@@ -280,8 +280,8 @@
             border-radius: 100px; font-size: 0.78rem; color: var(--text2);
             font-family: 'Space Mono', monospace; transition: var(--t);
         }
-        .tag:hover { background: rgba(255,255,255,0.1); border-color: var(--cyan); color: var(--cyan); }
-        .tag.g { background: rgba(57,255,20,0.05); border-color: rgba(57,255,20,0.25); color: #39ff14; }
+        .tag:hover { background: rgba(208,151,61,0.08); border-color: var(--amber); color: var(--amber); }
+        .tag.g { background: rgba(208,151,61,0.08); border-color: rgba(208,151,61,0.35); color: var(--amber); }
 
         /* ── EXPERIENCE HORIZONTAL TIMELINE ──── */
         #experience { background: var(--bg2); }
@@ -709,12 +709,52 @@
             width: 100%; height: 100%;
             pointer-events: none; overflow: visible;
         }
-        .sat-grp {
-            animation: satpass 24s linear infinite;
+        /* ── SAR ANIMATION PHASES (80s cycle) ──────
+           0–24s  Across-track InSAR (dual-sat formation)
+           24–28s gap
+           28–52s Repeat-pass pass 1
+           52–56s gap
+           56–80s Repeat-pass pass 2 (slight orbit shift)
+        ─────────────────────────────────────────── */
+        #sat-at-pair { animation: satAtPass  80s linear infinite; }
+        #sat-rp-1    { animation: satRpPass1 80s linear infinite; }
+        #sat-rp-2    { animation: satRpPass2 80s linear infinite; }
+        #lbl-at      { animation: lblAtFade  80s linear infinite; }
+        #lbl-rp      { animation: lblRpFade  80s linear infinite; }
+        #orb-rp      { animation: orbRpFade  80s linear infinite; }
+
+        @keyframes satAtPass {
+            0%    { transform: translate(-280px,85px); opacity:1; }
+            30%   { transform: translate(1460px,85px); opacity:1; }
+            30.1% { transform: translate(-280px,85px); opacity:0; }
+            100%  { transform: translate(-280px,85px); opacity:0; }
         }
-        @keyframes satpass {
-            from { transform: translate(-260px, 85px); }
-            to   { transform: translate(1440px, 85px); }
+        @keyframes satRpPass1 {
+            0%    { transform: translate(-280px,80px); opacity:0; }
+            34.9% { transform: translate(-280px,80px); opacity:0; }
+            35%   { transform: translate(-280px,80px); opacity:1; }
+            65%   { transform: translate(1460px,80px); opacity:1; }
+            65.1% { transform: translate(-280px,80px); opacity:0; }
+            100%  { transform: translate(-280px,80px); opacity:0; }
+        }
+        @keyframes satRpPass2 {
+            0%    { transform: translate(-280px,93px); opacity:0; }
+            69.9% { transform: translate(-280px,93px); opacity:0; }
+            70%   { transform: translate(-280px,93px); opacity:1; }
+            99.9% { transform: translate(1460px,93px); opacity:1; }
+            100%  { transform: translate(-280px,93px); opacity:0; }
+        }
+        @keyframes lblAtFade {
+            0%  { opacity:1; } 28% { opacity:1; }
+            32% { opacity:0; } 100% { opacity:0; }
+        }
+        @keyframes lblRpFade {
+            0%  { opacity:0; } 32% { opacity:0; }
+            36% { opacity:1; } 100% { opacity:1; }
+        }
+        @keyframes orbRpFade {
+            0%  { opacity:0; } 32% { opacity:0; }
+            36% { opacity:0.7; } 100% { opacity:0.7; }
         }
     </style>
 </head>
@@ -752,46 +792,93 @@
         </div>
         <canvas id="insarBg"></canvas>
         <svg class="sar-orbit-svg" viewBox="0 0 1200 580" preserveAspectRatio="xMidYMid slice">
-            <!-- orbit track dashed line -->
-            <line x1="-60" y1="0" x2="1260" y2="0"
-                  stroke="rgba(255,255,255,0.10)" stroke-width="1" stroke-dasharray="8 5"/>
-            <!-- SAR satellite + beam (animated group, origin at satellite centre) -->
-            <g class="sat-grp">
-                <!-- satellite body -->
-                <rect x="-16" y="-9" width="32" height="18" rx="3"
-                      fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
-                <!-- left solar panel arm + panel -->
-                <line x1="-16" y1="0" x2="-54" y2="0"
-                      stroke="rgba(255,255,255,0.50)" stroke-width="1.4"/>
-                <rect x="-54" y="-5" width="20" height="10" rx="1.5"
-                      fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.45)" stroke-width="0.8"/>
-                <!-- right solar panel arm + panel -->
-                <line x1="16" y1="0" x2="54" y2="0"
-                      stroke="rgba(255,255,255,0.50)" stroke-width="1.4"/>
-                <rect x="34" y="-5" width="20" height="10" rx="1.5"
-                      fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.45)" stroke-width="0.8"/>
-                <!-- SAR antenna stub (bottom centre) -->
-                <rect x="-5" y="9" width="10" height="5" rx="1"
-                      fill="rgba(255,255,255,0.28)" stroke="rgba(255,255,255,0.65)" stroke-width="0.8"/>
-<!-- nadir dashed line (straight down to ground) -->
-                <line x1="0" y1="14" x2="0" y2="360"
-                      stroke="rgba(255,255,255,0.12)" stroke-width="0.7" stroke-dasharray="5 4"/>
-                <!-- SAR beam: side-looking right, ~28–38° incidence -->
-                <line x1="9" y1="10" x2="185" y2="360"
-                      stroke="rgba(255,255,255,0.32)" stroke-width="0.9"/>
-                <line x1="9" y1="10" x2="278" y2="360"
-                      stroke="rgba(255,255,255,0.32)" stroke-width="0.9"/>
-                <!-- beam fill polygon -->
-                <polygon points="9,10 9,10 278,360 185,360"
-                         fill="rgba(255,255,255,0.038)"/>
-                <!-- near/far range tick marks on ground -->
-                <line x1="185" y1="354" x2="185" y2="366"
-                      stroke="rgba(255,255,255,0.28)" stroke-width="0.8"/>
-                <line x1="278" y1="354" x2="278" y2="366"
-                      stroke="rgba(255,255,255,0.28)" stroke-width="0.8"/>
-                <!-- illuminated ground swath -->
-                <rect x="185" y="355" width="93" height="8" rx="2"
-                      fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.42)" stroke-width="0.8"/>
+            <!-- Primary orbit track -->
+            <line x1="-60" y1="85" x2="1260" y2="85"
+                  stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="8 5"/>
+            <!-- Secondary orbit track (repeat-pass 2) — fades in during RP phase -->
+            <line id="orb-rp" x1="-60" y1="93" x2="1260" y2="93"
+                  stroke="rgba(255,255,255,0.05)" stroke-width="0.8" stroke-dasharray="4 6" opacity="0"/>
+
+            <!-- ── ACROSS-TRACK InSAR: dual-satellite formation ── -->
+            <g id="sat-at-pair">
+                <!-- Primary satellite (upper, y-offset -10) -->
+                <g transform="translate(0,-10)">
+                    <rect x="-16" y="-9" width="32" height="18" rx="3" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
+                    <line x1="-16" y1="0" x2="-54" y2="0" stroke="rgba(255,255,255,0.50)" stroke-width="1.4"/>
+                    <rect x="-54" y="-5" width="20" height="10" rx="1.5" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
+                    <line x1="16" y1="0" x2="54" y2="0" stroke="rgba(255,255,255,0.50)" stroke-width="1.4"/>
+                    <rect x="34" y="-5" width="20" height="10" rx="1.5" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
+                    <rect x="-5" y="9" width="10" height="5" rx="1" fill="rgba(255,255,255,0.28)" stroke="rgba(255,255,255,0.65)" stroke-width="0.8"/>
+                    <line x1="0" y1="14" x2="0" y2="370" stroke="rgba(255,255,255,0.09)" stroke-width="0.7" stroke-dasharray="5 4"/>
+                    <line x1="9" y1="10" x2="182" y2="370" stroke="rgba(255,255,255,0.30)" stroke-width="0.9"/>
+                    <line x1="9" y1="10" x2="275" y2="370" stroke="rgba(255,255,255,0.30)" stroke-width="0.9"/>
+                    <polygon points="9,10 9,10 275,370 182,370" fill="rgba(255,255,255,0.032)"/>
+                    <rect x="182" y="363" width="93" height="7" rx="2" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.35)" stroke-width="0.7"/>
+                </g>
+                <!-- Secondary satellite (lower, y-offset +10, slight cross-track baseline) -->
+                <g transform="translate(0,10)">
+                    <rect x="-16" y="-9" width="32" height="18" rx="3" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.40)" stroke-width="1.0"/>
+                    <line x1="-16" y1="0" x2="-54" y2="0" stroke="rgba(255,255,255,0.38)" stroke-width="1.2"/>
+                    <rect x="-54" y="-5" width="20" height="10" rx="1.5" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.30)" stroke-width="0.7"/>
+                    <line x1="16" y1="0" x2="54" y2="0" stroke="rgba(255,255,255,0.38)" stroke-width="1.2"/>
+                    <rect x="34" y="-5" width="20" height="10" rx="1.5" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.30)" stroke-width="0.7"/>
+                    <rect x="-5" y="9" width="10" height="5" rx="1" fill="rgba(255,255,255,0.20)" stroke="rgba(255,255,255,0.50)" stroke-width="0.7"/>
+                    <!-- Slightly different beam angle (across-track baseline shifts geometry) -->
+                    <line x1="9" y1="10" x2="188" y2="370" stroke="rgba(255,255,255,0.18)" stroke-width="0.7"/>
+                    <line x1="9" y1="10" x2="281" y2="370" stroke="rgba(255,255,255,0.18)" stroke-width="0.7"/>
+                    <polygon points="9,10 9,10 281,370 188,370" fill="rgba(255,255,255,0.016)"/>
+                    <rect x="188" y="363" width="93" height="7" rx="2" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.22)" stroke-width="0.6"/>
+                </g>
+                <!-- Perpendicular baseline Bn -->
+                <line x1="0" y1="-8" x2="0" y2="8" stroke="rgba(208,151,61,0.65)" stroke-width="1.2" stroke-dasharray="2 2"/>
+                <text x="5" y="2" font-family="Space Mono,monospace" font-size="7" fill="rgba(208,151,61,0.90)" letter-spacing="0.04em">Bn</text>
+            </g>
+
+            <!-- ── REPEAT-PASS InSAR: first pass (t₁) ── -->
+            <g id="sat-rp-1">
+                <rect x="-16" y="-9" width="32" height="18" rx="3" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
+                <line x1="-16" y1="0" x2="-54" y2="0" stroke="rgba(255,255,255,0.50)" stroke-width="1.4"/>
+                <rect x="-54" y="-5" width="20" height="10" rx="1.5" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
+                <line x1="16" y1="0" x2="54" y2="0" stroke="rgba(255,255,255,0.50)" stroke-width="1.4"/>
+                <rect x="34" y="-5" width="20" height="10" rx="1.5" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
+                <rect x="-5" y="9" width="10" height="5" rx="1" fill="rgba(255,255,255,0.28)" stroke="rgba(255,255,255,0.65)" stroke-width="0.8"/>
+                <line x1="0" y1="14" x2="0" y2="370" stroke="rgba(255,255,255,0.09)" stroke-width="0.7" stroke-dasharray="5 4"/>
+                <line x1="9" y1="10" x2="182" y2="370" stroke="rgba(255,255,255,0.30)" stroke-width="0.9"/>
+                <line x1="9" y1="10" x2="275" y2="370" stroke="rgba(255,255,255,0.30)" stroke-width="0.9"/>
+                <polygon points="9,10 9,10 275,370 182,370" fill="rgba(255,255,255,0.032)"/>
+                <rect x="182" y="363" width="93" height="7" rx="2" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.35)" stroke-width="0.7"/>
+                <!-- t₁ pass label -->
+                <text x="0" y="-18" font-family="Space Mono,monospace" font-size="8" fill="rgba(255,255,255,0.55)" text-anchor="middle" letter-spacing="0.05em">t₁</text>
+            </g>
+
+            <!-- ── REPEAT-PASS InSAR: second pass (t₂, Δy orbital shift) ── -->
+            <g id="sat-rp-2">
+                <rect x="-16" y="-9" width="32" height="18" rx="3" fill="rgba(208,151,61,0.10)" stroke="rgba(208,151,61,0.55)" stroke-width="1.2"/>
+                <line x1="-16" y1="0" x2="-54" y2="0" stroke="rgba(208,151,61,0.48)" stroke-width="1.4"/>
+                <rect x="-54" y="-5" width="20" height="10" rx="1.5" fill="rgba(208,151,61,0.12)" stroke="rgba(208,151,61,0.38)" stroke-width="0.8"/>
+                <line x1="16" y1="0" x2="54" y2="0" stroke="rgba(208,151,61,0.48)" stroke-width="1.4"/>
+                <rect x="34" y="-5" width="20" height="10" rx="1.5" fill="rgba(208,151,61,0.12)" stroke="rgba(208,151,61,0.38)" stroke-width="0.8"/>
+                <rect x="-5" y="9" width="10" height="5" rx="1" fill="rgba(208,151,61,0.30)" stroke="rgba(208,151,61,0.65)" stroke-width="0.8"/>
+                <line x1="0" y1="14" x2="0" y2="370" stroke="rgba(208,151,61,0.10)" stroke-width="0.7" stroke-dasharray="5 4"/>
+                <line x1="9" y1="10" x2="182" y2="370" stroke="rgba(208,151,61,0.28)" stroke-width="0.9"/>
+                <line x1="9" y1="10" x2="275" y2="370" stroke="rgba(208,151,61,0.28)" stroke-width="0.9"/>
+                <polygon points="9,10 9,10 275,370 182,370" fill="rgba(208,151,61,0.025)"/>
+                <!-- Swath highlights deformation between passes (gold tint) -->
+                <rect x="182" y="363" width="93" height="7" rx="2" fill="rgba(208,151,61,0.18)" stroke="rgba(208,151,61,0.42)" stroke-width="0.7"/>
+                <!-- t₂ pass label -->
+                <text x="0" y="-18" font-family="Space Mono,monospace" font-size="8" fill="rgba(208,151,61,0.80)" text-anchor="middle" letter-spacing="0.05em">t₂</text>
+            </g>
+
+            <!-- ── PHASE LABELS ── -->
+            <g id="lbl-at" transform="translate(18,18)">
+                <rect x="0" y="0" width="260" height="42" rx="4" fill="rgba(5,5,5,0.65)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+                <text x="12" y="17" font-family="Space Mono,monospace" font-size="8.5" fill="rgba(208,151,61,0.92)" letter-spacing="0.10em">ACROSS-TRACK InSAR</text>
+                <text x="12" y="31" font-family="Space Mono,monospace" font-size="7" fill="rgba(255,255,255,0.38)">Simultaneous dual-antenna acquisition</text>
+            </g>
+            <g id="lbl-rp" transform="translate(18,18)" opacity="0">
+                <rect x="0" y="0" width="260" height="42" rx="4" fill="rgba(5,5,5,0.65)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+                <text x="12" y="17" font-family="Space Mono,monospace" font-size="8.5" fill="rgba(208,151,61,0.92)" letter-spacing="0.10em">REPEAT-PASS InSAR</text>
+                <text x="12" y="31" font-family="Space Mono,monospace" font-size="7" fill="rgba(255,255,255,0.38)">Sequential orbits · temporal baseline Δt</text>
             </g>
         </svg>
     </div>
