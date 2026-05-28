@@ -709,52 +709,35 @@
             width: 100%; height: 100%;
             pointer-events: none; overflow: visible;
         }
-        /* ── SAR ANIMATION PHASES (80s cycle) ──────
-           0–24s  Across-track InSAR (dual-sat formation)
-           24–28s gap
-           28–52s Repeat-pass pass 1
-           52–56s gap
-           56–80s Repeat-pass pass 2 (slight orbit shift)
-        ─────────────────────────────────────────── */
-        #sat-at-pair { animation: satAtPass  80s linear infinite; }
-        #sat-rp-1    { animation: satRpPass1 80s linear infinite; }
-        #sat-rp-2    { animation: satRpPass2 80s linear infinite; }
-        #lbl-at      { animation: lblAtFade  80s linear infinite; }
-        #lbl-rp      { animation: lblRpFade  80s linear infinite; }
-        #orb-rp      { animation: orbRpFade  80s linear infinite; }
-
-        @keyframes satAtPass {
-            0%    { transform: translate(-280px,85px); opacity:1; }
-            30%   { transform: translate(1460px,85px); opacity:1; }
-            30.1% { transform: translate(-280px,85px); opacity:0; }
-            100%  { transform: translate(-280px,85px); opacity:0; }
+        /* ── SPOTLIGHT MODE: AOI box + glow ──── */
+        #spotlight-aoi {
+            position: absolute;
+            pointer-events: none; z-index: 8;
+            border: 1px dashed rgba(208,151,61,0.38);
+            border-radius: 3px;
         }
-        @keyframes satRpPass1 {
-            0%    { transform: translate(-280px,80px); opacity:0; }
-            34.9% { transform: translate(-280px,80px); opacity:0; }
-            35%   { transform: translate(-280px,80px); opacity:1; }
-            65%   { transform: translate(1460px,80px); opacity:1; }
-            65.1% { transform: translate(-280px,80px); opacity:0; }
-            100%  { transform: translate(-280px,80px); opacity:0; }
+        .aoi-corner {
+            position: absolute; width: 11px; height: 11px;
+            border-color: rgba(208,151,61,0.80); border-style: solid;
         }
-        @keyframes satRpPass2 {
-            0%    { transform: translate(-280px,93px); opacity:0; }
-            69.9% { transform: translate(-280px,93px); opacity:0; }
-            70%   { transform: translate(-280px,93px); opacity:1; }
-            99.9% { transform: translate(1460px,93px); opacity:1; }
-            100%  { transform: translate(-280px,93px); opacity:0; }
+        .aoi-corner.tl { top:-1px; left:-1px;   border-width:2px 0 0 2px; }
+        .aoi-corner.tr { top:-1px; right:-1px;   border-width:2px 2px 0 0; }
+        .aoi-corner.bl { bottom:-1px; left:-1px; border-width:0 0 2px 2px; }
+        .aoi-corner.br { bottom:-1px; right:-1px;border-width:0 2px 2px 0; }
+        .aoi-tag {
+            position: absolute; top:-22px; left:0;
+            font-family:'Space Mono',monospace; font-size:0.60rem;
+            color:rgba(208,151,61,0.82); letter-spacing:0.13em; white-space:nowrap;
         }
-        @keyframes lblAtFade {
-            0%  { opacity:1; } 28% { opacity:1; }
-            32% { opacity:0; } 100% { opacity:0; }
+        .aoi-coords-tag {
+            position: absolute; bottom:-18px; right:0;
+            font-family:'Space Mono',monospace; font-size:0.55rem;
+            color:rgba(255,255,255,0.35); white-space:nowrap;
         }
-        @keyframes lblRpFade {
-            0%  { opacity:0; } 32% { opacity:0; }
-            36% { opacity:1; } 100% { opacity:1; }
-        }
-        @keyframes orbRpFade {
-            0%  { opacity:0; } 32% { opacity:0; }
-            36% { opacity:0.7; } 100% { opacity:0.7; }
+        #spotlight-glow {
+            position: absolute; inset: 0;
+            pointer-events: none; z-index: 6;
+            transition: opacity 0.5s ease;
         }
     </style>
 </head>
@@ -792,93 +775,53 @@
         </div>
         <canvas id="insarBg"></canvas>
         <svg class="sar-orbit-svg" viewBox="0 0 1200 580" preserveAspectRatio="xMidYMid slice">
-            <!-- Primary orbit track -->
+            <!-- Orbit track dashes -->
             <line x1="-60" y1="85" x2="1260" y2="85"
                   stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="8 5"/>
-            <!-- Secondary orbit track (repeat-pass 2) — fades in during RP phase -->
-            <line id="orb-rp" x1="-60" y1="93" x2="1260" y2="93"
-                  stroke="rgba(255,255,255,0.05)" stroke-width="0.8" stroke-dasharray="4 6" opacity="0"/>
-
-            <!-- ── ACROSS-TRACK InSAR: dual-satellite formation ── -->
-            <g id="sat-at-pair">
-                <!-- Primary satellite (upper, y-offset -10) -->
-                <g transform="translate(0,-10)">
-                    <rect x="-16" y="-9" width="32" height="18" rx="3" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
-                    <line x1="-16" y1="0" x2="-54" y2="0" stroke="rgba(255,255,255,0.50)" stroke-width="1.4"/>
-                    <rect x="-54" y="-5" width="20" height="10" rx="1.5" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
-                    <line x1="16" y1="0" x2="54" y2="0" stroke="rgba(255,255,255,0.50)" stroke-width="1.4"/>
-                    <rect x="34" y="-5" width="20" height="10" rx="1.5" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
-                    <rect x="-5" y="9" width="10" height="5" rx="1" fill="rgba(255,255,255,0.28)" stroke="rgba(255,255,255,0.65)" stroke-width="0.8"/>
-                    <line x1="0" y1="14" x2="0" y2="370" stroke="rgba(255,255,255,0.09)" stroke-width="0.7" stroke-dasharray="5 4"/>
-                    <line x1="9" y1="10" x2="182" y2="370" stroke="rgba(255,255,255,0.30)" stroke-width="0.9"/>
-                    <line x1="9" y1="10" x2="275" y2="370" stroke="rgba(255,255,255,0.30)" stroke-width="0.9"/>
-                    <polygon points="9,10 9,10 275,370 182,370" fill="rgba(255,255,255,0.032)"/>
-                    <rect x="182" y="363" width="93" height="7" rx="2" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.35)" stroke-width="0.7"/>
-                </g>
-                <!-- Secondary satellite (lower, y-offset +10, slight cross-track baseline) -->
-                <g transform="translate(0,10)">
-                    <rect x="-16" y="-9" width="32" height="18" rx="3" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.40)" stroke-width="1.0"/>
-                    <line x1="-16" y1="0" x2="-54" y2="0" stroke="rgba(255,255,255,0.38)" stroke-width="1.2"/>
-                    <rect x="-54" y="-5" width="20" height="10" rx="1.5" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.30)" stroke-width="0.7"/>
-                    <line x1="16" y1="0" x2="54" y2="0" stroke="rgba(255,255,255,0.38)" stroke-width="1.2"/>
-                    <rect x="34" y="-5" width="20" height="10" rx="1.5" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.30)" stroke-width="0.7"/>
-                    <rect x="-5" y="9" width="10" height="5" rx="1" fill="rgba(255,255,255,0.20)" stroke="rgba(255,255,255,0.50)" stroke-width="0.7"/>
-                    <!-- Slightly different beam angle (across-track baseline shifts geometry) -->
-                    <line x1="9" y1="10" x2="188" y2="370" stroke="rgba(255,255,255,0.18)" stroke-width="0.7"/>
-                    <line x1="9" y1="10" x2="281" y2="370" stroke="rgba(255,255,255,0.18)" stroke-width="0.7"/>
-                    <polygon points="9,10 9,10 281,370 188,370" fill="rgba(255,255,255,0.016)"/>
-                    <rect x="188" y="363" width="93" height="7" rx="2" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.22)" stroke-width="0.6"/>
-                </g>
-                <!-- Perpendicular baseline Bn -->
-                <line x1="0" y1="-8" x2="0" y2="8" stroke="rgba(208,151,61,0.65)" stroke-width="1.2" stroke-dasharray="2 2"/>
-                <text x="5" y="2" font-family="Space Mono,monospace" font-size="7" fill="rgba(208,151,61,0.90)" letter-spacing="0.04em">Bn</text>
+            <!-- Nadir ground-track projection (updated by JS) -->
+            <line id="sp-nadir" x1="0" y1="85" x2="0" y2="580"
+                  stroke="rgba(255,255,255,0.05)" stroke-width="0.7" stroke-dasharray="3 4"/>
+            <!-- Spotlight beam fill + edges (updated by JS each frame) -->
+            <polygon id="sp-beam-fill" points="0,99 -40,280 40,280"
+                     fill="rgba(208,151,61,0.04)"/>
+            <line id="sp-beam-l" x1="0" y1="99" x2="-40" y2="280"
+                  stroke="rgba(208,151,61,0.22)" stroke-width="1.0"/>
+            <line id="sp-beam-r" x1="0" y1="99" x2="40" y2="280"
+                  stroke="rgba(208,151,61,0.22)" stroke-width="1.0"/>
+            <!-- SAR satellite body (moved by JS) -->
+            <g id="spotlight-sat" transform="translate(-160, 85)">
+                <!-- Main bus -->
+                <rect x="-14" y="-8" width="28" height="16" rx="3"
+                      fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.58)" stroke-width="1.2"/>
+                <!-- Solar panel — left -->
+                <line x1="-14" y1="0" x2="-50" y2="0" stroke="rgba(255,255,255,0.48)" stroke-width="1.3"/>
+                <rect x="-50" y="-5" width="19" height="10" rx="1.5"
+                      fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
+                <!-- Solar panel — right -->
+                <line x1="14" y1="0" x2="50" y2="0" stroke="rgba(255,255,255,0.48)" stroke-width="1.3"/>
+                <rect x="31" y="-5" width="19" height="10" rx="1.5"
+                      fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
+                <!-- SAR radar antenna (gold — side-looking payload) -->
+                <rect x="-5" y="8" width="10" height="5" rx="1"
+                      fill="rgba(208,151,61,0.28)" stroke="rgba(208,151,61,0.70)" stroke-width="0.9"/>
             </g>
-
-            <!-- ── REPEAT-PASS InSAR: first pass (t₁) ── -->
-            <g id="sat-rp-1">
-                <rect x="-16" y="-9" width="32" height="18" rx="3" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
-                <line x1="-16" y1="0" x2="-54" y2="0" stroke="rgba(255,255,255,0.50)" stroke-width="1.4"/>
-                <rect x="-54" y="-5" width="20" height="10" rx="1.5" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
-                <line x1="16" y1="0" x2="54" y2="0" stroke="rgba(255,255,255,0.50)" stroke-width="1.4"/>
-                <rect x="34" y="-5" width="20" height="10" rx="1.5" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
-                <rect x="-5" y="9" width="10" height="5" rx="1" fill="rgba(255,255,255,0.28)" stroke="rgba(255,255,255,0.65)" stroke-width="0.8"/>
-                <line x1="0" y1="14" x2="0" y2="370" stroke="rgba(255,255,255,0.09)" stroke-width="0.7" stroke-dasharray="5 4"/>
-                <line x1="9" y1="10" x2="182" y2="370" stroke="rgba(255,255,255,0.30)" stroke-width="0.9"/>
-                <line x1="9" y1="10" x2="275" y2="370" stroke="rgba(255,255,255,0.30)" stroke-width="0.9"/>
-                <polygon points="9,10 9,10 275,370 182,370" fill="rgba(255,255,255,0.032)"/>
-                <rect x="182" y="363" width="93" height="7" rx="2" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.35)" stroke-width="0.7"/>
-                <!-- t₁ pass label -->
-                <text x="0" y="-18" font-family="Space Mono,monospace" font-size="8" fill="rgba(255,255,255,0.55)" text-anchor="middle" letter-spacing="0.05em">t₁</text>
+            <!-- SPOTLIGHT MODE label — top-left -->
+            <g transform="translate(18,18)">
+                <rect x="0" y="0" width="250" height="44" rx="4"
+                      fill="rgba(5,5,5,0.65)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+                <text x="12" y="17" font-family="Space Mono,monospace" font-size="8.5"
+                      fill="rgba(208,151,61,0.92)" letter-spacing="0.10em">SPOTLIGHT MODE SAR</text>
+                <text x="12" y="32" font-family="Space Mono,monospace" font-size="7"
+                      fill="rgba(255,255,255,0.38)">Continuous beam steering · fixed AOI</text>
             </g>
-
-            <!-- ── REPEAT-PASS InSAR: second pass (t₂, Δy orbital shift) ── -->
-            <g id="sat-rp-2">
-                <rect x="-16" y="-9" width="32" height="18" rx="3" fill="rgba(208,151,61,0.10)" stroke="rgba(208,151,61,0.55)" stroke-width="1.2"/>
-                <line x1="-16" y1="0" x2="-54" y2="0" stroke="rgba(208,151,61,0.48)" stroke-width="1.4"/>
-                <rect x="-54" y="-5" width="20" height="10" rx="1.5" fill="rgba(208,151,61,0.12)" stroke="rgba(208,151,61,0.38)" stroke-width="0.8"/>
-                <line x1="16" y1="0" x2="54" y2="0" stroke="rgba(208,151,61,0.48)" stroke-width="1.4"/>
-                <rect x="34" y="-5" width="20" height="10" rx="1.5" fill="rgba(208,151,61,0.12)" stroke="rgba(208,151,61,0.38)" stroke-width="0.8"/>
-                <rect x="-5" y="9" width="10" height="5" rx="1" fill="rgba(208,151,61,0.30)" stroke="rgba(208,151,61,0.65)" stroke-width="0.8"/>
-                <line x1="0" y1="14" x2="0" y2="370" stroke="rgba(208,151,61,0.10)" stroke-width="0.7" stroke-dasharray="5 4"/>
-                <line x1="9" y1="10" x2="182" y2="370" stroke="rgba(208,151,61,0.28)" stroke-width="0.9"/>
-                <line x1="9" y1="10" x2="275" y2="370" stroke="rgba(208,151,61,0.28)" stroke-width="0.9"/>
-                <polygon points="9,10 9,10 275,370 182,370" fill="rgba(208,151,61,0.025)"/>
-                <!-- Swath highlights deformation between passes (gold tint) -->
-                <rect x="182" y="363" width="93" height="7" rx="2" fill="rgba(208,151,61,0.18)" stroke="rgba(208,151,61,0.42)" stroke-width="0.7"/>
-                <!-- t₂ pass label -->
-                <text x="0" y="-18" font-family="Space Mono,monospace" font-size="8" fill="rgba(208,151,61,0.80)" text-anchor="middle" letter-spacing="0.05em">t₂</text>
-            </g>
-
-            <!-- ── PHASE LABELS ── -->
-            <g id="lbl-at" transform="translate(18,18)">
-                <rect x="0" y="0" width="260" height="42" rx="4" fill="rgba(5,5,5,0.65)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
-                <text x="12" y="17" font-family="Space Mono,monospace" font-size="8.5" fill="rgba(208,151,61,0.92)" letter-spacing="0.10em">ACROSS-TRACK InSAR</text>
-                <text x="12" y="31" font-family="Space Mono,monospace" font-size="7" fill="rgba(255,255,255,0.38)">Simultaneous dual-antenna acquisition</text>
-            </g>
-            <g id="lbl-rp" transform="translate(18,18)" opacity="0">
-                <rect x="0" y="0" width="260" height="42" rx="4" fill="rgba(5,5,5,0.65)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
-                <text x="12" y="17" font-family="Space Mono,monospace" font-size="8.5" fill="rgba(208,151,61,0.92)" letter-spacing="0.10em">REPEAT-PASS InSAR</text>
-                <text x="12" y="31" font-family="Space Mono,monospace" font-size="7" fill="rgba(255,255,255,0.38)">Sequential orbits · temporal baseline Δt</text>
+            <!-- Telemetry readout — top-right -->
+            <g transform="translate(956,18)">
+                <rect x="0" y="0" width="226" height="44" rx="4"
+                      fill="rgba(5,5,5,0.65)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
+                <text id="sp-angle" x="12" y="17" font-family="Space Mono,monospace" font-size="8.5"
+                      fill="rgba(255,255,255,0.62)" letter-spacing="0.08em">θ = ···°</text>
+                <text id="sp-dwell" x="12" y="32" font-family="Space Mono,monospace" font-size="7"
+                      fill="rgba(208,151,61,0.52)" letter-spacing="0.08em">SEARCHING</text>
             </g>
         </svg>
     </div>
@@ -898,6 +841,15 @@
             <a href="resume.pdf" target="_blank" class="btn-outline">Download CV</a>
         </div>
     </div>
+    <div id="spotlight-aoi">
+        <span class="aoi-corner tl"></span>
+        <span class="aoi-corner tr"></span>
+        <span class="aoi-corner bl"></span>
+        <span class="aoi-corner br"></span>
+        <span class="aoi-tag">SPOTLIGHT · AOI</span>
+        <span class="aoi-coords-tag">24.4539°N 54.3773°E</span>
+    </div>
+    <div id="spotlight-glow"></div>
     <div class="scroll-hint">SCROLL</div>
 </section>
 
@@ -1557,6 +1509,149 @@
             }
         }
         ctx.putImageData(img, 0, 0);
+    }());
+
+    // ── SPOTLIGHT MODE SAR — beam continuously steered to hero name (AOI) ──
+    (function sarSpotlightMode() {
+        const svg       = document.querySelector('.sar-orbit-svg');
+        const satG      = document.getElementById('spotlight-sat');
+        const beamFill  = document.getElementById('sp-beam-fill');
+        const beamL     = document.getElementById('sp-beam-l');
+        const beamR     = document.getElementById('sp-beam-r');
+        const nadirLine = document.getElementById('sp-nadir');
+        const angleText = document.getElementById('sp-angle');
+        const dwellText = document.getElementById('sp-dwell');
+        const aoiDiv    = document.getElementById('spotlight-aoi');
+        const glowDiv   = document.getElementById('spotlight-glow');
+        const heroEl    = document.getElementById('hero');
+        const nameEl    = document.querySelector('.hero-name');
+        if (!svg || !satG || !nameEl) return;
+
+        const SAT_Y  = 85;    // orbit track y in SVG viewBox coords
+        const ANT_DY = 13;    // antenna bottom offset from SAT_Y
+        const PERIOD = 9000;  // ms for one full pass across the scene
+
+        let startTs = null;
+
+        function frame(ts) {
+            if (!startTs) startTs = ts;
+            const t = ((ts - startTs) % PERIOD) / PERIOD;  // 0 → 1
+
+            // ── Satellite position in SVG space ─────────────────────────────
+            const satX = -160 + t * 1520;   // −160 → 1360 SVG units
+            satG.setAttribute('transform', `translate(${satX.toFixed(1)},${SAT_Y})`);
+
+            // Nadir ground-track dot
+            if (nadirLine) {
+                nadirLine.setAttribute('x1', satX.toFixed(1));
+                nadirLine.setAttribute('x2', satX.toFixed(1));
+            }
+
+            // ── Grab live DOM rectangles ─────────────────────────────────────
+            const svgRect  = svg.getBoundingClientRect();
+            const nameRect = nameEl.getBoundingClientRect();
+            const heroRect = heroEl.getBoundingClientRect();
+
+            // ── Position AOI overlay box (relative to #hero) ─────────────────
+            const PAD    = 14;
+            const aoiTop  = nameRect.top  - heroRect.top  - PAD;
+            const aoiLeft = nameRect.left - heroRect.left - PAD;
+            const aoiW    = nameRect.width  + PAD * 2;
+            const aoiH    = nameRect.height + PAD * 2;
+            aoiDiv.style.top    = aoiTop  + 'px';
+            aoiDiv.style.left   = aoiLeft + 'px';
+            aoiDiv.style.width  = aoiW    + 'px';
+            aoiDiv.style.height = aoiH    + 'px';
+
+            // ── Convert AOI screen coords → SVG viewBox coords ───────────────
+            // SVG uses xMidYMid slice: scale = max(vpW/1200, vpH/580)
+            const scale     = Math.max(svgRect.width / 1200, svgRect.height / 580);
+            const renderedW = 1200 * scale;
+            const renderedH = 580  * scale;
+            const offX      = (svgRect.width  - renderedW) / 2;  // negative if SVG wider than vp
+            const offY      = (svgRect.height - renderedH) / 2;
+
+            const aoiScrX = nameRect.left + nameRect.width  / 2 - svgRect.left;
+            const aoiScrY = nameRect.top  + nameRect.height / 2 - svgRect.top;
+            const aoiSvgX = (aoiScrX - offX) / scale;
+            const aoiSvgY = (aoiScrY - offY) / scale;
+
+            // ── Beam geometry: antenna bottom → AOI center ───────────────────
+            const bx  = satX;
+            const by  = SAT_Y + ANT_DY;          // antenna exit point
+            const tx  = aoiSvgX;
+            const ty  = aoiSvgY;
+            const dY  = Math.max(ty - by, 1);    // vertical span
+            const bHW = Math.max(8, 52 * dY / 200);  // beam half-width at AOI, tapers
+
+            const p0 = `${bx.toFixed(1)},${by.toFixed(1)}`;
+            const p1 = `${(tx - bHW).toFixed(1)},${ty.toFixed(1)}`;
+            const p2 = `${(tx + bHW).toFixed(1)},${ty.toFixed(1)}`;
+            beamFill.setAttribute('points', `${p0} ${p1} ${p2}`);
+            beamL.setAttribute('x1', bx.toFixed(1));  beamL.setAttribute('y1', by.toFixed(1));
+            beamL.setAttribute('x2', (tx - bHW).toFixed(1));  beamL.setAttribute('y2', ty.toFixed(1));
+            beamR.setAttribute('x1', bx.toFixed(1));  beamR.setAttribute('y1', by.toFixed(1));
+            beamR.setAttribute('x2', (tx + bHW).toFixed(1));  beamR.setAttribute('y2', ty.toFixed(1));
+
+            // ── Steering angle from nadir ────────────────────────────────────
+            const dx       = tx - satX;
+            const angleDeg = Math.atan2(Math.abs(dx), dY) * 180 / Math.PI;
+            const side     = dx >= 0 ? 'R' : 'L';
+
+            // ── Proximity: 1 = satellite directly above AOI, 0 = far edge ────
+            const maxDx = 620;  // SVG units — roughly half the scene width
+            const prox  = Math.max(0, 1 - Math.abs(dx) / maxDx);
+            const prox2 = prox * prox;  // sharper falloff for glow effects
+
+            // ── Telemetry readout ────────────────────────────────────────────
+            if (angleText) angleText.textContent = `θ = ${angleDeg.toFixed(1)}° ${side}`;
+            if (dwellText) {
+                dwellText.textContent =
+                    prox > 0.78 ? 'ACQUIRING' :
+                    prox > 0.42 ? 'STEERING'  : 'SEARCHING';
+                dwellText.setAttribute('fill',
+                    prox > 0.78 ? 'rgba(0,188,112,0.85)' :
+                    prox > 0.42 ? 'rgba(208,151,61,0.75)' : 'rgba(208,151,61,0.52)');
+            }
+
+            // ── Beam opacity driven by proximity ─────────────────────────────
+            beamFill.setAttribute('fill',   `rgba(208,151,61,${(0.04 + prox2 * 0.12).toFixed(3)})`);
+            beamL.setAttribute('stroke',    `rgba(208,151,61,${(0.20 + prox  * 0.60).toFixed(3)})`);
+            beamR.setAttribute('stroke',    `rgba(208,151,61,${(0.20 + prox  * 0.60).toFixed(3)})`);
+
+            // ── AOI box glow on acquisition ──────────────────────────────────
+            if (prox > 0.42) {
+                const bc = (0.40 + prox2 * 0.50).toFixed(2);
+                const bs = Math.round(prox2 * 24);
+                const bg = (prox2 * 0.30).toFixed(3);
+                aoiDiv.style.borderColor = `rgba(208,151,61,${bc})`;
+                aoiDiv.style.boxShadow   = `0 0 ${bs}px rgba(208,151,61,${bg})`;
+            } else {
+                aoiDiv.style.borderColor = 'rgba(208,151,61,0.38)';
+                aoiDiv.style.boxShadow   = 'none';
+            }
+
+            // ── Hero name ambient glow ───────────────────────────────────────
+            if (glowDiv) {
+                if (prox > 0.28) {
+                    const cx = Math.round(aoiLeft + aoiW / 2);
+                    const cy = Math.round(aoiTop  + aoiH / 2);
+                    const ri = Math.round(aoiW * 1.5);
+                    const rj = Math.round(aoiH * 2.2);
+                    const gi = (prox2 * 0.22).toFixed(3);
+                    glowDiv.style.background =
+                        `radial-gradient(ellipse ${ri}px ${rj}px at ${cx}px ${cy}px, ` +
+                        `rgba(208,151,61,${gi}) 0%, transparent 100%)`;
+                    glowDiv.style.opacity = '1';
+                } else {
+                    glowDiv.style.opacity = '0';
+                }
+            }
+
+            requestAnimationFrame(frame);
+        }
+
+        requestAnimationFrame(frame);
     }());
 </script>
 </body>
