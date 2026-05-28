@@ -592,12 +592,12 @@
             margin-bottom: 0.7rem; align-self: flex-start;
         }
         .tool-status.live {
-            background: rgba(57,255,20,0.07); border: 1px solid rgba(57,255,20,0.28);
-            color: var(--green);
+            background: rgba(208,151,61,0.08); border: 1px solid rgba(208,151,61,0.35);
+            color: var(--amber);
         }
         .tool-status.live::before {
             content: ''; width: 6px; height: 6px; border-radius: 50%;
-            background: var(--green); animation: blink 2s ease-in-out infinite;
+            background: var(--amber); animation: blink 2s ease-in-out infinite;
         }
         .tool-status.wip {
             background: rgba(245,158,11,0.07); border: 1px solid rgba(245,158,11,0.25);
@@ -1174,7 +1174,7 @@
                     <div class="tool-wip-placeholder">{ &nbsp;… &nbsp;}</div>
                 </div>
                 <div class="tool-body">
-                    <div class="tool-status live">LIVE</div>
+                    <div class="tool-status wip">ONGOING</div>
                     <div class="tool-title">More tools on the way</div>
                     <div class="tool-desc">New open-source geospatial utilities in the pipeline — SAR visualisation helpers, soil moisture explorers, and InSAR analysis tools.</div>
                 </div>
