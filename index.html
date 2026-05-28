@@ -689,6 +689,18 @@
             padding: 2rem; text-align: center; color: var(--text3); font-size: 0.82rem;
         }
         footer span { color: var(--cyan); }
+
+        /* ── TYPEWRITER ──────────────────────── */
+        .tw-cursor {
+            display: inline-block;
+            width: 3px; height: 0.82em;
+            background: var(--cyan);
+            margin-left: 3px;
+            vertical-align: baseline;
+            border-radius: 1px;
+            animation: twblink 0.72s step-end infinite;
+        }
+        @keyframes twblink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
     </style>
 </head>
 <body>
@@ -776,7 +788,7 @@
             </div>
             <div class="about-body">
                 <div class="sec-label">About Me</div>
-                <h2 class="sec-title">Earth Observer.<br><span>SAR Specialist.</span></h2>
+                <h2 class="sec-title"><span id="typewriter"></span><span class="tw-cursor"></span></h2>
                 <p>I'm a Remote Sensing Data Scientist at <strong style="color:var(--text)">Space42</strong> in Abu Dhabi and a PhD researcher at TU Wien, Department of Geodesy and Geoinformation. I hold a Master's in Earth Oriented Space Science &amp; Technology (ESPACE) from TU Munich with specialisation in Remote Sensing.</p>
                 <p>My work spans the full SAR processing chain — from raw SLC co-registration and InSAR deformation monitoring to operational Copernicus soil moisture products fusing Sentinel-1 and ASCAT at sub-kilometre resolution. I've delivered production pipelines within ESA Copernicus (CGLOPS) and EUMETSAT H SAF programmes.</p>
                 <p>Previously at DLR (German Aerospace Center), TU Munich, and Universität der Bundeswehr München — always at the intersection of radar signal processing, deep learning, and geospatial intelligence.</p>
@@ -1347,6 +1359,23 @@
         }
     }
     setInterval(flashTile, 90);
+
+    // Typewriter — About section heading
+    (function () {
+        const el = document.getElementById('typewriter');
+        if (!el) return;
+        const phrases = ['Earth Observer.', 'SAR Specialist.'];
+        let pi = 0, ci = 0, deleting = false;
+        function tick() {
+            const word = phrases[pi];
+            el.textContent = deleting ? word.slice(0, --ci) : word.slice(0, ++ci);
+            let delay = deleting ? 42 : 82;
+            if (!deleting && ci === word.length) { delay = 2000; deleting = true; }
+            else if (deleting && ci === 0)       { deleting = false; pi = (pi + 1) % phrases.length; delay = 380; }
+            setTimeout(tick, delay);
+        }
+        tick();
+    }());
 </script>
 </body>
 </html>
