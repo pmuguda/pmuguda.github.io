@@ -805,15 +805,7 @@
                 <rect x="-5" y="8" width="10" height="5" rx="1"
                       fill="rgba(208,151,61,0.28)" stroke="rgba(208,151,61,0.70)" stroke-width="0.9"/>
             </g>
-            <!-- SPOTLIGHT MODE label — top-left -->
-            <g transform="translate(18,18)">
-                <rect x="0" y="0" width="250" height="44" rx="4"
-                      fill="rgba(5,5,5,0.65)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
-                <text x="12" y="17" font-family="Space Mono,monospace" font-size="8.5"
-                      fill="rgba(208,151,61,0.92)" letter-spacing="0.10em">SPOTLIGHT MODE SAR</text>
-                <text x="12" y="32" font-family="Space Mono,monospace" font-size="7"
-                      fill="rgba(255,255,255,0.38)">Continuous beam steering · fixed AOI</text>
-            </g>
+
             <!-- Telemetry readout — top-right -->
             <g transform="translate(956,18)">
                 <rect x="0" y="0" width="226" height="44" rx="4"
@@ -846,7 +838,6 @@
         <span class="aoi-corner tr"></span>
         <span class="aoi-corner bl"></span>
         <span class="aoi-corner br"></span>
-        <span class="aoi-tag">SPOTLIGHT · AOI</span>
         <span class="aoi-coords-tag">24.4539°N 54.3773°E</span>
     </div>
     <div id="spotlight-glow"></div>
@@ -1576,25 +1567,33 @@
             const aoiSvgX = (aoiScrX - offX) / scale;
             const aoiSvgY = (aoiScrY - offY) / scale;
 
-            // ── Beam geometry: antenna bottom → AOI center ───────────────────
-            const bx  = satX;
-            const by  = SAT_Y + ANT_DY;          // antenna exit point
-            const tx  = aoiSvgX;
-            const ty  = aoiSvgY;
-            const dY  = Math.max(ty - by, 1);    // vertical span
-            const bHW = Math.max(8, 52 * dY / 200);  // beam half-width at AOI, tapers
+            // ── Beam geometry: antenna bottom → all 4 AOI corners ──────────
+            const bx = satX;
+            const by = SAT_Y + ANT_DY;          // antenna exit point
 
-            const p0 = `${bx.toFixed(1)},${by.toFixed(1)}`;
-            const p1 = `${(tx - bHW).toFixed(1)},${ty.toFixed(1)}`;
-            const p2 = `${(tx + bHW).toFixed(1)},${ty.toFixed(1)}`;
-            beamFill.setAttribute('points', `${p0} ${p1} ${p2}`);
+            // Convert each corner from screen to SVG viewBox space
+            const sc = (sX, sY) => ({
+                x: (sX - offX) / scale,
+                y: (sY - offY) / scale
+            });
+            const TL = sc(nameRect.left  - svgRect.left - PAD, nameRect.top    - svgRect.top - PAD);
+            const TR = sc(nameRect.right - svgRect.left + PAD, nameRect.top    - svgRect.top - PAD);
+            const BL = sc(nameRect.left  - svgRect.left - PAD, nameRect.bottom - svgRect.top + PAD);
+            const BR = sc(nameRect.right - svgRect.left + PAD, nameRect.bottom - svgRect.top + PAD);
+            const fp = p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`;
+
+            // Polygon: satellite → TL → BL → BR → TR (full illumination zone)
+            beamFill.setAttribute('points',
+                `${bx.toFixed(1)},${by.toFixed(1)} ${fp(TL)} ${fp(BL)} ${fp(BR)} ${fp(TR)}`);
+            // Outer edge lines: satellite → top-left and top-right AOI corners
             beamL.setAttribute('x1', bx.toFixed(1));  beamL.setAttribute('y1', by.toFixed(1));
-            beamL.setAttribute('x2', (tx - bHW).toFixed(1));  beamL.setAttribute('y2', ty.toFixed(1));
+            beamL.setAttribute('x2', TL.x.toFixed(1)); beamL.setAttribute('y2', TL.y.toFixed(1));
             beamR.setAttribute('x1', bx.toFixed(1));  beamR.setAttribute('y1', by.toFixed(1));
-            beamR.setAttribute('x2', (tx + bHW).toFixed(1));  beamR.setAttribute('y2', ty.toFixed(1));
+            beamR.setAttribute('x2', TR.x.toFixed(1)); beamR.setAttribute('y2', TR.y.toFixed(1));
 
-            // ── Steering angle from nadir ────────────────────────────────────
-            const dx       = tx - satX;
+            // ── Steering angle from nadir ─────────────────────────────────────
+            const dx       = aoiSvgX - satX;
+            const dY       = Math.max(aoiSvgY - by, 1);
             const angleDeg = Math.atan2(Math.abs(dx), dY) * 180 / Math.PI;
             const side     = dx >= 0 ? 'R' : 'L';
 
