@@ -359,13 +359,13 @@
         }
         /* ── GEO BACKGROUND: country outline in experience cards ── */
         .card-geo-bg {
-            position: absolute; inset: 0; z-index: -1;
+            position: absolute; inset: 0; z-index: 0;
             pointer-events: none; overflow: hidden;
         }
         .card-geo-bg svg {
             position: absolute; top: 50%; right: -8%;
             transform: translateY(-50%);
-            width: 95%; height: auto; opacity: 0.13;
+            width: 95%; height: auto; opacity: 0.18;
         }
         .geo-path {
             fill: rgba(208,151,61,0.05);
@@ -374,6 +374,8 @@
         }
         .geo-city { fill: var(--amber); opacity: 0.85; }
         .geo-city-ring { fill: none; stroke: var(--amber); stroke-width: 0.7; opacity: 0.55; }
+        /* content must paint above geo background */
+        .htl-card > *:not(.card-geo-bg) { position: relative; z-index: 1; }
         .htl-card::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
             background: linear-gradient(90deg, transparent, var(--cyan), transparent);
