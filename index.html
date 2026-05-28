@@ -307,6 +307,93 @@
         .tl-desc ul li { margin-bottom: 0.3rem; }
         .tl-sub { font-size: 0.8rem; font-weight: 600; color: var(--text2); margin-top: 0.6rem; margin-bottom: 0.2rem; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; }
 
+        /* ── EXPERIENCE CARDS ───────────────── */
+        .exp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 1.25rem; margin-top: 3rem;
+        }
+        .exp-card {
+            background: var(--bg3); border: 1px solid var(--border);
+            border-radius: var(--r); padding: 1.5rem;
+            transition: var(--t); position: relative; overflow: hidden;
+            display: flex; flex-direction: column; gap: 0.5rem;
+        }
+        .exp-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            transform: scaleX(0); transition: var(--t);
+        }
+        .exp-card:hover::before { transform: scaleX(1); }
+        .exp-card:hover { border-color: var(--border-h); box-shadow: var(--glow); transform: translateY(-3px); }
+        .exp-card.current { border-color: rgba(0,212,255,0.3); }
+        .exp-card.current::before { transform: scaleX(1); opacity: 0.6; }
+        .exp-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+        .exp-org-icon {
+            width: 38px; height: 38px; border-radius: 8px; flex-shrink: 0;
+            background: rgba(0,212,255,0.07); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+        }
+        .exp-period {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+            color: var(--text3); letter-spacing: 0.04em; white-space: nowrap;
+        }
+        .exp-role {
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.97rem;
+            font-weight: 600; color: var(--text); line-height: 1.35;
+        }
+        .exp-org {
+            font-size: 0.82rem; color: var(--cyan);
+            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+        }
+        .exp-loc { font-size: 0.78rem; color: var(--text3); margin-bottom: 0.25rem; }
+        .exp-bullets { list-style: none; padding: 0; margin-top: 0.5rem; }
+        .exp-bullets li {
+            font-size: 0.82rem; color: var(--text3); line-height: 1.65;
+            padding-left: 1rem; position: relative; margin-bottom: 0.25rem;
+        }
+        .exp-bullets li::before {
+            content: '›'; position: absolute; left: 0; color: var(--cyan);
+        }
+        .exp-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
+        .exp-tag {
+            padding: 0.15rem 0.5rem; background: rgba(0,212,255,0.05);
+            border: 1px solid rgba(0,212,255,0.1); border-radius: 4px;
+            font-size: 0.68rem; color: var(--text3); font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── EDUCATION ───────────────────────── */
+        #education { background: var(--bg); }
+        .edu-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 1.25rem; margin-top: 3rem;
+        }
+        .edu-card {
+            background: var(--bg3); border: 1px solid var(--border);
+            border-radius: var(--r); padding: 1.5rem; transition: var(--t);
+            position: relative; overflow: hidden;
+        }
+        .edu-card:hover { border-color: var(--border-h); box-shadow: var(--glow); transform: translateY(-2px); }
+        .edu-card.phd { border-color: rgba(0,212,255,0.25); }
+        .edu-degree-icon { font-size: 1.6rem; margin-bottom: 0.75rem; }
+        .edu-degree {
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.97rem;
+            font-weight: 700; color: var(--text); margin-bottom: 0.2rem; line-height: 1.35;
+        }
+        .edu-field { font-size: 0.82rem; color: var(--cyan); margin-bottom: 0.6rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+        .edu-inst { font-size: 0.9rem; color: var(--text2); font-weight: 500; margin-bottom: 0.2rem; }
+        .edu-meta { font-size: 0.78rem; color: var(--text3); }
+        .edu-badge {
+            display: inline-block; margin-top: 0.75rem;
+            padding: 0.2rem 0.65rem; background: rgba(0,212,255,0.08);
+            border: 1px solid rgba(0,212,255,0.2); border-radius: 100px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--cyan);
+        }
+        .edu-badge.ongoing {
+            background: rgba(57,255,20,0.07); border-color: rgba(57,255,20,0.25); color: #39ff14;
+            animation: blink 2.5s ease-in-out infinite;
+        }
+
         /* ── PROJECTS ────────────────────────── */
         .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px,1fr)); gap: 1.5rem; margin-top: 3rem; }
         .proj-card {
@@ -449,6 +536,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#publications">Publications</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -468,14 +556,15 @@
         </div>
     </div>
     <div class="hero-content">
-        <div class="hero-badge">Data Scientist @ Space42 &nbsp;·&nbsp; Abu Dhabi, UAE</div>
+        <div class="hero-badge">Data Scientist – Remote Sensing @ Space42 &nbsp;·&nbsp; Abu Dhabi, UAE</div>
         <h1 class="hero-name">Pavan Muguda<br>Sanjeevamurthy</h1>
         <div class="hero-title">&lt; SAR · InSAR · Earth Observation · PhD Researcher /&gt;</div>
         <div class="hero-coords">24.4539° N, 54.3773° E &nbsp;·&nbsp; ALT: 27 m &nbsp;·&nbsp; PASS: ASCENDING</div>
         <p class="hero-desc">
-            Remote Sensing Data Scientist and PhD researcher with 5+ years building
-            production-grade EO pipelines. From SCATSAR soil moisture at 0.5 km to
-            SBAS InSAR deformation monitoring — translating SAR signals into operational intelligence.
+            Remote Sensing Data Scientist &amp; PhD researcher with 5+ years of experience
+            developing production-grade Earth Observation pipelines. Expertise in SAR/InSAR
+            processing, soil moisture retrieval algorithms, and deep learning for geospatial
+            applications — delivering operational products within ESA Copernicus and EUMETSAT H SAF programmes.
         </p>
         <div class="hero-cta">
             <a href="#publications" class="btn-primary">View Publications</a>
@@ -614,85 +703,152 @@
             <div class="sec-label">Career</div>
             <h2 class="sec-title">Professional <span>Experience</span></h2>
         </div>
-        <div class="timeline fade-in delay-1">
+        <div class="exp-grid fade-in delay-1">
 
-            <div class="tl-item">
-                <div class="tl-dot current"></div>
-                <div class="tl-period">Oct 2025 — Present</div>
-                <div class="tl-role">Data Scientist – Remote Sensing</div>
-                <div class="tl-org">Space42 &nbsp;·&nbsp; Abu Dhabi, UAE</div>
-                <div class="tl-desc">
-                    <ul>
-                        <li>Developing SAR and InSAR data processing pipelines for operational geospatial intelligence products.</li>
-                        <li>Building deep-learning models for building-height estimation from very-high-resolution SAR imagery.</li>
-                        <li>Designing and maintaining SBAS InSAR pipelines for surface deformation monitoring.</li>
-                    </ul>
+            <div class="exp-card current">
+                <div class="exp-header">
+                    <div class="exp-org-icon">🛰️</div>
+                    <span class="exp-period">Oct 2025 — Present</span>
+                </div>
+                <div class="exp-role">Data Scientist – Remote Sensing</div>
+                <div class="exp-org">Space42</div>
+                <div class="exp-loc">Abu Dhabi, UAE</div>
+                <ul class="exp-bullets">
+                    <li>SAR &amp; InSAR pipelines for operational geospatial intelligence.</li>
+                    <li>Deep learning for building-height estimation from VHR SAR imagery.</li>
+                    <li>SBAS InSAR pipelines for surface deformation monitoring.</li>
+                </ul>
+                <div class="exp-tags">
+                    <span class="exp-tag">SAR/InSAR</span><span class="exp-tag">SBAS</span><span class="exp-tag">PyTorch</span><span class="exp-tag">VHR SAR</span>
                 </div>
             </div>
 
-            <div class="tl-item">
-                <div class="tl-dot"></div>
-                <div class="tl-period">Oct 2022 — Sep 2025 &nbsp;·&nbsp; <span style="color:var(--text3)">also PhD researcher</span></div>
-                <div class="tl-role">Project Assistant (Research)</div>
-                <div class="tl-org">TU Wien, Dept. of Geodesy and Geoinformation &nbsp;·&nbsp; Vienna, Austria</div>
-                <div class="tl-desc">
-                    <div class="tl-sub">CGLOPS — Copernicus Global Land Operations (Soil Moisture)</div>
-                    <ul>
-                        <li>Built near-real-time pipeline fusing Sentinel-1 &amp; ASCAT to produce SCATSAR Soil Water Index at 0.5 km for Europe.</li>
-                        <li>Developed recursive exponential filter libraries for global SWI generation at 12.5 km from ASCAT SSM.</li>
-                        <li>QA of SCATSAR and SCAT SWI products using in-situ and modelled root-zone soil moisture.</li>
-                    </ul>
-                    <div class="tl-sub">ROSSIHNI — Humanitarian Drought Indicators</div>
-                    <ul>
-                        <li>Developed drought indicator workflow for MetOp ASCAT SSM at 6.25 km for East Africa (CDR + NRT).</li>
-                    </ul>
-                    <div class="tl-sub">Clim4Cast — Downscaling &amp; Disaggregation</div>
-                    <ul>
-                        <li>Produced and validated MetOp ASCAT disaggregated surface and root-zone soil moisture at 0.5 km for Europe.</li>
-                        <li>Conducted monsoon intensification climate use case for India.</li>
-                    </ul>
+            <div class="exp-card">
+                <div class="exp-header">
+                    <div class="exp-org-icon">🎓</div>
+                    <span class="exp-period">Oct 2022 — Sep 2025</span>
+                </div>
+                <div class="exp-role">Project Assistant (Research) &amp; PhD Researcher</div>
+                <div class="exp-org">TU Wien, Dept. of Geodesy &amp; Geoinformation</div>
+                <div class="exp-loc">Vienna, Austria</div>
+                <ul class="exp-bullets">
+                    <li>SCATSAR SWI pipeline fusing Sentinel-1 &amp; ASCAT at 0.5 km for Europe (CGLOPS).</li>
+                    <li>Drought indicators for MetOp ASCAT SSM at 6.25 km over East Africa (ROSSIHNI).</li>
+                    <li>ASCAT disaggregated SSM at 0.5 km; monsoon climate use case (Clim4Cast).</li>
+                </ul>
+                <div class="exp-tags">
+                    <span class="exp-tag">Copernicus</span><span class="exp-tag">ASCAT</span><span class="exp-tag">Sentinel-1</span><span class="exp-tag">NRT</span>
                 </div>
             </div>
 
-            <div class="tl-item">
-                <div class="tl-dot"></div>
-                <div class="tl-period">Aug 2022 — Nov 2022</div>
-                <div class="tl-role">Research Assistant</div>
-                <div class="tl-org">Universität der Bundeswehr München &nbsp;·&nbsp; Munich, Germany</div>
-                <div class="tl-desc">
-                    <ul>
-                        <li>Developed self-supervised learning framework for InSAR phase and coherence estimation.</li>
-                        <li>Built pre-processing pipeline for Persistent Scatterer Interferometry from Sentinel-1 data.</li>
-                    </ul>
+            <div class="exp-card">
+                <div class="exp-header">
+                    <div class="exp-org-icon">🔬</div>
+                    <span class="exp-period">Aug 2022 — Nov 2022</span>
+                </div>
+                <div class="exp-role">Research Assistant</div>
+                <div class="exp-org">Universität der Bundeswehr München</div>
+                <div class="exp-loc">Munich, Germany</div>
+                <ul class="exp-bullets">
+                    <li>Self-supervised learning framework for InSAR phase &amp; coherence estimation.</li>
+                    <li>Pre-processing pipeline for Persistent Scatterer Interferometry (Sentinel-1).</li>
+                </ul>
+                <div class="exp-tags">
+                    <span class="exp-tag">InSAR</span><span class="exp-tag">PSI</span><span class="exp-tag">Self-Supervised</span>
                 </div>
             </div>
 
-            <div class="tl-item">
-                <div class="tl-dot"></div>
-                <div class="tl-period">Nov 2021 — Jun 2022</div>
-                <div class="tl-role">Master Thesis + Student Research Assistant</div>
-                <div class="tl-org">Technical University of Munich &nbsp;·&nbsp; Munich, Germany</div>
-                <div class="tl-desc">
-                    <div class="tl-sub">Thesis: InSAR Denoising using Self-Supervised Learning</div>
-                    <ul>
-                        <li>Designed a complex-valued U-Net with non-local attention blocks for InSAR phase denoising.</li>
-                        <li>Built SAR interferogram simulation pipelines; benchmarked against state-of-the-art InSAR filters.</li>
-                    </ul>
+            <div class="exp-card">
+                <div class="exp-header">
+                    <div class="exp-org-icon">📡</div>
+                    <span class="exp-period">Nov 2021 — Jun 2022</span>
+                </div>
+                <div class="exp-role">Master Thesis + Student Research Asst.</div>
+                <div class="exp-org">Technical University of Munich</div>
+                <div class="exp-loc">Munich, Germany</div>
+                <ul class="exp-bullets">
+                    <li>Complex-valued U-Net with non-local attention for InSAR phase denoising (thesis).</li>
+                    <li>SAR interferogram simulation pipelines; benchmarked vs. state-of-the-art filters.</li>
+                    <li>Algorithms for building filtering in 3D city models &amp; shadow volume computation.</li>
+                </ul>
+                <div class="exp-tags">
+                    <span class="exp-tag">InSAR</span><span class="exp-tag">U-Net</span><span class="exp-tag">Python</span>
                 </div>
             </div>
 
-            <div class="tl-item">
-                <div class="tl-dot"></div>
-                <div class="tl-period">Apr 2020 — Sep 2021</div>
-                <div class="tl-role">Student Assistant – SAR Signal Processing</div>
-                <div class="tl-org">German Aerospace Center (DLR) &nbsp;·&nbsp; Oberpfaffenhofen, Germany</div>
-                <div class="tl-desc">
-                    <ul>
-                        <li>Developed a standalone Python GUI for SAR image chip extraction and visualisation from Sentinel-1 SLC data.</li>
-                        <li>Ported the ESD co-registration algorithm from IDL to Python.</li>
-                        <li>Built SNAP plugins and visualisation libraries for multitemporal SAR/InSAR analysis.</li>
-                    </ul>
+            <div class="exp-card">
+                <div class="exp-header">
+                    <div class="exp-org-icon">🚀</div>
+                    <span class="exp-period">Apr 2020 — Sep 2021</span>
                 </div>
+                <div class="exp-role">Student Assistant – SAR Signal Processing</div>
+                <div class="exp-org">German Aerospace Center (DLR)</div>
+                <div class="exp-loc">Oberpfaffenhofen, Germany</div>
+                <ul class="exp-bullets">
+                    <li>Python GUI for SAR image chip extraction &amp; visualisation from Sentinel-1 SLC.</li>
+                    <li>Ported ESD co-registration algorithm from IDL to Python.</li>
+                    <li>SNAP plugins and libraries for multitemporal SAR/InSAR analysis.</li>
+                </ul>
+                <div class="exp-tags">
+                    <span class="exp-tag">Sentinel-1 SLC</span><span class="exp-tag">ESA SNAP</span><span class="exp-tag">Python</span>
+                </div>
+            </div>
+
+            <div class="exp-card">
+                <div class="exp-header">
+                    <div class="exp-org-icon">⚙️</div>
+                    <span class="exp-period">Sep 2018 — Aug 2019</span>
+                </div>
+                <div class="exp-role">CAE Automation Engineer</div>
+                <div class="exp-org">BETA CAE Systems</div>
+                <div class="exp-loc">Bangalore, India</div>
+                <ul class="exp-bullets">
+                    <li>Automated computer-aided engineering workflows and simulation pipelines.</li>
+                    <li>Tooling for structural analysis and CAE pre/post-processing.</li>
+                </ul>
+                <div class="exp-tags">
+                    <span class="exp-tag">CAE</span><span class="exp-tag">Automation</span><span class="exp-tag">Python</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ EDUCATION ══════════════════════════════════ -->
+<section id="education">
+    <div class="container">
+        <div class="fade-in">
+            <div class="sec-label">Academic Background</div>
+            <h2 class="sec-title">Education</h2>
+        </div>
+        <div class="edu-grid fade-in delay-1">
+
+            <div class="edu-card phd">
+                <div class="edu-degree-icon">🎓</div>
+                <div class="edu-degree">PhD in Remote Sensing</div>
+                <div class="edu-field">Dept. of Geodesy and Geoinformation</div>
+                <div class="edu-inst">TU Wien</div>
+                <div class="edu-meta">Vienna, Austria &nbsp;·&nbsp; Oct 2022 – Present</div>
+                <span class="edu-badge ongoing">Ongoing</span>
+            </div>
+
+            <div class="edu-card">
+                <div class="edu-degree-icon">🛰️</div>
+                <div class="edu-degree">M.Sc. Earth Oriented Space Science &amp; Technology</div>
+                <div class="edu-field">ESPACE · Specialisation: Remote Sensing</div>
+                <div class="edu-inst">Technical University of Munich</div>
+                <div class="edu-meta">Munich, Germany &nbsp;·&nbsp; Oct 2019 – May 2022</div>
+                <span class="edu-badge">Aerospace Geodesy</span>
+            </div>
+
+            <div class="edu-card">
+                <div class="edu-degree-icon">⚙️</div>
+                <div class="edu-degree">B.E. in Mechanical Engineering</div>
+                <div class="edu-field">Engineering Sciences</div>
+                <div class="edu-inst">Nitte Meenakshi Institute of Technology</div>
+                <div class="edu-meta">Bengaluru, India &nbsp;·&nbsp; Jun 2013 – Apr 2017</div>
+                <span class="edu-badge">First Class</span>
             </div>
 
         </div>
