@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pavan Muguda Sanjeevamurthy — Earth Observation & SAR</title>
+    <title>Pavan Muguda Sanjeevamurthy — Remote Sensing Data Scientist & PhD Researcher</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -23,6 +23,7 @@
             --bg3: #0d1e35;
             --cyan: #00d4ff;
             --green: #39ff14;
+            --amber: #f59e0b;
             --text: #e2e8f0;
             --text2: #94a3b8;
             --text3: #64748b;
@@ -296,11 +297,15 @@
             width: 13px; height: 13px; border-radius: 50%;
             background: var(--bg2); border: 2px solid var(--cyan); transition: var(--t);
         }
+        .tl-dot.current { background: var(--cyan); box-shadow: var(--glow); }
         .tl-item:hover .tl-dot { background: var(--cyan); box-shadow: var(--glow); }
         .tl-period { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--cyan); letter-spacing: 0.05em; margin-bottom: 0.4rem; }
         .tl-role { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
         .tl-org { font-size: 0.875rem; color: var(--text2); margin-bottom: 0.6rem; }
         .tl-desc { font-size: 0.875rem; color: var(--text3); line-height: 1.75; }
+        .tl-desc ul { padding-left: 1.1rem; margin-top: 0.4rem; }
+        .tl-desc ul li { margin-bottom: 0.3rem; }
+        .tl-sub { font-size: 0.8rem; font-weight: 600; color: var(--text2); margin-top: 0.6rem; margin-bottom: 0.2rem; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; }
 
         /* ── PROJECTS ────────────────────────── */
         .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px,1fr)); gap: 1.5rem; margin-top: 3rem; }
@@ -334,17 +339,41 @@
             border-radius: 0 var(--r) var(--r) 0;
             padding: 1.4rem; transition: var(--t);
         }
-        .pub:hover { border-color: var(--border-h); border-left-color: var(--cyan); box-shadow: var(--glow); }
+        .pub.journal {
+            border-left-color: var(--amber);
+            background: rgba(245,158,11,0.04);
+        }
+        .pub:hover { border-color: var(--border-h); border-left-color: inherit; box-shadow: var(--glow); }
         .pub-meta { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
         .pub-yr {
             padding: 0.18rem 0.55rem; background: rgba(0,212,255,0.08);
             border: 1px solid rgba(0,212,255,0.2); border-radius: 4px;
             font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--cyan);
         }
+        .pub-yr.journal { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); color: var(--amber); }
+        .pub-badge {
+            padding: 0.18rem 0.55rem; background: rgba(245,158,11,0.1);
+            border: 1px solid rgba(245,158,11,0.3); border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--amber); font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.08em;
+        }
         .pub-venue { font-size: 0.78rem; color: var(--text3); font-style: italic; }
         .pub-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.97rem; font-weight: 600; color: var(--text); margin-bottom: 0.45rem; line-height: 1.5; }
         .pub-authors { font-size: 0.82rem; color: var(--text3); }
         .pub-authors strong { color: var(--cyan); }
+
+        /* ── HONOURS ─────────────────────────── */
+        .honour-card {
+            display: flex; align-items: flex-start; gap: 1.25rem;
+            background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r);
+            padding: 1.4rem; transition: var(--t); margin-top: 3rem;
+        }
+        .honour-card:hover { border-color: var(--border-h); box-shadow: var(--glow); }
+        .honour-icon { font-size: 2rem; flex-shrink: 0; }
+        .honour-body {}
+        .honour-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+        .honour-org { font-size: 0.85rem; color: var(--cyan); margin-bottom: 0.35rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+        .honour-desc { font-size: 0.85rem; color: var(--text3); }
 
         /* ── CONTACT ─────────────────────────── */
         .contact-wrap { max-width: 680px; margin: 0 auto; text-align: center; }
@@ -370,7 +399,7 @@
 
 <!-- ══ NAV ══════════════════════════════════ -->
 <nav id="navbar">
-    <a href="#hero" class="nav-logo">PMS <em>//</em> Earth Observation</a>
+    <a href="#hero" class="nav-logo">PMS <em>//</em> Remote Sensing</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
     </button>
@@ -397,14 +426,14 @@
         </div>
     </div>
     <div class="hero-content">
-        <div class="hero-badge">Currently @ TU Wien &nbsp;·&nbsp; Vienna, Austria</div>
+        <div class="hero-badge">Data Scientist @ Space42 &nbsp;·&nbsp; Abu Dhabi, UAE</div>
         <h1 class="hero-name">Pavan Muguda<br>Sanjeevamurthy</h1>
-        <div class="hero-title">&lt; SAR · Earth Observation · Remote Sensing /&gt;</div>
-        <div class="hero-coords">48.2082° N, 16.3738° E &nbsp;·&nbsp; ALT: 170 m &nbsp;·&nbsp; PASS: ASCENDING</div>
+        <div class="hero-title">&lt; SAR · InSAR · Earth Observation · PhD Researcher /&gt;</div>
+        <div class="hero-coords">24.4539° N, 54.3773° E &nbsp;·&nbsp; ALT: 27 m &nbsp;·&nbsp; PASS: ASCENDING</div>
         <p class="hero-desc">
-            Researcher specializing in Synthetic Aperture Radar, soil moisture retrieval,
-            and algorithm development for Sentinel-1 &amp; ASCAT. Building pipelines that
-            translate microwave backscatter into drought intelligence for sub-Saharan Africa.
+            Remote Sensing Data Scientist and PhD researcher with 5+ years building
+            production-grade EO pipelines. From SCATSAR soil moisture at 0.5 km to
+            SBAS InSAR deformation monitoring — translating SAR signals into operational intelligence.
         </p>
         <div class="hero-cta">
             <a href="#publications" class="btn-primary">View Publications</a>
@@ -426,13 +455,13 @@
                     <div class="avatar-ring"></div>
                 </div>
                 <div class="social-row">
-                    <a href="https://www.linkedin.com/in/pavan-muguda-sanjeevamurthy-318098114" target="_blank" class="soc" title="LinkedIn">
+                    <a href="https://www.linkedin.com/in/pavan-muguda-sanjeevamurthy-318098114/" target="_blank" class="soc" title="LinkedIn">
                         <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                     </a>
-                    <a href="https://github.com/pmuguda" target="_blank" class="soc" title="GitHub">
+                    <a href="https://github.com/pavanmuguda" target="_blank" class="soc" title="GitHub">
                         <svg viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
                     </a>
-                    <a href="mailto:pmugudasanjeevamurthy@gmail.com" class="soc" title="Email">
+                    <a href="mailto:pavan.sanjeevmurthy@space42.ai" class="soc" title="Email">
                         <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                     </a>
                     <a href="https://scholar.google.com/citations?hl=en&user=Mjl0znQAAAAJ" target="_blank" class="soc" title="Google Scholar">
@@ -440,17 +469,17 @@
                     </a>
                 </div>
                 <div class="stats-row">
-                    <div class="stat"><div class="stat-n">3+</div><div class="stat-l">Yrs Research</div></div>
-                    <div class="stat"><div class="stat-n">7</div><div class="stat-l">Publications</div></div>
-                    <div class="stat"><div class="stat-n">10+</div><div class="stat-l">Tools &amp; Langs</div></div>
+                    <div class="stat"><div class="stat-n">5+</div><div class="stat-l">Yrs Research</div></div>
+                    <div class="stat"><div class="stat-n">8+</div><div class="stat-l">Publications</div></div>
+                    <div class="stat"><div class="stat-n">15+</div><div class="stat-l">Tools &amp; Libs</div></div>
                 </div>
             </div>
             <div class="about-body">
                 <div class="sec-label">About Me</div>
                 <h2 class="sec-title">Earth Observer.<br><span>SAR Specialist.</span></h2>
-                <p>I'm an Earth Observation and Remote Sensing researcher with a Master's in Earth Oriented Space Science Technology from TU Munich. Currently a Project Assistant at TU Wien, I work on SAR-based drought indicators and quality assurance of ASCAT soil moisture products.</p>
-                <p>My work sits at the intersection of radar signal processing, machine learning, and geospatial analysis — developing algorithms that translate raw satellite backscatter into actionable drought intelligence for sub-Saharan Africa and beyond.</p>
-                <p>From InSAR phase estimation via self-supervised learning to Sentinel-1 preprocessing optimization, I'm driven by the challenge of extracting maximum geophysical information from C-band microwave remote sensing data.</p>
+                <p>I'm a Remote Sensing Data Scientist at <strong style="color:var(--text)">Space42</strong> in Abu Dhabi and a PhD researcher at TU Wien, Department of Geodesy and Geoinformation. I hold a Master's in Earth Oriented Space Science &amp; Technology (ESPACE) from TU Munich with specialisation in Remote Sensing.</p>
+                <p>My work spans the full SAR processing chain — from raw SLC co-registration and InSAR deformation monitoring to operational Copernicus soil moisture products fusing Sentinel-1 and ASCAT at sub-kilometre resolution. I've delivered production pipelines within ESA Copernicus (CGLOPS) and EUMETSAT H SAF programmes.</p>
+                <p>Previously at DLR (German Aerospace Center), TU Munich, and Universität der Bundeswehr München — always at the intersection of radar signal processing, deep learning, and geospatial intelligence.</p>
             </div>
         </div>
     </div>
@@ -476,14 +505,17 @@
                 </div>
             </div>
             <div class="sg">
-                <div class="sg-title">SAR &amp; EO Processing</div>
+                <div class="sg-title">SAR &amp; InSAR Processing</div>
                 <div class="tags">
                     <span class="tag g">Sentinel-1</span>
                     <span class="tag g">ASCAT</span>
+                    <span class="tag g">ISCE</span>
+                    <span class="tag">PyGMTSAR</span>
+                    <span class="tag">MintPy</span>
                     <span class="tag">ESA SNAP</span>
-                    <span class="tag">InSAR</span>
+                    <span class="tag">SBAS InSAR</span>
+                    <span class="tag">PSInSAR</span>
                     <span class="tag">Backscatter</span>
-                    <span class="tag">Soil Moisture</span>
                 </div>
             </div>
             <div class="sg">
@@ -493,37 +525,40 @@
                     <span class="tag">ArcGIS</span>
                     <span class="tag">QGIS</span>
                     <span class="tag">GDAL</span>
-                    <span class="tag">Xarray</span>
+                    <span class="tag">pyproj</span>
                 </div>
             </div>
             <div class="sg">
-                <div class="sg-title">ML &amp; Data Science</div>
+                <div class="sg-title">Geospatial Stack</div>
+                <div class="tags">
+                    <span class="tag g">xarray</span>
+                    <span class="tag">rioxarray</span>
+                    <span class="tag">GeoPandas</span>
+                    <span class="tag">Dask</span>
+                    <span class="tag">GDAL</span>
+                    <span class="tag">pyproj</span>
+                </div>
+            </div>
+            <div class="sg">
+                <div class="sg-title">ML &amp; Deep Learning</div>
                 <div class="tags">
                     <span class="tag g">PyTorch</span>
+                    <span class="tag">segmentation_models</span>
+                    <span class="tag">ClearML</span>
+                    <span class="tag">scikit-learn</span>
                     <span class="tag">U-Net</span>
                     <span class="tag">Self-Supervised</span>
-                    <span class="tag">Uncertainty Quant.</span>
-                    <span class="tag">Time Series</span>
                 </div>
             </div>
             <div class="sg">
-                <div class="sg-title">DevOps &amp; Tools</div>
+                <div class="sg-title">DevOps &amp; Infra</div>
                 <div class="tags">
-                    <span class="tag">Git</span>
+                    <span class="tag g">Linux</span>
                     <span class="tag">Docker</span>
-                    <span class="tag">CI/CD</span>
+                    <span class="tag">Git</span>
+                    <span class="tag">GitLab CI/CD</span>
+                    <span class="tag">HPC (SLURM)</span>
                     <span class="tag">LaTeX</span>
-                    <span class="tag">Linux</span>
-                </div>
-            </div>
-            <div class="sg">
-                <div class="sg-title">Languages</div>
-                <div class="tags">
-                    <span class="tag">English</span>
-                    <span class="tag">Kannada</span>
-                    <span class="tag">Hindi</span>
-                    <span class="tag">Telugu</span>
-                    <span class="tag">German (basic)</span>
                 </div>
             </div>
         </div>
@@ -538,34 +573,86 @@
             <h2 class="sec-title">Professional <span>Experience</span></h2>
         </div>
         <div class="timeline fade-in delay-1">
+
+            <div class="tl-item">
+                <div class="tl-dot current"></div>
+                <div class="tl-period">Oct 2025 — Present</div>
+                <div class="tl-role">Data Scientist – Remote Sensing</div>
+                <div class="tl-org">Space42 &nbsp;·&nbsp; Abu Dhabi, UAE</div>
+                <div class="tl-desc">
+                    <ul>
+                        <li>Developing SAR and InSAR data processing pipelines for operational geospatial intelligence products.</li>
+                        <li>Building deep-learning models for building-height estimation from very-high-resolution SAR imagery.</li>
+                        <li>Designing and maintaining SBAS InSAR pipelines for surface deformation monitoring.</li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="tl-item">
                 <div class="tl-dot"></div>
-                <div class="tl-period">Oct 2022 — Present</div>
-                <div class="tl-role">Project Assistant</div>
-                <div class="tl-org">Technical University of Wien · Vienna, Austria</div>
-                <div class="tl-desc">Development of drought indicator workflows and quality assurance of ASCAT surface soil moisture products. Research on Sentinel-1 backscatter preprocessing optimization and vegetation dynamics analysis over sub-Saharan Africa.</div>
+                <div class="tl-period">Oct 2022 — Sep 2025 &nbsp;·&nbsp; <span style="color:var(--text3)">also PhD researcher</span></div>
+                <div class="tl-role">Project Assistant (Research)</div>
+                <div class="tl-org">TU Wien, Dept. of Geodesy and Geoinformation &nbsp;·&nbsp; Vienna, Austria</div>
+                <div class="tl-desc">
+                    <div class="tl-sub">CGLOPS — Copernicus Global Land Operations (Soil Moisture)</div>
+                    <ul>
+                        <li>Built near-real-time pipeline fusing Sentinel-1 &amp; ASCAT to produce SCATSAR Soil Water Index at 0.5 km for Europe.</li>
+                        <li>Developed recursive exponential filter libraries for global SWI generation at 12.5 km from ASCAT SSM.</li>
+                        <li>QA of SCATSAR and SCAT SWI products using in-situ and modelled root-zone soil moisture.</li>
+                    </ul>
+                    <div class="tl-sub">ROSSIHNI — Humanitarian Drought Indicators</div>
+                    <ul>
+                        <li>Developed drought indicator workflow for MetOp ASCAT SSM at 6.25 km for East Africa (CDR + NRT).</li>
+                    </ul>
+                    <div class="tl-sub">Clim4Cast — Downscaling &amp; Disaggregation</div>
+                    <ul>
+                        <li>Produced and validated MetOp ASCAT disaggregated surface and root-zone soil moisture at 0.5 km for Europe.</li>
+                        <li>Conducted monsoon intensification climate use case for India.</li>
+                    </ul>
+                </div>
             </div>
+
             <div class="tl-item">
                 <div class="tl-dot"></div>
                 <div class="tl-period">Aug 2022 — Nov 2022</div>
                 <div class="tl-role">Research Assistant</div>
-                <div class="tl-org">Universität der Bundeswehr München · Munich, Germany</div>
-                <div class="tl-desc">Research on self-supervised learning methods for InSAR phase and coherence estimation using deep neural networks.</div>
+                <div class="tl-org">Universität der Bundeswehr München &nbsp;·&nbsp; Munich, Germany</div>
+                <div class="tl-desc">
+                    <ul>
+                        <li>Developed self-supervised learning framework for InSAR phase and coherence estimation.</li>
+                        <li>Built pre-processing pipeline for Persistent Scatterer Interferometry from Sentinel-1 data.</li>
+                    </ul>
+                </div>
             </div>
+
             <div class="tl-item">
                 <div class="tl-dot"></div>
-                <div class="tl-period">Feb 2022 — Jun 2022</div>
-                <div class="tl-role">Student Research Assistant</div>
-                <div class="tl-org">Technical University of Munich · Munich, Germany</div>
-                <div class="tl-desc">Machine learning pipeline for probabilistic urban land-use segmentation using Sentinel-2 imagery and uncertainty quantification via Probabilistic U-Net.</div>
+                <div class="tl-period">Nov 2021 — Jun 2022</div>
+                <div class="tl-role">Master Thesis + Student Research Assistant</div>
+                <div class="tl-org">Technical University of Munich &nbsp;·&nbsp; Munich, Germany</div>
+                <div class="tl-desc">
+                    <div class="tl-sub">Thesis: InSAR Denoising using Self-Supervised Learning</div>
+                    <ul>
+                        <li>Designed a complex-valued U-Net with non-local attention blocks for InSAR phase denoising.</li>
+                        <li>Built SAR interferogram simulation pipelines; benchmarked against state-of-the-art InSAR filters.</li>
+                    </ul>
+                </div>
             </div>
+
             <div class="tl-item">
                 <div class="tl-dot"></div>
-                <div class="tl-period">Sep 2018 — Aug 2019</div>
-                <div class="tl-role">CAE Automation Engineer</div>
-                <div class="tl-org">BETA CAE Systems · Bangalore, India</div>
-                <div class="tl-desc">Automation of computer-aided engineering workflows and development of simulation pipelines for structural analysis.</div>
+                <div class="tl-period">Apr 2020 — Sep 2021</div>
+                <div class="tl-role">Student Assistant – SAR Signal Processing</div>
+                <div class="tl-org">German Aerospace Center (DLR) &nbsp;·&nbsp; Oberpfaffenhofen, Germany</div>
+                <div class="tl-desc">
+                    <ul>
+                        <li>Developed a standalone Python GUI for SAR image chip extraction and visualisation from Sentinel-1 SLC data.</li>
+                        <li>Ported the ESD co-registration algorithm from IDL to Python.</li>
+                        <li>Built SNAP plugins and visualisation libraries for multitemporal SAR/InSAR analysis.</li>
+                    </ul>
+                </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -580,29 +667,29 @@
         <div class="proj-grid fade-in delay-1">
             <div class="proj-card">
                 <div class="proj-icon">🛰️</div>
-                <div class="proj-title">Probabilistic U-Net for Urban Land-Use Segmentation</div>
-                <div class="proj-desc">Python pipeline for training a Probabilistic U-Net on Sentinel-2 imagery, generating per-pixel uncertainty maps to quantify segmentation ambiguity in urban environments.</div>
+                <div class="proj-title">SCATSAR Soil Water Index Pipeline (Copernicus)</div>
+                <div class="proj-desc">Near-real-time fusion of Sentinel-1 SAR and ASCAT surface soil moisture for Copernicus CGLOPS. Produces Soil Water Index at 0.5 km resolution across Europe using recursive exponential filter formulations.</div>
                 <div class="proj-tags">
-                    <span class="ptag">Python</span><span class="ptag">PyTorch</span>
-                    <span class="ptag">Sentinel-2</span><span class="ptag">U-Net</span>
+                    <span class="ptag">Python</span><span class="ptag">Sentinel-1</span>
+                    <span class="ptag">ASCAT</span><span class="ptag">NRT Pipeline</span><span class="ptag">Copernicus</span>
                 </div>
             </div>
             <div class="proj-card">
-                <div class="proj-icon">🌱</div>
-                <div class="proj-title">Geo-spatial Assessment of Urban Farming Potential</div>
-                <div class="proj-desc">Detection of viable rooftops and vacant parcels for urban agriculture in metropolitan areas — building footprint analysis and NDVI scoring via Google Earth Engine.</div>
+                <div class="proj-icon">🧠</div>
+                <div class="proj-title">InSAR Denoising via Self-Supervised Learning</div>
+                <div class="proj-desc">Complex-valued U-Net with non-local attention blocks for InSAR phase denoising. Includes SAR interferogram simulation pipelines and benchmarking against state-of-the-art filters on real Sentinel-1 data.</div>
                 <div class="proj-tags">
-                    <span class="ptag">GEE</span><span class="ptag">Python</span>
-                    <span class="ptag">NDVI</span><span class="ptag">Urban GIS</span>
+                    <span class="ptag">PyTorch</span><span class="ptag">InSAR</span>
+                    <span class="ptag">Self-Supervised</span><span class="ptag">U-Net</span><span class="ptag">Sentinel-1</span>
                 </div>
             </div>
             <div class="proj-card">
-                <div class="proj-icon">🪐</div>
-                <div class="proj-title">Halo Orbit Mission Design — Sun-Earth L1</div>
-                <div class="proj-desc">Applied differential correction and differential evolution to determine stable initial conditions for Halo orbits in the Sun-Earth circular restricted three-body problem.</div>
+                <div class="proj-icon">🌍</div>
+                <div class="proj-title">Drought Monitoring – ASCAT over East Africa</div>
+                <div class="proj-desc">Operational drought indicator workflow for MetOp ASCAT SSM at 6.25 km, covering both climate data records and near-real-time applications for humanitarian early warning over East Africa (ROSSIHNI project).</div>
                 <div class="proj-tags">
-                    <span class="ptag">MATLAB</span><span class="ptag">CR3BP</span>
-                    <span class="ptag">Orbital Mech.</span><span class="ptag">N-Body</span>
+                    <span class="ptag">ASCAT</span><span class="ptag">Python</span>
+                    <span class="ptag">Drought</span><span class="ptag">East Africa</span><span class="ptag">H SAF</span>
                 </div>
             </div>
         </div>
@@ -614,9 +701,38 @@
     <div class="container">
         <div class="fade-in">
             <div class="sec-label">Research Output</div>
-            <h2 class="sec-title">Publications</h2>
+            <h2 class="sec-title">Selected <span>Publications</span></h2>
         </div>
         <div class="pub-list fade-in delay-1">
+
+            <div class="pub journal">
+                <div class="pub-meta">
+                    <span class="pub-yr journal">2025</span>
+                    <span class="pub-badge">Journal Article</span>
+                    <span class="pub-venue">Agricultural Water Management, 318(109638)</span>
+                </div>
+                <div class="pub-title">High-resolution Drought Monitoring with Sentinel-1: A Case-study over Mozambique</div>
+                <div class="pub-authors">Massart, S.; Vreugdenhil, M.; Hahn, S.; <strong>Muguda Sanjeevamurthy, P.</strong>; Villegas-Lituma, C.; Wagner, W.</div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    <span class="pub-yr">2025</span>
+                    <span class="pub-venue">Living Planet Symposium — ESA</span>
+                </div>
+                <div class="pub-title">H SAF ASCAT Disaggregated SSM at 0.5 km: First Validation Results with ISMN Data Over Europe</div>
+                <div class="pub-authors"><strong>Muguda Sanjeevamurthy, P.</strong>; Hahn, S.; Vreugdenhil, M.; Raml, B.; Wagner, W.</div>
+            </div>
+
+            <div class="pub">
+                <div class="pub-meta">
+                    <span class="pub-yr">2024</span>
+                    <span class="pub-venue">EGU General Assembly — EGU24-6782</span>
+                </div>
+                <div class="pub-title">A Case Study on Agricultural Drought Monitoring using ASCAT SSM at 6.25 km over Eastern Africa</div>
+                <div class="pub-authors"><strong>Muguda Sanjeevamurthy, P.</strong>; Vreugdenhil, M.; Hahn, S.; Massart, S.; Villegas-Lituma, C.; Lindorfer, R.; Wagner, W.</div>
+            </div>
+
             <div class="pub">
                 <div class="pub-meta">
                     <span class="pub-yr">2023</span>
@@ -625,53 +741,24 @@
                 <div class="pub-title">Self-Supervised Learning for InSAR Phase and Coherence Estimation</div>
                 <div class="pub-authors">Sica, F.; <strong>Muguda Sanjeevamurthy, P.</strong>; Schmitt, M.</div>
             </div>
-            <div class="pub">
-                <div class="pub-meta">
-                    <span class="pub-yr">2023</span>
-                    <span class="pub-venue">EGU General Assembly</span>
-                </div>
-                <div class="pub-title">Improving 1 km Sentinel-1 Soil Moisture Retrievals by Optimizing Backscatter Preprocessing Workflows</div>
-                <div class="pub-authors">Wagner, W.; Massart, S.; Raml, B.; Quast, R.; <strong>Muguda Sanjeevamurthy, P.</strong>; Navacchi, C.; Reuß, F.; Bauer-Marschallinger, B.; Vreugdenhil, M.</div>
-            </div>
-            <div class="pub">
-                <div class="pub-meta">
-                    <span class="pub-yr">2023</span>
-                    <span class="pub-venue">EGU General Assembly</span>
-                </div>
-                <div class="pub-title">Metop ASCAT Soil Moisture Trends: Mitigating the Effects of Long-term Land Cover Changes</div>
-                <div class="pub-authors">Hahn, S.; Wagner, W.; Alves, O.; <strong>Muguda Sanjeevamurthy, P.</strong>; Vreugdenhil, M.; Melzer, T.</div>
-            </div>
-            <div class="pub">
-                <div class="pub-meta">
-                    <span class="pub-yr">2024</span>
-                    <span class="pub-venue">Copernicus Meetings</span>
-                </div>
-                <div class="pub-title">A Case Study on Agricultural Drought Monitoring using ASCAT Surface Soil Moisture at 6.25 km Sampling over Eastern Africa</div>
-                <div class="pub-authors"><strong>Muguda Sanjeevamurthy, P.</strong>; Vreugdenhil, M.; Hahn, S.; Massart, S.; Villegas-Lituma, C.; Lindorfer, R.; Wagner, W.</div>
-            </div>
-            <div class="pub">
-                <div class="pub-meta">
-                    <span class="pub-yr">2024</span>
-                    <span class="pub-venue">Copernicus Meetings</span>
-                </div>
-                <div class="pub-title">Drought Monitoring and Early Warning with Satellite Soil Moisture Data</div>
-                <div class="pub-authors">Vreugdenhil, M.; Massart, S.; <strong>Muguda Sanjeevamurthy, P.</strong>; Villegas-Lituma, C.; Enenkel, M.; Wagner, W.</div>
-            </div>
-            <div class="pub">
-                <div class="pub-meta">
-                    <span class="pub-yr">2024</span>
-                    <span class="pub-venue">Copernicus Meetings</span>
-                </div>
-                <div class="pub-title">High-resolution Drought Monitoring with Sentinel-1: A Case-study over Mozambique</div>
-                <div class="pub-authors">Massart, S.; Vreugdenhil, M.; Hahn, S.; <strong>Muguda Sanjeevamurthy, P.</strong>; Villegas-Lituma, C.; Wagner, W.</div>
-            </div>
-            <div class="pub">
-                <div class="pub-meta">
-                    <span class="pub-yr">2024</span>
-                    <span class="pub-venue">Copernicus Meetings</span>
-                </div>
-                <div class="pub-title">Sensitivity of Sentinel-1 Backscatter Signal to Vegetation Dynamics over Mozambique: A Comparison with MODIS Data</div>
-                <div class="pub-authors">Villegas-Lituma, C.; Vreugdenhil, M.; Massart, S.; <strong>Muguda Sanjeevamurthy, P.</strong>; Raml, B.; Wagner, W.</div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ HONOURS ══════════════════════════════════ -->
+<section id="honours" style="padding: 3rem 0 5.5rem;">
+    <div class="container">
+        <div class="fade-in">
+            <div class="sec-label">Recognition</div>
+            <h2 class="sec-title">Honours &amp; <span>Awards</span></h2>
+        </div>
+        <div class="honour-card fade-in delay-1">
+            <div class="honour-icon">🏅</div>
+            <div class="honour-body">
+                <div class="honour-title">Deutschlandstipendium Scholarship</div>
+                <div class="honour-org">Federal Government of Germany &nbsp;·&nbsp; Oct 2019 – Sep 2020</div>
+                <div class="honour-desc">Merit-based national scholarship awarded by the Federal Government of Germany for academic excellence, supporting studies at Technical University of Munich.</div>
             </div>
         </div>
     </div>
@@ -683,17 +770,17 @@
         <div class="contact-wrap fade-in">
             <div class="sec-label">Get In Touch</div>
             <h2 class="sec-title">Let's <span>Connect</span></h2>
-            <p class="contact-desc">Open to research collaborations, SAR processing discussions, and new opportunities in Earth Observation.</p>
+            <p class="contact-desc">Open to research collaborations, SAR &amp; InSAR discussions, and geospatial intelligence projects.</p>
             <div class="contact-links">
-                <a href="mailto:pmugudasanjeevamurthy@gmail.com" class="clink">
+                <a href="mailto:pavan.sanjeevmurthy@space42.ai" class="clink">
                     <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                     Email
                 </a>
-                <a href="https://www.linkedin.com/in/pavan-muguda-sanjeevamurthy-318098114" target="_blank" class="clink">
+                <a href="https://www.linkedin.com/in/pavan-muguda-sanjeevamurthy-318098114/" target="_blank" class="clink">
                     <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                     LinkedIn
                 </a>
-                <a href="https://github.com/pmuguda" target="_blank" class="clink">
+                <a href="https://github.com/pavanmuguda" target="_blank" class="clink">
                     <svg viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
                     GitHub
                 </a>
