@@ -62,9 +62,9 @@
         }
         .nav-links a::after {
             content: ''; position: absolute; bottom: -3px; left: 0;
-            width: 0; height: 1px; background: var(--cyan); transition: var(--t);
+            width: 0; height: 1px; background: var(--amber); transition: var(--t);
         }
-        .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
+        .nav-links a:hover, .nav-links a.active { color: var(--amber); }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
         .nav-toggle {
             display: none; flex-direction: column; gap: 5px;
@@ -106,9 +106,9 @@
             grid-template-columns: repeat(20, 1fr);
             grid-template-rows: repeat(12, 1fr);
         }
-        .sar-tile { border: 1px solid rgba(255,255,255,0.025); transition: background 0.4s, border-color 0.4s; }
-        .sar-tile.flash { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.22); }
-        .sar-tile.flash2 { background: rgba(57,255,20,0.04); border-color: rgba(57,255,20,0.18); }
+        .sar-tile { border: 1px solid rgba(255,255,255,0.012); transition: background 0.4s, border-color 0.4s; }
+        .sar-tile.flash { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.12); }
+        .sar-tile.flash2 { background: rgba(208,151,61,0.04); border-color: rgba(208,151,61,0.15); }
         .scan-line {
             position: absolute; top: 0; bottom: 0; width: 2px;
             background: linear-gradient(transparent, rgba(255,255,255,0.08) 15%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.08) 85%, transparent);
@@ -204,13 +204,13 @@
         .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
         .sec-label {
             font-family: 'Space Mono', monospace; font-size: 0.72rem;
-            color: var(--cyan); letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--amber); letter-spacing: 0.2em; text-transform: uppercase;
             margin-bottom: 0.6rem;
             display: flex; align-items: center; gap: 0.6rem;
         }
-        .sec-label::before { content: '//'; color: var(--text3); }
+        .sec-label::before { content: '//'; color: var(--amber); opacity: 0.5; }
         .sec-title { font-size: clamp(1.8rem,3.5vw,2.6rem); font-weight: 700; color: var(--text); margin-bottom: 0.75rem; }
-        .sec-title span { color: var(--cyan); }
+        .sec-title span { color: var(--amber); }
         .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
         .fade-in.delay-1 { transition-delay: 0.15s; }
