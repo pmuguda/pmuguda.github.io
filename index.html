@@ -482,12 +482,11 @@
             .vtl::before { left: 100px; }
             .vtl-dot { left: -60px; }
             .vtl-entry::before { left: -53px; width: 53px; }
+            /* Dot shifts 40px right (−100→−60), shift all country SVGs to match */
+            .vtl-country { transform: translateX(40px); }
         }
         @media (max-width: 600px) {
-            .vtl { padding-left: 160px; }
-            .vtl::before { left: 100px; }
-            .vtl-dot { left: -60px; }
-            .vtl-entry::before { left: -53px; width: 53px; }
+            /* inherits 900px values — no additional overrides needed */
         }
 
         /* ── EDUCATION ───────────────────────── */
