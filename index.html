@@ -279,8 +279,32 @@
         }
         @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
 
+        /* ── MOBILE TELEMETRY STRIP ─────────── */
+        .mobile-tele {
+            display: none; /* hidden on desktop — SVG panel used instead */
+        }
+        @media (max-width: 768px) {
+            .mobile-tele {
+                display: flex; align-items: center; justify-content: center;
+                gap: 0.6rem;
+                font-family: 'Space Mono', monospace; font-size: 0.62rem;
+                letter-spacing: 0.12em;
+                color: rgba(208,151,61,0.75);
+                background: rgba(208,151,61,0.05);
+                border: 1px solid rgba(208,151,61,0.20);
+                border-radius: 4px;
+                padding: 0.3rem 0.9rem;
+                margin-bottom: 1.1rem;
+                white-space: nowrap;
+            }
+            .mobile-tele-sep { opacity: 0.4; }
+            #mobile-tele-dwell { color: rgba(208,151,61,0.85); }
+        }
+
         /* ── MOBILE HERO FIXES ───────────────── */
         @media (max-width: 768px) {
+            /* Hide SVG telemetry on mobile — HTML strip used instead */
+            #sp-telemetry { display: none; }
             /* Badge: allow wrap, shrink font */
             .hero-badge {
                 font-size: 0.68rem;
@@ -898,6 +922,11 @@
         </svg>
     </div>
     <div class="hero-content">
+        <div id="mobile-telemetry" class="mobile-tele">
+            <span id="mobile-tele-angle">θ = ···°</span>
+            <span class="mobile-tele-sep">·</span>
+            <span id="mobile-tele-dwell">SEARCHING</span>
+        </div>
         <div class="hero-badge">Data Scientist – Remote Sensing @ Space42 &nbsp;·&nbsp; Abu Dhabi, UAE</div>
         <h1 class="hero-name">Pavan Muguda<br>Sanjeevamurthy</h1>
         <div class="hero-title">&lt; SAR · InSAR · Earth Observation · PhD Researcher /&gt;</div>
@@ -1562,8 +1591,10 @@
         const beamL     = document.getElementById('sp-beam-l');
         const beamR     = document.getElementById('sp-beam-r');
         const nadirLine = document.getElementById('sp-nadir');
-        const angleText = document.getElementById('sp-angle');
-        const dwellText = document.getElementById('sp-dwell');
+        const angleText    = document.getElementById('sp-angle');
+        const dwellText    = document.getElementById('sp-dwell');
+        const mobTeleAngle = document.getElementById('mobile-tele-angle');
+        const mobTeleDwell = document.getElementById('mobile-tele-dwell');
         const aoiDiv    = document.getElementById('spotlight-aoi');
         const glowDiv   = document.getElementById('spotlight-glow');
         const heroEl    = document.getElementById('hero');
@@ -1671,15 +1702,14 @@
             const prox2 = prox * prox;  // sharper falloff for glow effects
 
             // ── Telemetry readout ────────────────────────────────────────────
-            if (angleText) angleText.textContent = `θ = ${angleDeg.toFixed(1)}° ${side}`;
-            if (dwellText) {
-                dwellText.textContent =
-                    prox > 0.78 ? 'ACQUIRING' :
-                    prox > 0.42 ? 'STEERING'  : 'SEARCHING';
-                dwellText.setAttribute('fill',
-                    prox > 0.78 ? 'rgba(0,188,112,0.85)' :
-                    prox > 0.42 ? 'rgba(208,151,61,0.75)' : 'rgba(208,151,61,0.52)');
-            }
+            const angleStr = `θ = ${angleDeg.toFixed(1)}° ${side}`;
+            const dwellStr = prox > 0.78 ? 'ACQUIRING' : prox > 0.42 ? 'STEERING' : 'SEARCHING';
+            const dwellCol = prox > 0.78 ? 'rgba(0,188,112,0.85)' : prox > 0.42 ? 'rgba(208,151,61,0.75)' : 'rgba(208,151,61,0.52)';
+            if (angleText) angleText.textContent = angleStr;
+            if (dwellText) { dwellText.textContent = dwellStr; dwellText.setAttribute('fill', dwellCol); }
+            // Mirror to mobile HTML strip
+            if (mobTeleAngle) mobTeleAngle.textContent = angleStr;
+            if (mobTeleDwell) { mobTeleDwell.textContent = dwellStr; mobTeleDwell.style.color = dwellCol; }
 
             // ── Beam opacity driven by proximity ─────────────────────────────
             beamFill.setAttribute('fill',   `rgba(208,151,61,${(0.04 + prox2 * 0.12).toFixed(3)})`);
