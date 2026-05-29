@@ -1718,16 +1718,26 @@
             requestAnimationFrame(frame);
         }
 
-        // ── One-time: reposition telemetry into visible SVG area on mobile ──
+        // ── Reposition telemetry into visible SVG area (all viewports) ─────
         (function() {
             const tele = document.getElementById('sp-telemetry');
             if (!tele) return;
-            if (window.innerWidth < 768) {
-                const sc  = Math.max(window.innerWidth / 1200, window.innerHeight / 580);
-                const offX = (window.innerWidth - 1200 * sc) / 2; // negative
-                const visX = Math.ceil(-offX / sc) + 8;            // 8px from left visible edge
-                tele.setAttribute('transform', `translate(${visX},15) scale(0.65)`);
+            function posTelemetry() {
+                const W  = window.innerWidth, H = window.innerHeight;
+                const sc = Math.max(W / 1200, H / 580);
+                // right edge of visible SVG x-range (xMidYMid slice)
+                const visXEnd  = W / (2 * sc) + 600;
+                const isMob    = W < 768;
+                const boxScale = isMob ? 0.60 : 1.0;
+                const margin   = 14;  // SVG units from right visible edge
+                // tx: right edge of box lands at (visXEnd − margin)
+                const tx = visXEnd - margin - 226 * boxScale;
+                // ty: 90 SVG units ≈ 130 px — safely below the sticky nav bar
+                tele.setAttribute('transform',
+                    `translate(${tx.toFixed(1)},90) scale(${boxScale})`);
             }
+            posTelemetry();
+            window.addEventListener('resize', posTelemetry);
         })();
 
         requestAnimationFrame(frame);
