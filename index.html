@@ -278,6 +278,23 @@
             display: grid; grid-template-columns: 280px 1fr; gap: 4rem; align-items: start;
         }
         @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+
+        /* ── MOBILE HERO FIXES ───────────────── */
+        @media (max-width: 768px) {
+            /* Hide complex SVG orbit — doesn't scale well on narrow screens */
+            .sar-orbit-svg { display: none; }
+            /* Badge: allow wrap, shrink font */
+            .hero-badge {
+                font-size: 0.68rem;
+                letter-spacing: 0.03em;
+                text-align: center;
+                white-space: normal;
+                max-width: 90vw;
+                line-height: 1.5;
+            }
+            /* Hero coords: hide on small screens to reduce clutter */
+            .hero-coords { display: none; }
+        }
         .profile-col { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
         .avatar-wrap { position: relative; width: 200px; height: 200px; }
         .avatar-img {
@@ -478,7 +495,8 @@
                 transform: translateY(-50%) !important;
                 width: 52px !important;
                 height: 52px !important;
-                opacity: 0.25;
+                opacity: 0.22;
+                z-index: 2 !important;
             }
         }
 
