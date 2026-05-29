@@ -484,20 +484,10 @@
             .vtl-entry::before { left: -53px; width: 53px; }
         }
         @media (max-width: 600px) {
-            .vtl { padding-left: 60px; }
-            .vtl::before { left: 24px; }
-            .vtl-dot { left: -36px; }
-            .vtl-entry::before { left: -29px; width: 29px; }
-            .vtl-country {
-                right: 8px !important;
-                left: auto !important;
-                top: 50% !important;
-                transform: translateY(-50%) !important;
-                width: 52px !important;
-                height: 52px !important;
-                opacity: 0.22;
-                z-index: 2 !important;
-            }
+            .vtl { padding-left: 160px; }
+            .vtl::before { left: 100px; }
+            .vtl-dot { left: -60px; }
+            .vtl-entry::before { left: -53px; width: 53px; }
         }
 
         /* ── EDUCATION ───────────────────────── */
@@ -1617,31 +1607,6 @@
                 nadirLine.setAttribute('x2', satX.toFixed(1));
             }
 
-            // ── Mobile: beam targets fixed SVG centre, no DOM tracking ───────
-            if (isMobile) {
-                if (aoiDiv)  aoiDiv.style.display  = 'none';
-                if (glowDiv) glowDiv.style.opacity = '0';
-
-                const tgtX = satStartX + satRangeX / 2;  // centre of visible strip
-                const tgtY = 350;
-                const bx = satX, by = SAT_Y + ANT_DY;
-                const PAD = 28;
-                if (beamFill) beamFill.setAttribute('points',
-                    `${bx.toFixed(1)},${by.toFixed(1)} ${(tgtX-PAD).toFixed(1)},${tgtY} ${(tgtX+PAD).toFixed(1)},${tgtY}`);
-                if (beamL) { beamL.setAttribute('x1', bx.toFixed(1)); beamL.setAttribute('y1', by.toFixed(1));
-                             beamL.setAttribute('x2', (tgtX-PAD).toFixed(1)); beamL.setAttribute('y2', String(tgtY)); }
-                if (beamR) { beamR.setAttribute('x1', bx.toFixed(1)); beamR.setAttribute('y1', by.toFixed(1));
-                             beamR.setAttribute('x2', (tgtX+PAD).toFixed(1)); beamR.setAttribute('y2', String(tgtY)); }
-
-                const prox  = Math.max(0, 1 - Math.abs(satX - tgtX) / (satRangeX / 2));
-                const prox2 = prox * prox;
-                if (beamFill) beamFill.setAttribute('fill',  `rgba(208,151,61,${(0.04+prox2*0.12).toFixed(3)})`);
-                if (beamL)    beamL.setAttribute('stroke',   `rgba(208,151,61,${(0.20+prox*0.60).toFixed(3)})`);
-                if (beamR)    beamR.setAttribute('stroke',   `rgba(208,151,61,${(0.20+prox*0.60).toFixed(3)})`);
-
-                requestAnimationFrame(frame);
-                return;
-            }
             if (aoiDiv) aoiDiv.style.display = '';
 
             // ── Grab live DOM rectangles ─────────────────────────────────────
