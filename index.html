@@ -281,8 +281,8 @@
 
         /* ── MOBILE HERO FIXES ───────────────── */
         @media (max-width: 768px) {
-            /* Hide complex SVG orbit — doesn't scale well on narrow screens */
-            .sar-orbit-svg { display: none; }
+            /* Telemetry panel is in the far-right of the SVG viewBox — off screen on mobile */
+            #sp-telemetry { display: none; }
             /* Badge: allow wrap, shrink font */
             .hero-badge {
                 font-size: 0.68rem;
@@ -900,7 +900,7 @@
             </g>
 
             <!-- Telemetry readout — top-right -->
-            <g transform="translate(956,18)">
+            <g id="sp-telemetry" transform="translate(956,18)">
                 <rect x="0" y="0" width="226" height="44" rx="4"
                       fill="rgba(5,5,5,0.65)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
                 <text id="sp-angle" x="12" y="17" font-family="Space Mono,monospace" font-size="8.5"
@@ -1593,8 +1593,22 @@
             if (!startTs) startTs = ts;
             const t = ((ts - startTs) % PERIOD) / PERIOD;  // 0 → 1
 
+            // ── Calculate satellite X range: on mobile keep it in visible area ─
+            const isMobile = window.innerWidth < 768;
+            let satStartX, satRangeX;
+            if (isMobile) {
+                // xMidYMid slice: scale = max(vpW/1200, vpH/580)
+                const sc = Math.max(window.innerWidth / 1200, window.innerHeight / 580);
+                const offX = (window.innerWidth - 1200 * sc) / 2; // negative: SVG wider than vp
+                satStartX = (-offX / sc) - 80;                    // enter from left edge
+                satRangeX = (window.innerWidth / sc) + 160;       // span full visible width
+            } else {
+                satStartX = -160;
+                satRangeX = 1520;
+            }
+
             // ── Satellite position in SVG space ─────────────────────────────
-            const satX = -160 + t * 1520;   // −160 → 1360 SVG units
+            const satX = satStartX + t * satRangeX;
             satG.setAttribute('transform', `translate(${satX.toFixed(1)},${SAT_Y})`);
 
             // Nadir ground-track dot
@@ -1603,13 +1617,28 @@
                 nadirLine.setAttribute('x2', satX.toFixed(1));
             }
 
-            // ── Skip beam/AOI on mobile — just animate the satellite ─────────
-            if (window.innerWidth < 768) {
+            // ── Mobile: beam targets fixed SVG centre, no DOM tracking ───────
+            if (isMobile) {
                 if (aoiDiv)  aoiDiv.style.display  = 'none';
                 if (glowDiv) glowDiv.style.opacity = '0';
-                if (beamFill) beamFill.setAttribute('fill',   'rgba(0,0,0,0)');
-                if (beamL)    beamL.setAttribute('stroke',    'rgba(0,0,0,0)');
-                if (beamR)    beamR.setAttribute('stroke',    'rgba(0,0,0,0)');
+
+                const tgtX = satStartX + satRangeX / 2;  // centre of visible strip
+                const tgtY = 350;
+                const bx = satX, by = SAT_Y + ANT_DY;
+                const PAD = 28;
+                if (beamFill) beamFill.setAttribute('points',
+                    `${bx.toFixed(1)},${by.toFixed(1)} ${(tgtX-PAD).toFixed(1)},${tgtY} ${(tgtX+PAD).toFixed(1)},${tgtY}`);
+                if (beamL) { beamL.setAttribute('x1', bx.toFixed(1)); beamL.setAttribute('y1', by.toFixed(1));
+                             beamL.setAttribute('x2', (tgtX-PAD).toFixed(1)); beamL.setAttribute('y2', String(tgtY)); }
+                if (beamR) { beamR.setAttribute('x1', bx.toFixed(1)); beamR.setAttribute('y1', by.toFixed(1));
+                             beamR.setAttribute('x2', (tgtX+PAD).toFixed(1)); beamR.setAttribute('y2', String(tgtY)); }
+
+                const prox  = Math.max(0, 1 - Math.abs(satX - tgtX) / (satRangeX / 2));
+                const prox2 = prox * prox;
+                if (beamFill) beamFill.setAttribute('fill',  `rgba(208,151,61,${(0.04+prox2*0.12).toFixed(3)})`);
+                if (beamL)    beamL.setAttribute('stroke',   `rgba(208,151,61,${(0.20+prox*0.60).toFixed(3)})`);
+                if (beamR)    beamR.setAttribute('stroke',   `rgba(208,151,61,${(0.20+prox*0.60).toFixed(3)})`);
+
                 requestAnimationFrame(frame);
                 return;
             }
