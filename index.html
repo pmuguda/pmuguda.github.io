@@ -418,6 +418,27 @@
             border-color: var(--cyan);
             background: var(--cyan);
             box-shadow: 0 0 0 4px rgba(255,255,255,0.12), var(--glow);
+            animation: dotGlow 2.4s ease-in-out infinite;
+        }
+        .vtl-dot.current::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 13px; height: 13px;
+            border-radius: 50%;
+            background: var(--cyan);
+            transform: translate(-50%, -50%);
+            animation: dotPing 2.4s ease-out infinite;
+            pointer-events: none;
+        }
+        @keyframes dotPing {
+            0%   { opacity: 0.55; transform: translate(-50%, -50%) scale(1); }
+            70%  { opacity: 0;    transform: translate(-50%, -50%) scale(3.2); }
+            100% { opacity: 0;    transform: translate(-50%, -50%) scale(3.2); }
+        }
+        @keyframes dotGlow {
+            0%, 100% { box-shadow: 0 0 0 4px rgba(255,255,255,0.12), var(--glow); }
+            50%      { box-shadow: 0 0 0 5px rgba(255,255,255,0.20), 0 0 26px rgba(255,255,255,0.45); }
         }
         /* horizontal connector from dot to card */
         .vtl-entry::before {
