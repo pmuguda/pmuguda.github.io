@@ -319,8 +319,10 @@
             }
             /* Hero coords: hide on small screens to reduce clutter */
             .hero-coords { display: none; }
-            /* Reset desktop top margin — would overflow the mobile hero */
-            .hero-content { margin-top: 1.5rem; }
+            /* Hide long description on mobile — satellite + beam need vertical room */
+            .hero-desc { display: none; }
+            /* Let flex centering place content naturally below the orbit */
+            .hero-content { margin-top: 0; }
         }
         /* Landscape phones: SVG height-scale pushes orbit close to viewport top */
         @media (max-height: 500px) {
