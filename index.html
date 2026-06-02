@@ -139,7 +139,7 @@
 
         /* ── HERO ────────────────────────────── */
         #hero {
-            position: relative; height: 100vh;
+            position: relative; height: 100vh; height: 100dvh;
             display: flex; align-items: center; justify-content: center; overflow: hidden;
         }
         .hero-bg {
@@ -307,7 +307,7 @@
             /* Hide SVG telemetry on mobile — HTML strip used instead */
             #sp-telemetry { display: none; }
             /* Fade down the orbit SVG so hero text reads clearly */
-            .sar-orbit-svg { opacity: 0.35; }
+            .sar-orbit-svg { opacity: 0.6; }
             /* Badge: allow wrap, shrink font */
             .hero-badge {
                 font-size: 0.68rem;
@@ -321,6 +321,12 @@
             .hero-coords { display: none; }
             /* Reset desktop top margin — would overflow the mobile hero */
             .hero-content { margin-top: 1.5rem; }
+        }
+        /* Landscape phones: SVG height-scale pushes orbit close to viewport top */
+        @media (max-height: 500px) {
+            #sp-telemetry { display: none; }
+            .sar-orbit-svg { opacity: 0.5; }
+            .hero-content { margin-top: 0; padding-top: 1rem; }
         }
         .profile-col { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
         .avatar-wrap { position: relative; width: 200px; height: 200px; }
@@ -906,7 +912,7 @@
         <img id="insarBg" src="hero-sar.jpg" alt="">
         <svg class="sar-orbit-svg" viewBox="0 0 1200 580" preserveAspectRatio="xMidYMid slice">
             <!-- Orbit track dashes -->
-            <line x1="-60" y1="85" x2="1260" y2="85"
+            <line id="sp-orbit-track" x1="-60" y1="85" x2="1260" y2="85"
                   stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="8 5"/>
             <!-- Nadir ground-track projection (updated by JS) -->
             <line id="sp-nadir" x1="0" y1="85" x2="0" y2="580"
@@ -1665,9 +1671,25 @@
         const nameEl    = document.querySelector('.hero-name');
         if (!svg || !satG || !nameEl) return;
 
-        const SAT_Y  = 85;    // orbit track y in SVG viewBox coords
+        let SAT_Y    = 85;    // orbit track y in SVG viewBox coords (updated dynamically)
         const ANT_DY = 13;    // antenna bottom offset from SAT_Y
         const PERIOD = 9000;  // ms for one full pass across the scene
+
+        const orbitTrack = document.getElementById('sp-orbit-track');
+
+        // Ensure the orbit line always clears the 64px fixed navbar (+ 26px gap).
+        // On landscape phones the SVG is width-scaled, pushing y=85 above the navbar.
+        function computeSatY() {
+            const W = window.innerWidth, H = window.innerHeight;
+            const sc = Math.max(W / 1200, H / 580);
+            const offY = (H - 580 * sc) / 2;
+            const minSvgY = Math.ceil((90 - offY) / sc);
+            SAT_Y = Math.max(85, minSvgY);
+            if (orbitTrack) { orbitTrack.setAttribute('y1', SAT_Y); orbitTrack.setAttribute('y2', SAT_Y); }
+            if (nadirLine)  { nadirLine.setAttribute('y1', SAT_Y); }
+        }
+        computeSatY();
+        window.addEventListener('resize', computeSatY);
 
         let startTs = null;
 
@@ -1826,9 +1848,9 @@
                 const margin   = 14;  // SVG units from right visible edge
                 // tx: right edge of box lands at (visXEnd − margin)
                 const tx = visXEnd - margin - 226 * boxScale;
-                // ty: 90 SVG units ≈ 130 px — safely below the sticky nav bar
+                // ty: just below orbit track (SAT_Y + 5)
                 tele.setAttribute('transform',
-                    `translate(${tx.toFixed(1)},90) scale(${boxScale})`);
+                    `translate(${tx.toFixed(1)},${SAT_Y + 5}) scale(${boxScale})`);
             }
             posTelemetry();
             window.addEventListener('resize', posTelemetry);
