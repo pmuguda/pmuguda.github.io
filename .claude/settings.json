@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(node_modules/@tuw/*)",
+      "Edit(node_modules/@tuw/*)",
+      "Write(node_modules/@tuw/*)"
+    ]
+  }
+}
