@@ -938,6 +938,10 @@
                   stroke="rgba(208,151,61,0.22)" stroke-width="1.0"/>
             <line id="sp-beam-r" x1="0" y1="99" x2="40" y2="280"
                   stroke="rgba(208,151,61,0.22)" stroke-width="1.0"/>
+            <line id="sp-beam-bl" x1="0" y1="99" x2="-40" y2="300"
+                  stroke="rgba(208,151,61,0.22)" stroke-width="1.0"/>
+            <line id="sp-beam-br" x1="0" y1="99" x2="40" y2="300"
+                  stroke="rgba(208,151,61,0.22)" stroke-width="1.0"/>
             <!-- SAR satellite body (moved by JS) -->
             <g id="spotlight-sat" transform="translate(-160, 85)">
                 <!-- Main bus -->
@@ -1674,6 +1678,8 @@
         const beamFill  = document.getElementById('sp-beam-fill');
         const beamL     = document.getElementById('sp-beam-l');
         const beamR     = document.getElementById('sp-beam-r');
+        const beamBL    = document.getElementById('sp-beam-bl');
+        const beamBR    = document.getElementById('sp-beam-br');
         const nadirLine = document.getElementById('sp-nadir');
         const angleText    = document.getElementById('sp-angle');
         const dwellText    = document.getElementById('sp-dwell');
@@ -1784,11 +1790,15 @@
             // Polygon: satellite → TL → BL → BR → TR (full illumination zone)
             beamFill.setAttribute('points',
                 `${bx.toFixed(1)},${by.toFixed(1)} ${fp(TL)} ${fp(BL)} ${fp(BR)} ${fp(TR)}`);
-            // Outer edge lines: satellite → top-left and top-right AOI corners
-            beamL.setAttribute('x1', bx.toFixed(1));  beamL.setAttribute('y1', by.toFixed(1));
-            beamL.setAttribute('x2', TL.x.toFixed(1)); beamL.setAttribute('y2', TL.y.toFixed(1));
-            beamR.setAttribute('x1', bx.toFixed(1));  beamR.setAttribute('y1', by.toFixed(1));
-            beamR.setAttribute('x2', TR.x.toFixed(1)); beamR.setAttribute('y2', TR.y.toFixed(1));
+            // Edge lines: satellite → all 4 AOI corners
+            beamL.setAttribute('x1',  bx.toFixed(1)); beamL.setAttribute('y1',  by.toFixed(1));
+            beamL.setAttribute('x2',  TL.x.toFixed(1)); beamL.setAttribute('y2', TL.y.toFixed(1));
+            beamR.setAttribute('x1',  bx.toFixed(1)); beamR.setAttribute('y1',  by.toFixed(1));
+            beamR.setAttribute('x2',  TR.x.toFixed(1)); beamR.setAttribute('y2', TR.y.toFixed(1));
+            beamBL.setAttribute('x1', bx.toFixed(1)); beamBL.setAttribute('y1', by.toFixed(1));
+            beamBL.setAttribute('x2', BL.x.toFixed(1)); beamBL.setAttribute('y2', BL.y.toFixed(1));
+            beamBR.setAttribute('x1', bx.toFixed(1)); beamBR.setAttribute('y1', by.toFixed(1));
+            beamBR.setAttribute('x2', BR.x.toFixed(1)); beamBR.setAttribute('y2', BR.y.toFixed(1));
 
             // ── Steering angle from nadir ─────────────────────────────────────
             const dx       = aoiSvgX - satX;
@@ -1813,8 +1823,11 @@
 
             // ── Beam opacity driven by proximity ─────────────────────────────
             beamFill.setAttribute('fill',   `rgba(208,151,61,${(0.04 + prox2 * 0.12).toFixed(3)})`);
-            beamL.setAttribute('stroke',    `rgba(208,151,61,${(0.20 + prox  * 0.60).toFixed(3)})`);
-            beamR.setAttribute('stroke',    `rgba(208,151,61,${(0.20 + prox  * 0.60).toFixed(3)})`);
+            const beamStroke = `rgba(208,151,61,${(0.20 + prox * 0.60).toFixed(3)})`;
+            beamL.setAttribute('stroke',   beamStroke);
+            beamR.setAttribute('stroke',   beamStroke);
+            beamBL.setAttribute('stroke',  beamStroke);
+            beamBR.setAttribute('stroke',  beamStroke);
 
             // ── AOI box glow on acquisition ──────────────────────────────────
             if (prox > 0.42) {
