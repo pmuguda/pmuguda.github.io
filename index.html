@@ -373,13 +373,13 @@
         }
         .soc:hover { border-color: var(--cyan); color: var(--cyan); box-shadow: var(--glow); }
         .soc svg { width: 17px; height: 17px; fill: currentColor; }
-        .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; width: 100%; }
+        .stats-row { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.75rem; width: 100%; }
         .stat {
             background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r);
             padding: 0.85rem 0.5rem; text-align: center;
         }
-        .stat-n { font-size: 1.6rem; font-weight: 700; color: var(--cyan); }
-        .stat-l { font-size: 0.7rem; color: var(--text3); margin-top: 0.2rem; }
+        .stat-n { font-size: 1.6rem; font-weight: 700; color: var(--cyan); font-variant-numeric: tabular-nums; }
+        .stat-l { font-size: 0.7rem; color: var(--amber); margin-top: 0.2rem; letter-spacing: 0.08em; }
         .about-body p { color: var(--text2); margin-bottom: 1rem; font-size: 0.97rem; }
         .about-body p:last-child { margin-bottom: 0; }
 
@@ -1025,9 +1025,10 @@
                     </a>
                 </div>
                 <div class="stats-row">
-                    <div class="stat"><div class="stat-n">5+</div><div class="stat-l">Yrs Research</div></div>
-                    <div class="stat"><div class="stat-n">12+</div><div class="stat-l">Publications</div></div>
-                    <div class="stat"><div class="stat-n">15+</div><div class="stat-l">Tools &amp; Libs</div></div>
+                    <div class="stat"><div class="stat-n">4+</div><div class="stat-l">Yrs Research</div></div>
+                    <div class="stat"><div class="stat-n">2</div><div class="stat-l">Journal Papers</div></div>
+                    <div class="stat"><div class="stat-n">11</div><div class="stat-l">Conferences</div></div>
+                    <div class="stat"><div class="stat-n">3</div><div class="stat-l">Open Source Tools</div></div>
                 </div>
             </div>
             <div class="about-body">
