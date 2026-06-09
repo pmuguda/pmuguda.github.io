@@ -165,13 +165,18 @@
         .sar-tile { border: 1px solid rgba(255,255,255,0.012); transition: background 0.4s, border-color 0.4s; }
         .sar-tile.flash { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.12); }
         .sar-tile.flash2 { background: rgba(208,151,61,0.04); border-color: rgba(208,151,61,0.15); }
-        .scan-line {
-            position: absolute; top: 0; bottom: 0; width: 2px;
-            background: linear-gradient(transparent, rgba(255,255,255,0.08) 15%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.08) 85%, transparent);
-            animation: scan 12s linear infinite;
-            box-shadow: 0 0 12px rgba(255,255,255,0.25), 0 0 30px rgba(255,255,255,0.1);
+        /* cursor radar ping */
+        .cursor-ping {
+            position: absolute; pointer-events: none; z-index: 5;
+            border: 1px solid rgba(208,151,61,0.6);
+            border-radius: 50%;
+            transform: translate(-50%,-50%) scale(0);
+            animation: cping 1.2s ease-out forwards;
         }
-        @keyframes scan { from { left: -3%; } to { left: 103%; } }
+        @keyframes cping {
+            0%   { transform: translate(-50%,-50%) scale(0); opacity: 0.7; }
+            100% { transform: translate(-50%,-50%) scale(1); opacity: 0; }
+        }
         .radar-rings {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
             pointer-events: none;
@@ -309,7 +314,13 @@
                 white-space: nowrap;
             }
             .mobile-tele-sep { opacity: 0.4; }
+            .mobile-tele-mode { color: rgba(208,151,61,0.95); font-weight: 600; }
             #mobile-tele-dwell { color: rgba(208,151,61,0.85); }
+            /* On mobile the telemetry strip occupies the top band — move the
+               AOI tag below the box so the two don't collide. ID selector
+               raises specificity above the base .aoi-tag rule (which is
+               later in source order). */
+            #spotlight-aoi .aoi-tag { top: auto; bottom: -20px; }
         }
 
         /* ── MOBILE HERO FIXES ───────────────── */
@@ -333,6 +344,9 @@
             .hero-desc { display: none; }
             /* Let flex centering place content naturally below the orbit */
             .hero-content { margin-top: 0; }
+            /* Extra gap below the name so the bottom-anchored ◎ AOI tag
+               clears the subtitle line. */
+            .hero-name { margin-bottom: 2.4rem; }
         }
         /* Landscape phones: SVG height-scale pushes orbit close to viewport top */
         @media (max-height: 500px) {
@@ -877,6 +891,7 @@
             position: absolute; top:-22px; left:0;
             font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:0.60rem;
             color:rgba(208,151,61,0.82); letter-spacing:0.13em; white-space:nowrap;
+            transition: color 0.25s ease, text-shadow 0.25s ease;
         }
 
         #spotlight-glow {
@@ -911,7 +926,6 @@
 <section id="hero">
     <div class="hero-bg">
         <div class="sar-tiles" id="sarTiles"></div>
-        <div class="scan-line"></div>
         <div class="radar-rings">
             <div class="radar-ring"></div>
             <div class="radar-ring"></div>
@@ -920,15 +934,42 @@
         </div>
         <img id="insarBg" src="hero-sar.jpg" alt="">
         <svg class="sar-orbit-svg" viewBox="0 0 1200 580" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <!-- Beam cone gradient: bright near ground, fading toward satellite -->
+                <linearGradient id="beamGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="rgba(208,151,61,0.02)"/>
+                    <stop offset="70%"  stop-color="rgba(208,151,61,0.08)"/>
+                    <stop offset="100%" stop-color="rgba(208,151,61,0.18)"/>
+                </linearGradient>
+            </defs>
             <!-- Orbit track dashes -->
             <line id="sp-orbit-track" x1="-60" y1="85" x2="1260" y2="85"
                   stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="8 5"/>
-            <!-- Nadir ground-track projection (updated by JS) -->
-            <line id="sp-nadir" x1="0" y1="85" x2="0" y2="580"
-                  stroke="rgba(255,255,255,0.05)" stroke-width="0.7" stroke-dasharray="3 4"/>
+            <!-- Satellite ghost trail (previous positions, fading) -->
+            <g id="sat-ghost-3" opacity="0.08" transform="translate(-160,85)">
+                <rect x="-12" y="-6" width="24" height="12" rx="2" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+                <line x1="-12" y1="0" x2="-38" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+                <rect x="-38" y="-4" width="14" height="8" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
+                <line x1="12" y1="0" x2="38" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+                <rect x="24" y="-4" width="14" height="8" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
+            </g>
+            <g id="sat-ghost-2" opacity="0.14" transform="translate(-160,85)">
+                <rect x="-12" y="-6" width="24" height="12" rx="2" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+                <line x1="-12" y1="0" x2="-38" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+                <rect x="-38" y="-4" width="14" height="8" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
+                <line x1="12" y1="0" x2="38" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+                <rect x="24" y="-4" width="14" height="8" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
+            </g>
+            <g id="sat-ghost-1" opacity="0.22" transform="translate(-160,85)">
+                <rect x="-12" y="-6" width="24" height="12" rx="2" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+                <line x1="-12" y1="0" x2="-38" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+                <rect x="-38" y="-4" width="14" height="8" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
+                <line x1="12" y1="0" x2="38" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+                <rect x="24" y="-4" width="14" height="8" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
+            </g>
             <!-- Spotlight beam fill + edges (updated by JS each frame) -->
             <polygon id="sp-beam-fill" points="0,99 -40,280 40,280"
-                     fill="rgba(208,151,61,0.04)"/>
+                     fill="url(#beamGrad)"/>
             <line id="sp-beam-l" x1="0" y1="99" x2="-40" y2="280"
                   stroke="rgba(208,151,61,0.22)" stroke-width="1.0"/>
             <line id="sp-beam-r" x1="0" y1="99" x2="40" y2="280"
@@ -937,37 +978,62 @@
                   stroke="rgba(208,151,61,0.22)" stroke-width="1.0"/>
             <line id="sp-beam-br" x1="0" y1="99" x2="40" y2="300"
                   stroke="rgba(208,151,61,0.22)" stroke-width="1.0"/>
-            <!-- SAR satellite body (moved by JS) -->
+            <!-- Ground footprint glow (brightens during acquisition) -->
+            <ellipse id="sp-ground-glow" cx="0" cy="400" rx="80" ry="30"
+                     fill="rgba(208,151,61,0)" filter="none"/>
+            <!-- SAR satellite body — enhanced detail (moved by JS) -->
             <g id="spotlight-sat" transform="translate(-160, 85)">
-                <!-- Main bus -->
-                <rect x="-14" y="-8" width="28" height="16" rx="3"
-                      fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.58)" stroke-width="1.2"/>
-                <!-- Solar panel — left -->
-                <line x1="-14" y1="0" x2="-50" y2="0" stroke="rgba(255,255,255,0.48)" stroke-width="1.3"/>
-                <rect x="-50" y="-5" width="19" height="10" rx="1.5"
-                      fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
-                <!-- Solar panel — right -->
-                <line x1="14" y1="0" x2="50" y2="0" stroke="rgba(255,255,255,0.48)" stroke-width="1.3"/>
-                <rect x="31" y="-5" width="19" height="10" rx="1.5"
-                      fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
-                <!-- SAR radar antenna (gold — side-looking payload) -->
-                <rect x="-5" y="8" width="10" height="5" rx="1"
-                      fill="rgba(208,151,61,0.28)" stroke="rgba(208,151,61,0.70)" stroke-width="0.9"/>
+                <!-- Main bus (spacecraft body) -->
+                <rect x="-16" y="-9" width="32" height="18" rx="2"
+                      fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.58)" stroke-width="1.2"/>
+                <!-- Bus panel lines -->
+                <line x1="-8" y1="-9" x2="-8" y2="9" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+                <line x1="8" y1="-9" x2="8" y2="9" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+                <!-- Solar panel — left: boom + panel with cell lines -->
+                <line x1="-16" y1="0" x2="-54" y2="0" stroke="rgba(255,255,255,0.48)" stroke-width="1.3"/>
+                <rect x="-54" y="-6" width="22" height="12" rx="1"
+                      fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
+                <line x1="-43" y1="-6" x2="-43" y2="6" stroke="rgba(255,255,255,0.18)" stroke-width="0.4"/>
+                <!-- Solar panel — right: boom + panel with cell lines -->
+                <line x1="16" y1="0" x2="54" y2="0" stroke="rgba(255,255,255,0.48)" stroke-width="1.3"/>
+                <rect x="32" y="-6" width="22" height="12" rx="1"
+                      fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
+                <line x1="43" y1="-6" x2="43" y2="6" stroke="rgba(255,255,255,0.18)" stroke-width="0.4"/>
+                <!-- Star tracker (small circle on top) -->
+                <circle cx="0" cy="-9" r="2" fill="rgba(255,255,255,0.20)" stroke="rgba(255,255,255,0.40)" stroke-width="0.5"/>
+                <!-- SAR antenna array (gold — the main payload, side-looking) -->
+                <rect x="-18" y="9" width="36" height="6" rx="1"
+                      fill="rgba(208,151,61,0.22)" stroke="rgba(208,151,61,0.70)" stroke-width="0.9"/>
+                <!-- Antenna feed elements -->
+                <line x1="-12" y1="10" x2="-12" y2="14" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
+                <line x1="-6" y1="10" x2="-6" y2="14" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
+                <line x1="0" y1="10" x2="0" y2="14" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
+                <line x1="6" y1="10" x2="6" y2="14" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
+                <!-- Antenna feed horn (bottom center — beam emission point) -->
+                <polygon points="-3,15 3,15 5,19 -5,19"
+                         fill="rgba(208,151,61,0.18)" stroke="rgba(208,151,61,0.55)" stroke-width="0.6"/>
             </g>
 
             <!-- Telemetry readout — top-right -->
             <g id="sp-telemetry" transform="translate(956,18)">
-                <rect x="0" y="0" width="226" height="44" rx="4"
+                <rect x="0" y="0" width="226" height="60" rx="4"
                       fill="rgba(5,5,5,0.65)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
-                <text id="sp-angle" x="12" y="17" font-family="IBM Plex Mono,monospace" font-size="8.5"
+                <!-- Mode header — names the metaphor -->
+                <text x="12" y="16" font-family="IBM Plex Mono,monospace" font-size="8.5"
+                      fill="rgba(208,151,61,0.92)" letter-spacing="0.10em" font-weight="600">MODE: SPOTLIGHT</text>
+                <line x1="12" y1="22" x2="214" y2="22" stroke="rgba(255,255,255,0.10)" stroke-width="0.6"/>
+                <text id="sp-angle" x="12" y="36" font-family="IBM Plex Mono,monospace" font-size="8"
                       fill="rgba(255,255,255,0.62)" letter-spacing="0.08em">θ = ···°</text>
-                <text id="sp-dwell" x="12" y="32" font-family="IBM Plex Mono,monospace" font-size="7"
-                      fill="rgba(208,151,61,0.52)" letter-spacing="0.08em">SEARCHING</text>
+                <text id="sp-dwell" x="12" y="50" font-family="IBM Plex Mono,monospace" font-size="7.5"
+                      fill="rgba(208,151,61,0.52)" letter-spacing="0.08em">○ SEARCHING</text>
             </g>
         </svg>
     </div>
     <div class="hero-content">
         <div id="mobile-telemetry" class="mobile-tele">
+            <span class="mobile-tele-mode">SPOTLIGHT</span>
+            <span class="mobile-tele-sep">·</span>
             <span id="mobile-tele-angle">θ = ···°</span>
             <span class="mobile-tele-sep">·</span>
             <span id="mobile-tele-dwell">SEARCHING</span>
@@ -991,6 +1057,7 @@
         <span class="aoi-corner tr"></span>
         <span class="aoi-corner bl"></span>
         <span class="aoi-corner br"></span>
+        <span class="aoi-tag" id="aoi-tag">◎ AOI</span>
     </div>
     <div id="spotlight-glow"></div>
     <div class="scroll-hint">SCROLL</div>
@@ -1648,6 +1715,69 @@
     }
     setInterval(flashTile, 90);
 
+    // ── Mouse-reactive grid: tiles brighten near cursor ──
+    (function() {
+        const hero = document.getElementById('hero');
+        if (!hero || !container) return;
+        let mx = -1, my = -1;
+        hero.addEventListener('mousemove', function(e) {
+            const r = hero.getBoundingClientRect();
+            mx = e.clientX - r.left;
+            my = e.clientY - r.top;
+        });
+        hero.addEventListener('mouseleave', function() { mx = -1; my = -1; });
+        const cW = () => hero.offsetWidth / COLS;
+        const cH = () => hero.offsetHeight / ROWS;
+        function glow() {
+            if (mx < 0) { requestAnimationFrame(glow); return; }
+            const tw = cW(), th = cH();
+            const col = Math.floor(mx / tw);
+            const row = Math.floor(my / th);
+            const R = 3; // radius in cells
+            for (let dy = -R; dy <= R; dy++) {
+                for (let dx = -R; dx <= R; dx++) {
+                    const c = col + dx, r2 = row + dy;
+                    if (c < 0 || c >= COLS || r2 < 0 || r2 >= ROWS) continue;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist > R) continue;
+                    const intensity = 1 - dist / R;
+                    const t = tiles[r2 * COLS + c];
+                    t.style.background = `rgba(208,151,61,${(intensity * 0.08).toFixed(3)})`;
+                    t.style.borderColor = `rgba(208,151,61,${(intensity * 0.18).toFixed(3)})`;
+                }
+            }
+            requestAnimationFrame(glow);
+        }
+        // Clear glow residue periodically
+        setInterval(() => {
+            tiles.forEach(t => { t.style.background = ''; t.style.borderColor = ''; });
+        }, 120);
+        requestAnimationFrame(glow);
+    })();
+
+    // ── Cursor radar ping on hero ──
+    (function() {
+        const hero = document.getElementById('hero');
+        if (!hero) return;
+        let lastPing = 0;
+        hero.addEventListener('mousemove', function(e) {
+            const now = Date.now();
+            if (now - lastPing < 400) return; // throttle
+            lastPing = now;
+            const r = hero.getBoundingClientRect();
+            const ping = document.createElement('div');
+            ping.className = 'cursor-ping';
+            const size = 60 + Math.random() * 40;
+            ping.style.width = size + 'px';
+            ping.style.height = size + 'px';
+            ping.style.left = (e.clientX - r.left) + 'px';
+            ping.style.top = (e.clientY - r.top) + 'px';
+            hero.querySelector('.hero-bg').appendChild(ping);
+            setTimeout(() => ping.remove(), 1200);
+        });
+    })();
+
+
     // Typewriter — About section heading
     (function () {
         const el = document.getElementById('typewriter');
@@ -1676,13 +1806,21 @@
         const beamR     = document.getElementById('sp-beam-r');
         const beamBL    = document.getElementById('sp-beam-bl');
         const beamBR    = document.getElementById('sp-beam-br');
-        const nadirLine = document.getElementById('sp-nadir');
+        const groundGlow = document.getElementById('sp-ground-glow');
+        // Ghost trail elements (3 previous positions)
+        const ghosts = [
+            document.getElementById('sat-ghost-1'),
+            document.getElementById('sat-ghost-2'),
+            document.getElementById('sat-ghost-3')
+        ];
+        const GHOST_DELAY = [0.025, 0.055, 0.09]; // fraction of PERIOD behind current pos
         const angleText    = document.getElementById('sp-angle');
         const dwellText    = document.getElementById('sp-dwell');
         const mobTeleAngle = document.getElementById('mobile-tele-angle');
         const mobTeleDwell = document.getElementById('mobile-tele-dwell');
         const aoiDiv    = document.getElementById('spotlight-aoi');
         const glowDiv   = document.getElementById('spotlight-glow');
+        const aoiTag    = document.getElementById('aoi-tag');
         const heroEl    = document.getElementById('hero');
         const nameEl    = document.querySelector('.hero-name');
         if (!svg || !satG || !nameEl) return;
@@ -1702,7 +1840,6 @@
             const minSvgY = Math.ceil((90 - offY) / sc);
             SAT_Y = Math.max(85, minSvgY);
             if (orbitTrack) { orbitTrack.setAttribute('y1', SAT_Y); orbitTrack.setAttribute('y2', SAT_Y); }
-            if (nadirLine)  { nadirLine.setAttribute('y1', SAT_Y); }
         }
         computeSatY();
         window.addEventListener('resize', computeSatY);
@@ -1731,11 +1868,13 @@
             const satX = satStartX + t * satRangeX;
             satG.setAttribute('transform', `translate(${satX.toFixed(1)},${SAT_Y})`);
 
-            // Nadir ground-track dot
-            if (nadirLine) {
-                nadirLine.setAttribute('x1', satX.toFixed(1));
-                nadirLine.setAttribute('x2', satX.toFixed(1));
-            }
+            // ── Ghost trail: show previous positions ────────────────────────
+            ghosts.forEach((g, i) => {
+                if (!g) return;
+                const gt = ((t - GHOST_DELAY[i]) % 1 + 1) % 1; // wrap around
+                const gx = satStartX + gt * satRangeX;
+                g.setAttribute('transform', `translate(${gx.toFixed(1)},${SAT_Y})`);
+            });
 
             if (aoiDiv) aoiDiv.style.display = '';
 
@@ -1809,8 +1948,9 @@
 
             // ── Telemetry readout ────────────────────────────────────────────
             const angleStr = `θ = ${angleDeg.toFixed(1)}° ${side}`;
-            const dwellStr = prox > 0.78 ? 'ACQUIRING' : prox > 0.42 ? 'STEERING' : 'SEARCHING';
-            const dwellCol = prox > 0.78 ? 'rgba(0,188,112,0.85)' : prox > 0.42 ? 'rgba(208,151,61,0.75)' : 'rgba(208,151,61,0.52)';
+            const locked   = prox > 0.78;
+            const dwellStr = locked ? '● TARGET LOCK' : prox > 0.42 ? '◐ STEERING' : '○ SEARCHING';
+            const dwellCol = locked ? 'rgba(0,188,112,0.92)' : prox > 0.42 ? 'rgba(208,151,61,0.80)' : 'rgba(208,151,61,0.52)';
             if (angleText) angleText.textContent = angleStr;
             if (dwellText) { dwellText.textContent = dwellStr; dwellText.setAttribute('fill', dwellCol); }
             // Mirror to mobile HTML strip
@@ -1818,23 +1958,54 @@
             if (mobTeleDwell) { mobTeleDwell.textContent = dwellStr; mobTeleDwell.style.color = dwellCol; }
 
             // ── Beam opacity driven by proximity ─────────────────────────────
-            beamFill.setAttribute('fill',   `rgba(208,151,61,${(0.04 + prox2 * 0.12).toFixed(3)})`);
-            const beamStroke = `rgba(208,151,61,${(0.20 + prox * 0.60).toFixed(3)})`;
+            // Update gradient stops dynamically based on proximity
+            const gradStops = beamFill.ownerSVGElement.querySelector('#beamGrad');
+            if (gradStops) {
+                const stops = gradStops.querySelectorAll('stop');
+                const baseA = 0.05 + prox2 * 0.14;   // near the satellite
+                const midA  = 0.12 + prox2 * 0.34;
+                const endA  = 0.22 + prox2 * 0.60;    // landing ON the name — the spotlight
+                stops[0].setAttribute('stop-color', `rgba(208,151,61,${baseA.toFixed(3)})`);
+                stops[1].setAttribute('stop-color', `rgba(208,151,61,${midA.toFixed(3)})`);
+                stops[2].setAttribute('stop-color', `rgba(208,151,61,${endA.toFixed(3)})`);
+            }
+            const beamStroke = `rgba(208,151,61,${(0.28 + prox * 0.66).toFixed(3)})`;
             beamL.setAttribute('stroke',   beamStroke);
             beamR.setAttribute('stroke',   beamStroke);
             beamBL.setAttribute('stroke',  beamStroke);
             beamBR.setAttribute('stroke',  beamStroke);
 
-            // ── AOI box glow on acquisition ──────────────────────────────────
+            // ── Ground footprint glow (ellipse under AOI) ────────────────────
+            if (groundGlow) {
+                groundGlow.setAttribute('cx', aoiSvgX.toFixed(1));
+                groundGlow.setAttribute('cy', (aoiSvgY + 20).toFixed(1));
+                const glowA = prox > 0.42 ? (prox2 * 0.18).toFixed(3) : '0';
+                const glowR = 60 + prox2 * 50;
+                groundGlow.setAttribute('rx', glowR.toFixed(0));
+                groundGlow.setAttribute('ry', (glowR * 0.35).toFixed(0));
+                groundGlow.setAttribute('fill', `rgba(208,151,61,${glowA})`);
+            }
+
+            // ── AOI box glow on acquisition (enhanced) ───────────────────────
             if (prox > 0.42) {
                 const bc = (0.40 + prox2 * 0.50).toFixed(2);
-                const bs = Math.round(prox2 * 24);
-                const bg = (prox2 * 0.30).toFixed(3);
+                const bs = Math.round(prox2 * 36);
+                const bg = (prox2 * 0.40).toFixed(3);
+                const bs2 = Math.round(prox2 * 60);
+                const bg2 = (prox2 * 0.15).toFixed(3);
                 aoiDiv.style.borderColor = `rgba(208,151,61,${bc})`;
-                aoiDiv.style.boxShadow   = `0 0 ${bs}px rgba(208,151,61,${bg})`;
+                aoiDiv.style.boxShadow   = `0 0 ${bs}px rgba(208,151,61,${bg}), 0 0 ${bs2}px rgba(208,151,61,${bg2})`;
             } else {
                 aoiDiv.style.borderColor = 'rgba(208,151,61,0.38)';
                 aoiDiv.style.boxShadow   = 'none';
+            }
+
+            // ── Lock dramatization: tag highlight ────────────────────────────
+            if (aoiTag) {
+                aoiTag.style.color = locked
+                    ? 'rgba(208,151,61,1)' : 'rgba(208,151,61,0.82)';
+                aoiTag.style.textShadow = locked
+                    ? '0 0 8px rgba(208,151,61,0.55)' : 'none';
             }
 
             // ── Hero name ambient glow ───────────────────────────────────────
@@ -1867,7 +2038,7 @@
                 // right edge of visible SVG x-range (xMidYMid slice)
                 const visXEnd  = W / (2 * sc) + 600;
                 const isMob    = W < 768;
-                const boxScale = isMob ? 0.60 : 1.0;
+                const boxScale = isMob ? 0.60 : 0.80;
                 const margin   = 14;  // SVG units from right visible edge
                 // tx: right edge of box lands at (visXEnd − margin)
                 const tx = visXEnd - margin - 226 * boxScale;
