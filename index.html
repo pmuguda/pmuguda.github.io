@@ -716,6 +716,30 @@
             content: ''; flex: 1; height: 1px;
             background: linear-gradient(90deg, var(--border), transparent);
         }
+        /* Collapsible conference list — native <details>, styled like a section label */
+        details.pub-collapse { margin: 0; }
+        details.pub-collapse > summary {
+            font-size: 0.7rem;
+            color: var(--text3); letter-spacing: 0.18em; text-transform: uppercase;
+            margin: 2.25rem 0 0.9rem;
+            display: flex; align-items: center; gap: 0.7rem;
+            cursor: pointer; list-style: none; user-select: none;
+            transition: color var(--t);
+        }
+        details.pub-collapse > summary::-webkit-details-marker { display: none; }
+        details.pub-collapse > summary:hover { color: var(--text2); }
+        .pub-collapse-chevron {
+            width: 0.5rem; height: 0.5rem; flex-shrink: 0;
+            border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+            transform: rotate(-45deg); transition: transform var(--t);
+        }
+        details.pub-collapse[open] .pub-collapse-chevron { transform: rotate(45deg); }
+        .pub-collapse-count { color: var(--amber); letter-spacing: 0.05em; }
+        details.pub-collapse > summary::after {
+            content: ''; flex: 1; height: 1px;
+            background: linear-gradient(90deg, var(--border), transparent);
+        }
+        details.pub-collapse[open] > .pub-list { margin-top: 0; }
         .pub-yr.conf {
             background: rgba(208,151,61,0.08);
             border-color: rgba(208,151,61,0.28);
@@ -1549,9 +1573,14 @@
             </div>
         </div>
 
-        <!-- ── CONFERENCE PAPERS ── -->
-        <div class="pub-section-label fade-in">Conference &amp; Symposium Papers</div>
-        <div class="pub-list fade-in delay-1">
+        <!-- ── CONFERENCE PAPERS (collapsible) ── -->
+        <details class="pub-collapse fade-in">
+            <summary>
+                <span class="pub-collapse-chevron"></span>
+                Conference &amp; Symposium Papers
+                <span class="pub-collapse-count">10</span>
+            </summary>
+        <div class="pub-list delay-1">
 
             <div class="pub">
                 <div class="pub-meta">
@@ -1644,6 +1673,7 @@
             </div>
 
         </div>
+        </details>
     </div>
 </section>
 
