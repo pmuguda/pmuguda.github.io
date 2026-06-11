@@ -11,6 +11,7 @@
     <meta name="author" content="Pavan Muguda Sanjeevamurthy">
     <meta name="google-site-verification" content="y2KKR6nEXEOB3NgQxGcFIG-Qwyapr01iLdFFTkQs-PE" />
     <link rel="canonical" href="https://pmuguda.github.io/">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23050505'/%3E%3Ccircle cx='24' cy='40' r='5' fill='%23d0973d'/%3E%3Cpath d='M34 30 A 14.1 14.1 0 0 1 38 40' fill='none' stroke='%23d0973d' stroke-width='3.5' stroke-linecap='round' opacity='0.8'/%3E%3Cpath d='M41 23 A 24 24 0 0 1 48 40' fill='none' stroke='%23d0973d' stroke-width='3.5' stroke-linecap='round' opacity='0.5'/%3E%3C/svg%3E">
 
     <!-- Open Graph (LinkedIn, Slack, WhatsApp previews) -->
     <meta property="og:type" content="profile">
@@ -62,7 +63,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
@@ -82,7 +83,7 @@
             --amber: #d0973d;
             --text: #e0e0e3;
             --text2: #a0a0a3;
-            --text3: #606063;
+            --text3: #8a8a8e;
             --border: rgba(255,255,255,0.10);
             --border-h: rgba(255,255,255,0.30);
             --glow: 0 0 20px rgba(255,255,255,0.2);
@@ -95,22 +96,40 @@
         ::-webkit-scrollbar-thumb { background: rgba(208,151,61,0.55); border-radius: 0; }
         h1,h2,h3,h4 { font-weight: 700; letter-spacing: -0.01em; }
 
+        /* Prose blocks read in IBM Plex Sans — same family voice as the mono,
+           but proportional for long-form readability. Mono stays for headings,
+           labels, telemetry, tags, and all instrument-style text. */
+        .hero-desc, .about-body p, .proj-desc, .tool-desc, .press-sub,
+        .press-title, .honour-desc, .contact-desc, .htl-pts li,
+        .pub-title, .pub-authors {
+            font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+        }
+
         /* ── NAV ─────────────────────────────── */
         #navbar {
             position: fixed; top: 0; left: 0; right: 0; z-index: 999;
             height: 64px; padding: 0 2rem;
             display: flex; align-items: center; justify-content: space-between;
-            background: rgba(5,13,26,0.8);
+            background: rgba(5,5,5,0.8);
             backdrop-filter: blur(14px);
             border-bottom: 1px solid var(--border);
             transition: var(--t);
         }
-        #navbar.scrolled { background: rgba(5,13,26,0.97); box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+        #navbar.scrolled { background: rgba(5,5,5,0.97); box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
         .nav-logo {
             font-weight: 700; font-size: 1rem;
-            color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;
+            color: var(--text); text-decoration: none; display: flex; align-items: center;
         }
         .nav-logo em { color: var(--cyan); font-style: normal; }
+
+        /* ── FOOTER ──────────────────────────── */
+        #site-footer {
+            display: flex; justify-content: center; align-items: center; gap: 0.6rem;
+            padding: 1.6rem 2rem; flex-wrap: wrap;
+            background: var(--bg); border-top: 1px solid var(--border);
+            color: var(--text3); font-size: 0.75rem; letter-spacing: 0.05em;
+        }
+        #site-footer .foot-sep { color: var(--amber); }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a {
             color: var(--text2); text-decoration: none; font-size: 0.85rem;
@@ -131,7 +150,7 @@
             .nav-toggle { display: flex; }
             .nav-links {
                 display: none; position: absolute; top: 64px; left: 0; right: 0;
-                flex-direction: column; background: rgba(5,13,26,0.98);
+                flex-direction: column; background: rgba(5,5,5,0.98);
                 border-bottom: 1px solid var(--border); padding: 1.5rem 2rem; gap: 1.25rem;
             }
             #navbar.open .nav-links { display: flex; }
@@ -584,7 +603,7 @@
         .edu-degree-tag {
             display: inline-flex; align-items: center; justify-content: center;
             width: 44px; height: 44px; border-radius: 0;
-            background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.35);
+            background: rgba(208,151,61,0.1); border: 1px solid rgba(208,151,61,0.35);
             font-size: 0.68rem;
             font-weight: 700; color: var(--amber); letter-spacing: 0.05em;
             margin-bottom: 0.75rem;
@@ -608,6 +627,7 @@
         }
 
         /* ── PROJECTS ────────────────────────── */
+        #projects { background: var(--bg2); }
         .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px,1fr)); gap: 1.5rem; margin-top: 3rem; }
         .proj-card {
             background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r);
@@ -639,7 +659,7 @@
         }
         .pub.journal {
             border-left-color: var(--amber);
-            background: rgba(245,158,11,0.04);
+            background: rgba(208,151,61,0.04);
         }
         .pub:hover { border-color: var(--border-h); border-left-color: inherit; box-shadow: var(--glow); }
         .pub-meta { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
@@ -648,10 +668,10 @@
             border: 1px solid rgba(255,255,255,0.2); border-radius: 0;
             font-size: 0.72rem; color: var(--cyan);
         }
-        .pub-yr.journal { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); color: var(--amber); }
+        .pub-yr.journal { background: rgba(208,151,61,0.1); border-color: rgba(208,151,61,0.3); color: var(--amber); }
         .pub-badge {
-            padding: 0.18rem 0.55rem; background: rgba(245,158,11,0.1);
-            border: 1px solid rgba(245,158,11,0.3); border-radius: 0;
+            padding: 0.18rem 0.55rem; background: rgba(208,151,61,0.1);
+            border: 1px solid rgba(208,151,61,0.3); border-radius: 0;
             font-size: 0.68rem; color: var(--amber); font-weight: 600;
             text-transform: uppercase; letter-spacing: 0.08em;
         }
@@ -662,26 +682,26 @@
 
         /* ── UNDER REVIEW ───────────────────── */
         .pub.under-review {
-            border-left-color: #f59e0b;
-            background: rgba(245,158,11,0.03);
+            border-left-color: var(--amber);
+            background: rgba(208,151,61,0.03);
             position: relative;
             overflow: hidden;
         }
         .pub.under-review::after {
             content: '';
             position: absolute; inset: 0;
-            border: 1px solid rgba(245,158,11,0.0);
+            border: 1px solid rgba(208,151,61,0.0);
             border-radius: 0 var(--r) var(--r) 0;
             animation: reviewPulse 3s ease-in-out infinite;
             pointer-events: none;
         }
         @keyframes reviewPulse {
-            0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,0); }
-            50%      { box-shadow: 0 0 18px 2px rgba(245,158,11,0.18); }
+            0%,100% { box-shadow: 0 0 0 0 rgba(208,151,61,0); }
+            50%      { box-shadow: 0 0 18px 2px rgba(208,151,61,0.18); }
         }
         .pub-badge.review {
-            background: rgba(245,158,11,0.12);
-            border-color: rgba(245,158,11,0.4);
+            background: rgba(208,151,61,0.12);
+            border-color: rgba(208,151,61,0.4);
             color: var(--amber);
             animation: badgeBlink 2.5s ease-in-out infinite;
         }
@@ -762,7 +782,7 @@
             background: var(--amber); animation: blink 2s ease-in-out infinite;
         }
         .tool-status.wip {
-            background: rgba(245,158,11,0.07); border: 1px solid rgba(245,158,11,0.25);
+            background: rgba(208,151,61,0.07); border: 1px solid rgba(208,151,61,0.25);
             color: var(--amber);
         }
         .tool-title {
@@ -780,7 +800,7 @@
         .tool-link:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
 
         /* ── IN THE NEWS ─────────────────────── */
-        #press { background: var(--bg2); }
+        #press { background: var(--bg); }
         .press-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 3rem; }
         .press-card {
             display: grid; grid-template-columns: 300px 1fr;
@@ -822,13 +842,14 @@
         .press-link:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
 
         /* ── HONOURS ─────────────────────────── */
+        #honours { background: var(--bg2); }
         .honour-card {
             background: var(--bg3); border: 1px solid var(--border);
             border-left: 3px solid var(--amber);
             border-radius: 0 var(--r) var(--r) 0;
             padding: 1.4rem; transition: var(--t); margin-top: 3rem;
         }
-        .honour-card:hover { border-color: var(--border-h); box-shadow: 0 0 20px rgba(245,158,11,0.15); }
+        .honour-card:hover { border-color: var(--border-h); box-shadow: 0 0 20px rgba(208,151,61,0.15); }
         .honour-title { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
         .honour-org { font-size: 0.85rem; color: var(--cyan); margin-bottom: 0.35rem; font-size: 0.75rem; }
         .honour-desc { font-size: 0.85rem; color: var(--text3); }
@@ -929,7 +950,7 @@
 
 <!-- ══ NAV ══════════════════════════════════ -->
 <nav id="navbar">
-    <a href="#hero" class="nav-logo"></a>
+    <a href="#hero" class="nav-logo">pavan<em>.ms</em></a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
     </button>
@@ -956,7 +977,7 @@
             <div class="radar-ring"></div>
             <div class="radar-ring"></div>
         </div>
-        <img id="insarBg" src="hero-sar.jpg" alt="">
+        <img id="insarBg" src="hero-sar.webp" alt="" loading="eager" decoding="async">
         <svg class="sar-orbit-svg" viewBox="0 0 1200 580" preserveAspectRatio="xMidYMid slice">
             <defs>
                 <!-- Beam cone gradient: bright near ground, fading toward satellite -->
@@ -1703,6 +1724,13 @@
         </div>
     </div>
 </section>
+
+<!-- ══ FOOTER ═══════════════════════════════ -->
+<footer id="site-footer">
+    <span>© 2026 Pavan Muguda Sanjeevamurthy</span>
+    <span class="foot-sep">·</span>
+    <span>Built with vanilla JS + Three.js</span>
+</footer>
 
 
 <script>
