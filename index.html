@@ -1010,6 +1010,57 @@
                     <stop offset="70%"  stop-color="rgba(208,151,61,0.08)"/>
                     <stop offset="100%" stop-color="rgba(208,151,61,0.18)"/>
                 </linearGradient>
+                <!-- SAR satellite glyph (Sentinel-1-style line art): chamfered bus,
+                     3-segment solar wings on canted hinged booms, star tracker,
+                     X-band downlink dish, long side-looking phased-array antenna.
+                     Shared by the live satellite and the acquisition-station ghosts. -->
+                <g id="sat-glyph">
+                    <!-- Left solar wing: hinged boom + 3 cell segments -->
+                    <g transform="rotate(5)">
+                        <line x1="-13" y1="0" x2="-19" y2="0" stroke="rgba(255,255,255,0.50)" stroke-width="1"/>
+                        <circle cx="-19" cy="0" r="1.2" fill="none" stroke="rgba(255,255,255,0.42)" stroke-width="0.6"/>
+                        <rect x="-61" y="-5" width="42" height="10" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.42)" stroke-width="0.8"/>
+                        <line x1="-33" y1="-5" x2="-33" y2="5" stroke="rgba(255,255,255,0.30)" stroke-width="0.5"/>
+                        <line x1="-47" y1="-5" x2="-47" y2="5" stroke="rgba(255,255,255,0.30)" stroke-width="0.5"/>
+                        <line x1="-61" y1="-1.7" x2="-19" y2="-1.7" stroke="rgba(255,255,255,0.14)" stroke-width="0.35"/>
+                        <line x1="-61" y1="1.7"  x2="-19" y2="1.7"  stroke="rgba(255,255,255,0.14)" stroke-width="0.35"/>
+                    </g>
+                    <!-- Right solar wing (mirrored) -->
+                    <g transform="scale(-1,1) rotate(5)">
+                        <line x1="-13" y1="0" x2="-19" y2="0" stroke="rgba(255,255,255,0.50)" stroke-width="1"/>
+                        <circle cx="-19" cy="0" r="1.2" fill="none" stroke="rgba(255,255,255,0.42)" stroke-width="0.6"/>
+                        <rect x="-61" y="-5" width="42" height="10" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.42)" stroke-width="0.8"/>
+                        <line x1="-33" y1="-5" x2="-33" y2="5" stroke="rgba(255,255,255,0.30)" stroke-width="0.5"/>
+                        <line x1="-47" y1="-5" x2="-47" y2="5" stroke="rgba(255,255,255,0.30)" stroke-width="0.5"/>
+                        <line x1="-61" y1="-1.7" x2="-19" y2="-1.7" stroke="rgba(255,255,255,0.14)" stroke-width="0.35"/>
+                        <line x1="-61" y1="1.7"  x2="-19" y2="1.7"  stroke="rgba(255,255,255,0.14)" stroke-width="0.35"/>
+                    </g>
+                    <!-- Bus: chamfered body with panel seams + radiator hatching -->
+                    <path d="M -14 -8 H 10 L 15 -3 V 7 H -14 Z"
+                          fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.60)" stroke-width="1.1"/>
+                    <line x1="-5" y1="-8" x2="-5" y2="7" stroke="rgba(255,255,255,0.16)" stroke-width="0.5"/>
+                    <line x1="4"  y1="-8" x2="4"  y2="7" stroke="rgba(255,255,255,0.16)" stroke-width="0.5"/>
+                    <line x1="-12" y1="-5" x2="-7" y2="-5" stroke="rgba(255,255,255,0.22)" stroke-width="0.4"/>
+                    <line x1="-12" y1="-3" x2="-7" y2="-3" stroke="rgba(255,255,255,0.22)" stroke-width="0.4"/>
+                    <line x1="-12" y1="-1" x2="-7" y2="-1" stroke="rgba(255,255,255,0.22)" stroke-width="0.4"/>
+                    <!-- Star tracker (top-left) + X-band downlink dish (top-right) -->
+                    <circle cx="-9" cy="-9.5" r="1.6" fill="none" stroke="rgba(255,255,255,0.40)" stroke-width="0.6"/>
+                    <path d="M 5.5 -9 a 3.2 3.2 0 0 1 6.4 0" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="0.7"/>
+                    <line x1="8.7" y1="-9" x2="8.7" y2="-11.5" stroke="rgba(255,255,255,0.40)" stroke-width="0.6"/>
+                    <!-- SAR phased array: mounting struts + long planar panel -->
+                    <line x1="-9" y1="7" x2="-12" y2="10" stroke="rgba(208,151,61,0.55)" stroke-width="0.7"/>
+                    <line x1="7"  y1="7" x2="10"  y2="10" stroke="rgba(208,151,61,0.55)" stroke-width="0.7"/>
+                    <rect x="-26" y="10" width="52" height="5.5"
+                          fill="rgba(208,151,61,0.20)" stroke="rgba(208,151,61,0.78)" stroke-width="1"/>
+                    <line x1="-26" y1="12.75" x2="26" y2="12.75" stroke="rgba(208,151,61,0.40)" stroke-width="0.35"/>
+                    <line x1="-19.5" y1="10" x2="-19.5" y2="15.5" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
+                    <line x1="-13"   y1="10" x2="-13"   y2="15.5" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
+                    <line x1="-6.5"  y1="10" x2="-6.5"  y2="15.5" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
+                    <line x1="0"     y1="10" x2="0"     y2="15.5" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
+                    <line x1="6.5"   y1="10" x2="6.5"   y2="15.5" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
+                    <line x1="13"    y1="10" x2="13"    y2="15.5" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
+                    <line x1="19.5"  y1="10" x2="19.5"  y2="15.5" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
+                </g>
             </defs>
             <!-- Orbit track — curved arc (path rebuilt by JS on resize) -->
             <path id="sp-orbit-track" d="M -60 85 L 1260 85" fill="none"
@@ -1018,27 +1069,9 @@
             <path id="sp-ground-arc" d="" fill="none"
                   stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
             <!-- Ghost satellites — stamped at the acquisition stations as the pass progresses -->
-            <g id="sat-ghost-3" opacity="0.38" transform="translate(-160,85)">
-                <rect x="-12" y="-6" width="24" height="12" rx="2" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
-                <line x1="-12" y1="0" x2="-38" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
-                <rect x="-38" y="-4" width="14" height="8" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
-                <line x1="12" y1="0" x2="38" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
-                <rect x="24" y="-4" width="14" height="8" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
-            </g>
-            <g id="sat-ghost-2" opacity="0.48" transform="translate(-160,85)">
-                <rect x="-12" y="-6" width="24" height="12" rx="2" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
-                <line x1="-12" y1="0" x2="-38" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
-                <rect x="-38" y="-4" width="14" height="8" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
-                <line x1="12" y1="0" x2="38" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
-                <rect x="24" y="-4" width="14" height="8" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
-            </g>
-            <g id="sat-ghost-1" opacity="0.58" transform="translate(-160,85)">
-                <rect x="-12" y="-6" width="24" height="12" rx="2" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
-                <line x1="-12" y1="0" x2="-38" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
-                <rect x="-38" y="-4" width="14" height="8" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
-                <line x1="12" y1="0" x2="38" y2="0" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
-                <rect x="24" y="-4" width="14" height="8" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
-            </g>
+            <g id="sat-ghost-3" opacity="0.38" transform="translate(-160,85)"><use href="#sat-glyph"/></g>
+            <g id="sat-ghost-2" opacity="0.48" transform="translate(-160,85)"><use href="#sat-glyph"/></g>
+            <g id="sat-ghost-1" opacity="0.58" transform="translate(-160,85)"><use href="#sat-glyph"/></g>
             <!-- Ghost acquisition cones — past look geometries locked on the AOI
                  corners: forward squint / nadir / backward squint -->
             <g id="sp-glook-1" stroke="rgba(208,151,61,0.34)" stroke-width="1.0" display="none">
@@ -1064,58 +1097,29 @@
             <!-- Ground footprint glow (brightens during acquisition) -->
             <ellipse id="sp-ground-glow" cx="0" cy="400" rx="80" ry="30"
                      fill="rgba(208,151,61,0)" filter="none"/>
-            <!-- SAR satellite body — enhanced detail (moved by JS) -->
-            <g id="spotlight-sat" transform="translate(-160, 85)">
-                <!-- Main bus (spacecraft body) -->
-                <rect x="-16" y="-9" width="32" height="18" rx="2"
-                      fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.58)" stroke-width="1.2"/>
-                <!-- Bus panel lines -->
-                <line x1="-8" y1="-9" x2="-8" y2="9" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-                <line x1="8" y1="-9" x2="8" y2="9" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
-                <!-- Solar panel — left: boom + panel with cell lines -->
-                <line x1="-16" y1="0" x2="-54" y2="0" stroke="rgba(255,255,255,0.48)" stroke-width="1.3"/>
-                <rect x="-54" y="-6" width="22" height="12" rx="1"
-                      fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
-                <line x1="-43" y1="-6" x2="-43" y2="6" stroke="rgba(255,255,255,0.18)" stroke-width="0.4"/>
-                <!-- Solar panel — right: boom + panel with cell lines -->
-                <line x1="16" y1="0" x2="54" y2="0" stroke="rgba(255,255,255,0.48)" stroke-width="1.3"/>
-                <rect x="32" y="-6" width="22" height="12" rx="1"
-                      fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.40)" stroke-width="0.8"/>
-                <line x1="43" y1="-6" x2="43" y2="6" stroke="rgba(255,255,255,0.18)" stroke-width="0.4"/>
-                <!-- Star tracker (small circle on top) -->
-                <circle cx="0" cy="-9" r="2" fill="rgba(255,255,255,0.20)" stroke="rgba(255,255,255,0.40)" stroke-width="0.5"/>
-                <!-- SAR antenna array (gold — the main payload, side-looking) -->
-                <rect x="-18" y="9" width="36" height="6" rx="1"
-                      fill="rgba(208,151,61,0.22)" stroke="rgba(208,151,61,0.70)" stroke-width="0.9"/>
-                <!-- Antenna feed elements -->
-                <line x1="-12" y1="10" x2="-12" y2="14" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
-                <line x1="-6" y1="10" x2="-6" y2="14" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
-                <line x1="0" y1="10" x2="0" y2="14" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
-                <line x1="6" y1="10" x2="6" y2="14" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
-                <line x1="12" y1="10" x2="12" y2="14" stroke="rgba(208,151,61,0.45)" stroke-width="0.4"/>
-                <!-- Antenna feed horn (bottom center — beam emission point) -->
-                <polygon points="-3,15 3,15 5,19 -5,19"
-                         fill="rgba(208,151,61,0.18)" stroke="rgba(208,151,61,0.55)" stroke-width="0.6"/>
-            </g>
+            <!-- SAR satellite body — shared realistic glyph (moved by JS) -->
+            <g id="spotlight-sat" transform="translate(-160, 85)"><use href="#sat-glyph"/></g>
 
             <!-- Telemetry readout — top-right -->
             <g id="sp-telemetry" transform="translate(956,18)">
-                <rect x="0" y="0" width="226" height="60" rx="4"
+                <rect x="0" y="0" width="226" height="74" rx="4"
                       fill="rgba(5,5,5,0.65)" stroke="rgba(255,255,255,0.09)" stroke-width="0.8"/>
-                <!-- Mode header — names the metaphor -->
-                <text x="12" y="16" font-family="IBM Plex Mono,monospace" font-size="8.5"
-                      fill="rgba(208,151,61,0.92)" letter-spacing="0.10em" font-weight="600">MODE: SPOTLIGHT</text>
+                <!-- Tasking header — the AOI is a standing order serviced by the fleet -->
+                <text id="sp-task" x="12" y="16" font-family="IBM Plex Mono,monospace" font-size="8.5"
+                      fill="rgba(208,151,61,0.92)" letter-spacing="0.10em" font-weight="600">TASK ···· · SPOTLIGHT</text>
                 <line x1="12" y1="22" x2="214" y2="22" stroke="rgba(255,255,255,0.10)" stroke-width="0.6"/>
-                <text id="sp-angle" x="12" y="36" font-family="IBM Plex Mono,monospace" font-size="8"
+                <text id="sp-sat" x="12" y="36" font-family="IBM Plex Mono,monospace" font-size="8"
+                      fill="rgba(255,255,255,0.62)" letter-spacing="0.08em">SAT: ···</text>
+                <text id="sp-angle" x="12" y="50" font-family="IBM Plex Mono,monospace" font-size="8"
                       fill="rgba(255,255,255,0.62)" letter-spacing="0.08em">θ = ···°</text>
-                <text id="sp-dwell" x="12" y="50" font-family="IBM Plex Mono,monospace" font-size="7.5"
+                <text id="sp-dwell" x="12" y="64" font-family="IBM Plex Mono,monospace" font-size="7.5"
                       fill="rgba(208,151,61,0.52)" letter-spacing="0.08em">○ SEARCHING</text>
             </g>
         </svg>
     </div>
     <div class="hero-content">
         <div id="mobile-telemetry" class="mobile-tele">
-            <span class="mobile-tele-mode">SPOTLIGHT</span>
+            <span class="mobile-tele-mode" id="mobile-tele-mode">SPOTLIGHT</span>
             <span class="mobile-tele-sep">·</span>
             <span id="mobile-tele-angle">θ = ···°</span>
             <span class="mobile-tele-sep">·</span>
@@ -1123,7 +1127,7 @@
         </div>
         <h1 class="hero-name">Pavan Muguda<br>Sanjeevamurthy</h1>
         <div class="hero-title">&lt; SAR · InSAR · Earth Observation · PhD Researcher /&gt;</div>
-        <div class="hero-coords">24.4539° N, 54.3773° E &nbsp;·&nbsp; ALT: 27 m &nbsp;·&nbsp; PASS: ASCENDING</div>
+        <div class="hero-coords">24.4539° N, 54.3773° E &nbsp;·&nbsp; ALT: 27 m &nbsp;·&nbsp; PASS: <span id="hero-pass">ASCENDING</span></div>
         <p class="hero-desc">
             Remote Sensing Data Scientist &amp; PhD researcher with 5+ years of experience
             developing production-grade Earth Observation pipelines. Expertise in SAR/InSAR
@@ -1896,7 +1900,7 @@
         tick();
     }());
 
-    // hero-sar.jpg used as background image (replaces synthetic InSAR canvas)
+    // hero-sar.webp used as background image (replaces synthetic InSAR canvas)
 
     // ── SPOTLIGHT MODE SAR — beam continuously steered to hero name (AOI) ──
     (function sarSpotlightMode() {
@@ -1927,7 +1931,22 @@
 
         let SAT_Y    = 85;    // orbit track y in SVG viewBox coords (updated dynamically)
         const ANT_DY = 13;    // antenna bottom offset from SAT_Y
-        const PERIOD = 9000;  // ms for one full pass across the scene
+
+        // ── Constellation fleet ──────────────────────────────────────────
+        // The AOI is a standing tasking order: each pass is serviced by a
+        // different satellite on its own orbit geometry (ascending or
+        // descending, varying altitude/curvature/speed), like real NewSpace
+        // SAR tasking — you order an image of an area, whichever bird has
+        // the next access window acquires it.
+        const FLEET = [
+            { id: 'PMS-1', orbit: 'ASC',  dir:  1, curvK: 1.00, altOff:  0, dur:  9000 },
+            { id: 'PMS-2', orbit: 'DESC', dir: -1, curvK: 0.70, altOff: 16, dur: 10200 },
+            { id: 'PMS-3', orbit: 'ASC',  dir:  1, curvK: 1.40, altOff: -6, dur:  8200 },
+            { id: 'PMS-4', orbit: 'DESC', dir: -1, curvK: 1.10, altOff:  8, dur:  9600 }
+        ];
+        let fleetIdx = Math.floor(Math.random() * FLEET.length);
+        let cur      = FLEET[fleetIdx];
+        let taskNum  = 1000 + Math.floor(Math.random() * 8000);
 
         const orbitTrack = document.getElementById('sp-orbit-track');
         const groundArc  = document.getElementById('sp-ground-arc');
@@ -1943,7 +1962,7 @@
         let CURV = 1.3e-4;
         let visHalf = 600;     // visible half-width in SVG units (set by computeSatY)
         const GROUND_Y = 505;
-        const arcY = x => SAT_Y + CURV * (x - 600) * (x - 600);
+        const arcY = x => SAT_Y + cur.altOff + CURV * cur.curvK * (x - 600) * (x - 600);
 
         function buildArcPath(yFn, x0, x1, step) {
             let d = '';
@@ -1969,11 +1988,39 @@
         computeSatY();
         window.addEventListener('resize', computeSatY);
 
-        let startTs = null;
+        // ── Per-pass labels: tasking header, acquiring satellite, orbit dir ─
+        const taskText    = document.getElementById('sp-task');
+        const satText     = document.getElementById('sp-sat');
+        const heroPass    = document.getElementById('hero-pass');
+        const mobTeleMode = document.getElementById('mobile-tele-mode');
+        function applyPassLabels() {
+            const orbitWord = cur.orbit === 'ASC' ? 'ASCENDING' : 'DESCENDING';
+            if (taskText)    taskText.textContent    = `TASK ${taskNum} · SPOTLIGHT`;
+            if (satText)     satText.textContent     = `SAT: ${cur.id} · ${orbitWord}`;
+            if (heroPass)    heroPass.textContent    = orbitWord;
+            if (mobTeleMode) mobTeleMode.textContent = cur.id;
+            // redraw the orbit track for this satellite's geometry
+            if (orbitTrack) orbitTrack.setAttribute('d', buildArcPath(arcY, -80, 1280, 40));
+        }
+        applyPassLabels();
+
+        let passStart = null;
+
+        // Hand the task to the next available satellite in the fleet
+        function newPass(ts) {
+            passStart = ts;
+            let n;
+            do { n = Math.floor(Math.random() * FLEET.length); } while (n === fleetIdx);
+            fleetIdx = n;
+            cur      = FLEET[n];
+            taskNum++;
+            applyPassLabels();
+        }
 
         function frame(ts) {
-            if (!startTs) startTs = ts;
-            const t = ((ts - startTs) % PERIOD) / PERIOD;  // 0 → 1
+            if (passStart === null) passStart = ts;
+            let t = (ts - passStart) / cur.dur;             // 0 → 1
+            if (t >= 1) { newPass(ts); t = 0; }
 
             // ── Calculate satellite X range: on mobile keep it in visible area ─
             const isMobile = window.innerWidth < 768;
@@ -1990,10 +2037,13 @@
             }
 
             // ── Satellite position on the orbit arc, pitched along its tangent ─
-            const satX = satStartX + t * satRangeX;
+            // Ascending passes fly left→right, descending right→left.
+            const satX = cur.dir > 0
+                ? satStartX + t * satRangeX
+                : (satStartX + satRangeX) - t * satRangeX;
             const satY = arcY(satX);
             const tiltOf = x => Math.max(-15, Math.min(15,
-                Math.atan(2 * CURV * (x - 600)) * 180 / Math.PI));
+                Math.atan(2 * CURV * cur.curvK * (x - 600)) * 180 / Math.PI));
             satG.setAttribute('transform',
                 `translate(${satX.toFixed(1)},${satY.toFixed(1)}) rotate(${tiltOf(satX).toFixed(1)})`);
 
@@ -2033,9 +2083,11 @@
             // stations (forward squint → nadir → backward squint). Outside that
             // window the satellite cruises beam-off.
             const D = Math.min(240, visHalf * 0.55);
-            const stations = [aoiSvgX - D, aoiSvgX, aoiSvgX + D];
-            const dwell    = satX >= stations[0] && satX <= stations[2] + 45;
-            const passDone = satX > stations[2] + 45;
+            // u: signed progress along the flight direction, relative to the AOI
+            // (works for both ascending and descending passes)
+            const u        = cur.dir * (satX - aoiSvgX);
+            const dwell    = u >= -D && u <= D + 45;
+            const passDone = u > D + 45;
             const beamDisp = dwell ? '' : 'none';
             [beamFill, beamL, beamR, beamBL, beamBR].forEach(el => {
                 if (el) el.style.display = beamDisp;
@@ -2073,12 +2125,15 @@
             // As the satellite passes each station a ghost is stamped there with
             // its look cone locked on the AOI corners, building up the pass
             // history Capella-diagram style.
-            const stationFor = [2, 1, 0];   // ghost-1→backward, ghost-2→nadir, ghost-3→forward
+            // Traversal offsets along the flight direction:
+            // ghost-1→backward squint, ghost-2→nadir, ghost-3→forward squint
+            const travOff = [D, 0, -D];
             ghosts.forEach((g, i) => {
                 if (!g) return;
-                const sx = stations[stationFor[i]];
-                const lk = glooks[i];
-                if (satX < sx + 45) {        // not reached yet this pass
+                const off = travOff[i];
+                const sx  = aoiSvgX + cur.dir * off;
+                const lk  = glooks[i];
+                if (u < off + 45) {          // station not reached yet this pass
                     g.setAttribute('display', 'none');
                     if (lk) lk.g.setAttribute('display', 'none');
                     return;
@@ -2113,7 +2168,7 @@
             // ── Telemetry readout ────────────────────────────────────────────
             const angleStr = `θ = ${angleDeg.toFixed(1)}° ${side}`;
             const locked   = dwell && prox > 0.78;
-            const dwellStr = passDone ? '✓ ACQUIRED'
+            const dwellStr = passDone ? `✓ ACQUIRED · ${cur.id}`
                            : !dwell   ? '○ SEARCHING'
                            : locked   ? '● TARGET LOCK'
                            : prox > 0.42 ? '◐ STEERING' : '○ SEARCHING';
