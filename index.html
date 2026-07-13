@@ -1224,6 +1224,14 @@
         .pub-title { grid-column: 2; grid-row: 1; font-family: 'Newsreader', serif; font-size: 1.3rem; font-weight: 500; }
         .pub-authors { grid-column: 2; color: #8e9690; }
         .pub-authors strong { color: var(--text); }
+        .pub-links { grid-column: 2; display: flex; gap: 1rem; align-items: center; }
+        .pub-link {
+            color: var(--green); font: 500 .62rem 'DM Mono', monospace;
+            letter-spacing: .06em; text-decoration: none; text-transform: uppercase;
+            border-bottom: 1px solid rgba(208,160,75,.4); padding-bottom: 2px;
+            transition: color var(--t), border-color var(--t);
+        }
+        .pub-link:hover { color: var(--text); border-color: var(--text); }
         .pub-section-label { font-family: 'DM Mono', monospace; color: var(--amber); }
 
         .press-card { grid-template-columns: minmax(280px, .85fr) 1.15fr; background: transparent; border: 0; border-top: 1px solid var(--border); }
@@ -1248,7 +1256,7 @@
         @media (max-width: 900px) {
             .skills-grid, .edu-grid { grid-template-columns: 1fr 1fr; }
             .pub, .pub.journal, .pub.under-review { grid-template-columns: 1fr; gap: .7rem; }
-            .pub-title, .pub-authors { grid-column: 1; grid-row: auto; }
+            .pub-title, .pub-authors, .pub-links { grid-column: 1; grid-row: auto; }
         }
         @media (max-width: 768px) {
             #navbar { height: 64px; }
@@ -1518,31 +1526,41 @@
                 </div>
             </div>
             <div class="sg">
-                <div class="sg-title">SAR &amp; InSAR Processing</div>
+                <div class="sg-title">Radar Data Experience</div>
                 <div class="tags">
-                    <span class="tag g">Sentinel-1</span>
-                    <span class="tag g">ASCAT</span>
-                    <span class="tag g">ICEYE</span>
-                    <span class="tag">PyGMTSAR</span>
-                    <span class="tag">MintPy</span>
-                    <span class="tag">ESA SNAP</span>
-                    <span class="tag">SBAS InSAR</span>
-                    <span class="tag">PSInSAR</span>
-                    <span class="tag">Backscatter</span>
+                    <span class="tag g">Sentinel-1 SAR</span>
+                    <span class="tag">ICEYE SAR</span>
+                    <span class="tag">Capella SAR</span>
+                    <span class="tag">MetOp ASCAT</span>
                 </div>
             </div>
             <div class="sg">
-                <div class="sg-title">GIS &amp; Geospatial</div>
+                <div class="sg-title">Radar Processing Software</div>
+                <div class="tags">
+                    <span class="tag g">ESA SNAP</span>
+                    <span class="tag">PyGMTSAR</span>
+                    <span class="tag">MintPy</span>
+                </div>
+            </div>
+            <div class="sg">
+                <div class="sg-title">SAR &amp; InSAR Methods</div>
+                <div class="tags">
+                    <span class="tag g">Backscatter Analysis</span>
+                    <span class="tag">Interferometry</span>
+                    <span class="tag">SBAS InSAR</span>
+                    <span class="tag">PSInSAR</span>
+                </div>
+            </div>
+            <div class="sg">
+                <div class="sg-title">GIS &amp; Spatial Analysis</div>
                 <div class="tags">
                     <span class="tag g">Google Earth Engine</span>
                     <span class="tag">ArcGIS</span>
                     <span class="tag">QGIS</span>
-                    <span class="tag">GDAL</span>
-                    <span class="tag">pyproj</span>
                 </div>
             </div>
             <div class="sg">
-                <div class="sg-title">Geospatial Stack</div>
+                <div class="sg-title">EO Data Engineering</div>
                 <div class="tags">
                     <span class="tag g">xarray</span>
                     <span class="tag">rioxarray</span>
@@ -1571,7 +1589,6 @@
                     <span class="tag">Git</span>
                     <span class="tag">GitLab CI/CD</span>
                     <span class="tag">HPC (SLURM)</span>
-                    <span class="tag">LaTeX</span>
                 </div>
             </div>
         </div>
@@ -1880,6 +1897,7 @@
                 </div>
                 <div class="pub-title">High-resolution Drought Monitoring with Sentinel-1 and ASCAT: A Case-study over Mozambique</div>
                 <div class="pub-authors">Massart, S.; Vreugdenhil, M.; Borguete, R.R.; Villegas-Lituma, C.; Hahn, S.; <strong>Muguda Sanjeevamurthy, P.</strong>; Wagner, W.</div>
+                <div class="pub-links"><a class="pub-link" href="https://doi.org/10.1016/j.agwat.2025.109638" target="_blank" rel="noopener noreferrer">DOI ↗</a></div>
             </div>
         </div>
 
@@ -1894,6 +1912,10 @@
                 </div>
                 <div class="pub-title">Analyzing the Potential of ASCAT Surface Soil Moisture 6.25 km for Drought Monitoring over Mexico</div>
                 <div class="pub-authors">Vázquez Rodríguez, D.A.; <strong>Muguda Sanjeevamurthy, P.</strong>; Wagner, W.; Hahn, S.; et al.</div>
+                <div class="pub-links">
+                    <a class="pub-link" href="https://doi.org/10.5194/isprs-annals-X-3-W3-2025-101-2026" target="_blank" rel="noopener noreferrer">Article ↗</a>
+                    <a class="pub-link" href="https://isprs-annals.copernicus.org/articles/X-3-W3-2025/101/2026/isprs-annals-X-3-W3-2025-101-2026.pdf" target="_blank" rel="noopener noreferrer">PDF ↗</a>
+                </div>
             </div>
 
             <div class="pub">
@@ -1903,6 +1925,7 @@
                 </div>
                 <div class="pub-title">Observing Changes of India's Summer Monsoon</div>
                 <div class="pub-authors">Vreugdenhil, M.; Roebling, R.; <strong>Sanjeevamurthy, P.</strong>; Hahn, S.; Wagner, W.</div>
+                <div class="pub-links"><a class="pub-link" href="https://doi.org/10.5194/egusphere-egu25-20319" target="_blank" rel="noopener noreferrer">Abstract ↗</a></div>
             </div>
 
             <div class="pub">
@@ -1912,6 +1935,7 @@
                 </div>
                 <div class="pub-title">H SAF ASCAT Disaggregated Surface Soil Moisture at 0.5 km: First Validation Results with ISMN Data Over Europe</div>
                 <div class="pub-authors"><strong>Muguda Sanjeevamurthy, P.</strong>; Hahn, S.; Vreugdenhil, M.; Raml, B.; Wagner, W.</div>
+                <div class="pub-links"><a class="pub-link" href="https://lps25.esa.int/lps25-presentations/poster/H%20SAF%20ASCAT%20Disaggregated%20Surface%20Soil%20Moisture%20at%200.5%20km%20First%20Validation%20Results%20with%20ISMN%20Data%20Over%20Europe.pdf" target="_blank" rel="noopener noreferrer">Poster PDF ↗</a></div>
             </div>
 
         </div>
@@ -1929,6 +1953,7 @@
                 </div>
                 <div class="pub-title">A Case Study on Agricultural Drought Monitoring using ASCAT Surface Soil Moisture at 6.25 km over Eastern Africa</div>
                 <div class="pub-authors"><strong>Muguda Sanjeevamurthy, P.</strong>; Vreugdenhil, M.; Hahn, S.; Massart, S.; Villegas-Lituma, C.; Lindorfer, R.; Wagner, W.</div>
+                <div class="pub-links"><a class="pub-link" href="https://doi.org/10.5194/egusphere-egu24-6782" target="_blank" rel="noopener noreferrer">Abstract ↗</a></div>
             </div>
 
             <div class="pub">
@@ -1938,6 +1963,7 @@
                 </div>
                 <div class="pub-title">Drought Monitoring and Early Warning with Satellite Soil Moisture Data</div>
                 <div class="pub-authors">Vreugdenhil, M.; Massart, S.; <strong>Muguda Sanjeevamurthy, P.</strong>; Villegas-Lituma, C.; Enenkel, M.; Wagner, W.</div>
+                <div class="pub-links"><a class="pub-link" href="https://doi.org/10.5194/egusphere-egu24-19536" target="_blank" rel="noopener noreferrer">Abstract ↗</a></div>
             </div>
 
             <div class="pub">
@@ -1947,6 +1973,7 @@
                 </div>
                 <div class="pub-title">Sensitivity of Sentinel-1 Backscatter Signal to Vegetation Dynamics over Mozambique: A Comparison with MODIS Data</div>
                 <div class="pub-authors">Villegas-Lituma, C.; Vreugdenhil, M.; Massart, S.; <strong>Muguda Sanjeevamurthy, P.</strong>; Raml, B.; Wagner, W.</div>
+                <div class="pub-links"><a class="pub-link" href="https://doi.org/10.5194/egusphere-egu24-11025" target="_blank" rel="noopener noreferrer">Abstract ↗</a></div>
             </div>
 
             <div class="pub">
@@ -1956,6 +1983,7 @@
                 </div>
                 <div class="pub-title">High-resolution Drought Monitoring with Sentinel-1: A Case-study over Mozambique</div>
                 <div class="pub-authors">Massart, S.; Vreugdenhil, M.; Hahn, S.; <strong>Muguda Sanjeevamurthy, P.</strong>; Villegas-Lituma, C.; Wagner, W.</div>
+                <div class="pub-links"><a class="pub-link" href="https://doi.org/10.5194/egusphere-egu24-5291" target="_blank" rel="noopener noreferrer">Abstract ↗</a></div>
             </div>
 
             <div class="pub">
@@ -1965,6 +1993,7 @@
                 </div>
                 <div class="pub-title">Self-Supervised Learning for InSAR Phase and Coherence Estimation</div>
                 <div class="pub-authors">Sica, F.; <strong>Muguda Sanjeevamurthy, P.</strong>; Schmitt, M.</div>
+                <div class="pub-links"><a class="pub-link" href="https://doi.org/10.1109/IGARSS52108.2023.10281641" target="_blank" rel="noopener noreferrer">IEEE ↗</a></div>
             </div>
 
             <div class="pub">
@@ -1974,6 +2003,7 @@
                 </div>
                 <div class="pub-title">Improving 1 km Sentinel-1 Soil Moisture Retrievals by Optimizing Backscatter Preprocessing Workflows</div>
                 <div class="pub-authors">Wagner, W.; Massart, S.; Raml, B.; Quast, R.; <strong>Muguda Sanjeevamurthy, P.</strong>; Navacchi, C.; Reuß, F.; Bauer-Marschallinger, B.; Vreugdenhil, M.</div>
+                <div class="pub-links"><a class="pub-link" href="https://doi.org/10.5194/egusphere-egu23-7441" target="_blank" rel="noopener noreferrer">Abstract ↗</a></div>
             </div>
 
             <div class="pub">
@@ -1983,6 +2013,7 @@
                 </div>
                 <div class="pub-title">MetOp ASCAT Soil Moisture Trends: Mitigating the Effects of Long-term Land Cover Changes</div>
                 <div class="pub-authors">Hahn, S.; Wagner, W.; Alves, O.; <strong>Muguda Sanjeevamurthy, P.</strong>; Vreugdenhil, M.; Melzer, T.</div>
+                <div class="pub-links"><a class="pub-link" href="https://doi.org/10.5194/egusphere-egu23-16205" target="_blank" rel="noopener noreferrer">Abstract ↗</a></div>
             </div>
 
         </div>
