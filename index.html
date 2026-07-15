@@ -1501,7 +1501,7 @@
         </p>
         <div class="hero-cta">
             <a href="#projects" class="btn-primary">Explore selected work</a>
-            <a href="resume.pdf" target="_blank" class="btn-outline">View curriculum vitae</a>
+            <a href="#" class="btn-outline email-link" data-e="cGF2YW4uc2FuamVldm11cnRoeUBzcGFjZTQyLmFp" data-subject="CV request — via pmuguda.com" title="Request my CV">Request CV</a>
         </div>
     </div>
     <div id="spotlight-aoi">
@@ -2936,10 +2936,11 @@
 (function(){
   function hydrate(a){
     if(!a.dataset.e) return a.getAttribute("href");
-    var e=atob(a.dataset.e);
-    a.setAttribute("href","mailto:"+e);
+    var href="mailto:"+atob(a.dataset.e);
+    if(a.dataset.subject){ href+="?subject="+encodeURIComponent(a.dataset.subject); a.removeAttribute("data-subject"); }
+    a.setAttribute("href",href);
     a.removeAttribute("data-e");
-    return "mailto:"+e;
+    return href;
   }
   var links=document.querySelectorAll("a.email-link");
   links.forEach(function(a){
