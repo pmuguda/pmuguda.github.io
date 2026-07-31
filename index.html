@@ -74,23 +74,6 @@
             line-height: 1.7;
             overflow-x: hidden;
         }
-        :root {
-            --bg:  #050505;
-            --bg2: #0f0f0f;
-            --bg3: #191919;
-            --cyan: #ffffff;
-            --green: #00bc70;
-            --amber: #d0973d;
-            --text: #e0e0e3;
-            --text2: #a0a0a3;
-            --text3: #8a8a8e;
-            --border: rgba(255,255,255,0.10);
-            --border-h: rgba(255,255,255,0.30);
-            --glow: 0 0 20px rgba(255,255,255,0.2);
-            --glow2: 0 0 35px rgba(255,255,255,0.35);
-            --r: 2px;
-            --t: 0.3s ease;
-        }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: rgba(208,151,61,0.55); border-radius: 0; }
@@ -141,7 +124,8 @@
         .nav-links a:hover, .nav-links a.active { color: var(--amber); }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
         .nav-toggle {
-            display: none; flex-direction: column; gap: 5px;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            gap: 5px; min-width: 44px; min-height: 44px; margin-right: -6px;
             background: none; border: none; cursor: pointer; padding: 4px;
         }
         .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); transition: var(--t); }
@@ -652,15 +636,14 @@
         .pub-list { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 3rem; }
         .pub {
             background: var(--bg3); border: 1px solid var(--border);
-            border-left: 3px solid var(--cyan);
-            border-radius: 0 var(--r) var(--r) 0;
+            border-radius: var(--r);
             padding: 1.4rem; transition: var(--t);
         }
         .pub.journal {
-            border-left-color: var(--amber);
+            border-color: rgba(208,151,61,0.32);
             background: rgba(208,151,61,0.04);
         }
-        .pub:hover { border-color: var(--border-h); border-left-color: inherit; box-shadow: var(--glow); }
+        .pub:hover { border-color: var(--border-h); box-shadow: var(--glow); }
         .pub-meta { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
         .pub-yr {
             padding: 0.18rem 0.55rem; background: rgba(255,255,255,0.08);
@@ -681,7 +664,7 @@
 
         /* ── UNDER REVIEW ───────────────────── */
         .pub.under-review {
-            border-left-color: var(--amber);
+            border-color: rgba(208,151,61,0.3);
             background: rgba(208,151,61,0.03);
             position: relative;
             overflow: hidden;
@@ -690,13 +673,13 @@
             content: '';
             position: absolute; inset: 0;
             border: 1px solid rgba(208,151,61,0.0);
-            border-radius: 0 var(--r) var(--r) 0;
+            border-radius: var(--r);
             animation: reviewPulse 3s ease-in-out infinite;
             pointer-events: none;
         }
         @keyframes reviewPulse {
-            0%,100% { box-shadow: 0 0 0 0 rgba(208,151,61,0); }
-            50%      { box-shadow: 0 0 18px 2px rgba(208,151,61,0.18); }
+            0%,100% { border-color: rgba(208,151,61,0.0); }
+            50%      { border-color: rgba(208,151,61,0.45); }
         }
         .pub-badge.review {
             background: rgba(208,151,61,0.12);
@@ -867,12 +850,11 @@
         /* ── HONOURS ─────────────────────────── */
         #honours { background: var(--bg2); }
         .honour-card {
-            background: var(--bg3); border: 1px solid var(--border);
-            border-left: 3px solid var(--amber);
-            border-radius: 0 var(--r) var(--r) 0;
+            background: var(--bg3); border: 1px solid rgba(208,151,61,0.28);
+            border-radius: var(--r);
             padding: 1.4rem; transition: var(--t); margin-top: 3rem;
         }
-        .honour-card:hover { border-color: var(--border-h); box-shadow: 0 0 20px rgba(208,151,61,0.15); }
+        .honour-card:hover { border-color: var(--border-h); box-shadow: var(--glow); }
         .honour-title { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
         .honour-org { font-size: 0.85rem; color: var(--cyan); margin-bottom: 0.35rem; font-size: 0.75rem; }
         .honour-desc { font-size: 0.85rem; color: var(--text3); }
@@ -1000,6 +982,15 @@
         a:focus-visible, button:focus-visible, summary:focus-visible {
             outline: 2px solid var(--green); outline-offset: 4px;
         }
+        .skip-link {
+            position: absolute; left: 1rem; top: -4rem; z-index: 300;
+            background: var(--bg3); color: var(--cyan);
+            border: 1px solid var(--border-h); border-radius: var(--r);
+            padding: 0.6rem 1rem; font-family: 'DM Mono', monospace;
+            font-size: 0.8rem; letter-spacing: 0.04em; text-decoration: none;
+            transition: top 0.2s ease;
+        }
+        .skip-link:focus { top: 1rem; }
 
         #navbar {
             height: 72px;
@@ -1180,7 +1171,7 @@
         .about-body p strong { color: #121513 !important; }
         .tw-cursor { background: #e4533b; width: 2px; }
 
-        #skills, #education, #tools, #press, #contact { background: var(--bg); }
+        #skills, #education, #tools, #recognition, #contact { background: var(--bg); }
         #experience, #projects, #publications, #honours { background: var(--bg2); }
         #skills { border-bottom: 1px solid var(--border); }
         .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--border); }
@@ -1194,6 +1185,7 @@
         .tag:not(:last-child)::after, .htl-tag:not(:last-child)::after, .ptag:not(:last-child)::after {
             content: ' /'; color: #4f5651;
         }
+        .tag.g { color: var(--text); font-weight: 600; }
         .tag:hover, .tag.g:hover { background: transparent; border: 0; color: var(--text); }
 
         .vtl {
@@ -1237,7 +1229,9 @@
         .tool-grid { grid-template-columns: repeat(2, 1fr); gap: 4rem 1px; background: transparent; }
         .tool-card { background: transparent; border: 0; border-radius: 0; }
         .tool-card:hover { box-shadow: none; }
-        .tool-preview { height: 260px; border: 1px solid var(--border); border-radius: 3px; }
+        .tool-card:hover .tool-preview { border-color: rgba(208,160,75,.45); }
+        .tool-card:hover .tool-link { color: var(--green); }
+        .tool-preview { height: 260px; border: 1px solid var(--border); border-radius: 3px; transition: border-color var(--t); }
         .tool-preview-glass { background: linear-gradient(to bottom, transparent 65%, rgba(9,11,11,.45)); }
         .tool-body { padding: 1.4rem 0 0; }
         .tool-status { padding: 0; background: transparent !important; border: 0 !important; color: var(--green) !important; }
@@ -1250,7 +1244,7 @@
             gap: 1.5rem; background: transparent; border: 0; border-top: 1px solid var(--border);
             padding: 1.6rem 0; border-radius: 0;
         }
-        .pub:hover { box-shadow: none; border-color: var(--border-h); }
+        .pub:hover { box-shadow: none; border-top-color: rgba(208,160,75,.5); }
         .pub-meta { align-content: start; margin: 0; }
         .pub-yr, .pub-yr.journal, .pub-yr.conf, .pub-badge {
             background: transparent; border: 0; padding: 0; color: var(--green);
@@ -1270,14 +1264,14 @@
         .pub-section-label { font-family: 'DM Mono', monospace; color: var(--amber); }
 
         .press-card { grid-template-columns: minmax(280px, .85fr) 1.15fr; background: transparent; border: 0; border-top: 1px solid var(--border); }
-        .press-card:hover { box-shadow: none; }
+        .press-card:hover { box-shadow: none; border-top-color: rgba(208,160,75,.5); }
         .press-img img { aspect-ratio: 16/10; }
         .press-body { padding: clamp(1.5rem, 4vw, 3.5rem); }
         .press-source { color: var(--green); }
         .press-title { font-family: 'Newsreader', serif; font-size: clamp(1.7rem, 3vw, 2.6rem); font-weight: 500; }
 
         .honour-card { background: transparent; border: 0; border-top: 1px solid var(--border); border-radius: 0; padding: 1.5rem 0; }
-        .honour-card:hover { box-shadow: none; }
+        .honour-card:hover { box-shadow: none; border-top-color: rgba(208,160,75,.5); }
         .honour-title { font-family: 'Newsreader', serif; font-size: 1.6rem; font-weight: 500; }
         .honour-org { color: var(--green); }
 
@@ -1333,6 +1327,10 @@
             .vtl-dot { left: var(--spine-x); }
             .vtl-country { display: none; }
             .press-card { grid-template-columns: 1fr; }
+            /* touch: larger tap targets for inline links + icons */
+            .pub-link, .tool-link, .press-link { padding-top: 9px; padding-bottom: 9px; }
+            .pub-links { gap: 1.5rem .9rem; flex-wrap: wrap; }
+            .soc { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
         }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
@@ -1341,6 +1339,7 @@
     </style>
 </head>
 <body>
+<a href="#about" class="skip-link">Skip to content</a>
 
 <!-- ══ NAV ══════════════════════════════════ -->
 <nav id="navbar">
@@ -2076,12 +2075,12 @@
     </div>
 </section>
 
-<!-- ══ IN THE NEWS ═══════════════════════════════ -->
-<section id="press">
+<!-- ══ RECOGNITION ══════════════════════════════ -->
+<section id="recognition">
     <div class="container">
         <div class="fade-in">
-            <div class="sec-label">Media Coverage</div>
-            <h2 class="sec-title">In the <span>News</span></h2>
+            <div class="sec-label">Recognition</div>
+            <h2 class="sec-title">Press &amp; <span>Honours</span></h2>
         </div>
         <div class="press-list fade-in delay-1">
 
@@ -2101,16 +2100,7 @@
             </div>
 
         </div>
-    </div>
-</section>
-
-<!-- ══ HONOURS ══════════════════════════════════ -->
-<section id="honours" style="padding: 3rem 0 5.5rem;">
-    <div class="container">
-        <div class="fade-in">
-            <div class="sec-label">Recognition</div>
-            <h2 class="sec-title">Honours &amp; <span>Awards</span></h2>
-        </div>
+        <div class="pub-section-label fade-in delay-1" style="margin-top:3.5rem;">Honours &amp; Awards</div>
         <div class="honour-card fade-in delay-1">
             <div class="honour-title">Deutschlandstipendium Scholarship</div>
             <div class="honour-org">Federal Government of Germany &nbsp;·&nbsp; Oct 2019 – Sep 2020</div>
@@ -2185,6 +2175,14 @@
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+    // Reveal an anchor-jumped section immediately so nav links never land on hidden content
+    function revealWithin(hash) {
+        const t = hash && hash.length > 1 && document.querySelector(hash);
+        if (t) t.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+    }
+    window.addEventListener('hashchange', () => revealWithin(location.hash));
+    if (location.hash) revealWithin(location.hash);
 
     // SAR tile grid
     const container = document.getElementById('sarTiles');
