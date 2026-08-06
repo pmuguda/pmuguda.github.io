@@ -1275,6 +1275,37 @@
         .honour-title { font-family: 'Newsreader', serif; font-size: 1.6rem; font-weight: 500; }
         .honour-org { color: var(--green); }
 
+        /* ── BLOGS ───────────────────────────── */
+        #blogs { background: var(--bg2); }
+        .blog-list { margin-top: 1rem; }
+        .blog-card {
+            display: block; text-decoration: none;
+            border-top: 1px solid var(--border); padding: 1.9rem 0;
+            transition: border-color var(--t);
+        }
+        .blog-card:hover { border-top-color: rgba(208,160,75,.5); }
+        .blog-meta {
+            font-family: 'DM Mono', monospace; font-size: .62rem;
+            letter-spacing: .12em; text-transform: uppercase;
+            color: var(--green); margin-bottom: .75rem;
+        }
+        .blog-title {
+            font-family: 'Newsreader', Georgia, serif;
+            font-size: clamp(1.45rem, 2.6vw, 1.95rem); font-weight: 500;
+            color: var(--text); line-height: 1.2; margin-bottom: .65rem;
+        }
+        .blog-desc {
+            font-family: 'Manrope', sans-serif; color: #9ea59f;
+            font-size: .92rem; line-height: 1.65; max-width: 680px; margin-bottom: 1.1rem;
+        }
+        .blog-link {
+            display: inline-block; font-family: 'DM Mono', monospace;
+            font-size: .64rem; letter-spacing: .08em; text-transform: uppercase;
+            color: var(--green); border-bottom: 1px solid rgba(208,160,75,.4);
+            padding-bottom: 3px; transition: color var(--t), border-color var(--t);
+        }
+        .blog-card:hover .blog-link { color: var(--text); border-color: var(--text); }
+
         .contact-wrap { max-width: 900px; }
         #contact .sec-title {
             margin-inline: auto;
@@ -1353,6 +1384,7 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#tools">Tools</a></li>
         <li><a href="#publications">Publications</a></li>
+        <li><a href="#blogs">Blogs</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
 </nav>
@@ -2105,6 +2137,24 @@
             <div class="honour-title">Deutschlandstipendium Scholarship</div>
             <div class="honour-org">Federal Government of Germany &nbsp;·&nbsp; Oct 2019 – Sep 2020</div>
             <div class="honour-desc">Merit-based national scholarship awarded by the Federal Government of Germany for academic excellence, supporting studies at Technical University of Munich.</div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ BLOGS ═══════════════════════════════════ -->
+<section id="blogs">
+    <div class="container">
+        <div class="fade-in">
+            <div class="sec-label">Writing</div>
+            <h2 class="sec-title">Blog &amp; <span>Articles</span></h2>
+        </div>
+        <div class="blog-list fade-in delay-1">
+            <a class="blog-card" href="https://medium.com/@pavan.sunag/open-sar-triad-a-web-tool-for-iceye-umbra-and-capellas-open-sar-data-discovery-a9438e8a5fc4" target="_blank" rel="noopener noreferrer">
+                <div class="blog-meta">Medium &nbsp;·&nbsp; August 2026</div>
+                <div class="blog-title">open-sar-triad: a web tool for ICEYE, Umbra &amp; Capella's open SAR data discovery</div>
+                <div class="blog-desc">A unified browser tool to search and access open SAR imagery across ICEYE, Umbra, and Capella at once — each operator keeps its own catalogue with its own conventions, so finding a scene across all three is the hard part.</div>
+                <span class="blog-link">Read on Medium &nbsp;→</span>
+            </a>
         </div>
     </div>
 </section>
