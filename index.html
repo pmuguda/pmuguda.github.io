@@ -18,7 +18,9 @@
     <meta property="og:title" content="Pavan Muguda Sanjeevamurthy — SAR Data Scientist & PhD Researcher">
     <meta property="og:description" content="SAR Data Scientist at Space42 · PhD researcher at TU Wien · InSAR, Sentinel-1, soil moisture, Earth Observation.">
     <meta property="og:url" content="https://www.pmuguda.com/">
-    <meta property="og:image" content="https://www.pmuguda.com/Pavan.jpg">
+    <meta property="og:image" content="https://www.pmuguda.com/og-card.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="profile:first_name" content="Pavan">
     <meta property="profile:last_name" content="Muguda Sanjeevamurthy">
 
@@ -26,7 +28,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Pavan Muguda Sanjeevamurthy — SAR Data Scientist & PhD Researcher">
     <meta name="twitter:description" content="SAR Data Scientist at Space42 · PhD researcher at TU Wien · InSAR, Sentinel-1, soil moisture, Earth Observation.">
-    <meta name="twitter:image" content="https://www.pmuguda.com/Pavan.jpg">
+    <meta name="twitter:image" content="https://www.pmuguda.com/og-card.jpg">
 
     <!-- JSON-LD structured data: Person -->
     <script type="application/ld+json">
@@ -56,7 +58,9 @@
       ],
       "knowsAbout": ["SAR", "InSAR", "Remote Sensing", "Earth Observation", "Sentinel-1", "Soil Moisture", "ASCAT", "Python", "Machine Learning"],
       "sameAs": [
-        "https://github.com/pmuguda"
+        "https://github.com/pmuguda",
+        "https://www.linkedin.com/in/pavan-muguda-sanjeevamurthy-318098114/",
+        "https://scholar.google.com/citations?hl=en&user=Mjl0znQAAAAJ"
       ]
     }
     </script>
@@ -1335,6 +1339,56 @@
             transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
         }
 
+        /* Shared rise-in keyframes (hero entrance, staggered grids, disclosure reveals) */
+        @keyframes riseIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        /* Hero entrance: one-time staggered load-in */
+        .hero-name, .hero-title, .hero-desc, .hero-cta {
+            animation: riseIn .55s cubic-bezier(.16,1,.3,1) backwards;
+        }
+        .hero-name  { animation-delay: .05s; }
+        .hero-title { animation-delay: .16s; }
+        .hero-desc  { animation-delay: .26s; }
+        .hero-cta   { animation-delay: .36s; }
+
+        /* Card grids cascade in as their section reveals (animation, not transition,
+           so card hover transitions stay instant) */
+        .stagger.visible > * { animation: riseIn .6s cubic-bezier(.16,1,.3,1) backwards; }
+        .stagger.visible > :nth-child(2) { animation-delay: .05s; }
+        .stagger.visible > :nth-child(3) { animation-delay: .1s; }
+        .stagger.visible > :nth-child(4) { animation-delay: .15s; }
+        .stagger.visible > :nth-child(5) { animation-delay: .2s; }
+        .stagger.visible > :nth-child(6) { animation-delay: .25s; }
+        .stagger.visible > :nth-child(7) { animation-delay: .3s; }
+        .stagger.visible > :nth-child(8) { animation-delay: .35s; }
+
+        /* Tool previews: static screenshots, whole card is a link */
+        a.tool-card { text-decoration: none; }
+        .tool-preview img {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: top left;
+            transition: transform .6s cubic-bezier(.16,1,.3,1);
+        }
+        .tool-card:hover .tool-preview img { transform: scale(1.03); }
+
+        /* Hamburger morphs to a cross while the menu drops in */
+        @keyframes navIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to   { opacity: 1; transform: none; }
+        }
+        #navbar.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #navbar.open .nav-toggle span:nth-child(2) { opacity: 0; }
+        #navbar.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        @media (max-width: 768px) {
+            #navbar.open .nav-links { animation: navIn .22s cubic-bezier(.16,1,.3,1); }
+        }
+
+        /* "Show more" publications ease in instead of teleporting */
+        details.pub-collapse[open] > .pub-list { animation: riseIn .25s cubic-bezier(.16,1,.3,1); }
+
         @media (max-width: 900px) {
             .skills-grid, .edu-grid { grid-template-columns: 1fr 1fr; }
             .pub, .pub.journal, .pub.under-review { grid-template-columns: 1fr; gap: .7rem; }
@@ -1372,7 +1426,7 @@
             .soc { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
         }
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+            *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
             .fade-in { opacity: 1; transform: none; }
         }
     </style>
@@ -1606,7 +1660,7 @@
             <div class="sec-label">Expertise</div>
             <h2 class="sec-title">Skills &amp; <span>Tools</span></h2>
         </div>
-        <div class="skills-grid fade-in delay-1">
+        <div class="skills-grid fade-in delay-1 stagger">
             <div class="sg">
                 <div class="sg-title">Programming</div>
                 <div class="tags">
@@ -1708,6 +1762,9 @@
                                 <div class="htl-role">Data Scientist - Remote Sensing</div>
                                 <div class="htl-org">Space42</div>
                                 <div class="htl-loc">Abu Dhabi, UAE</div>
+                                <ul class="htl-pts">
+                                    <li>SAR and InSAR analytics for operational Earth observation and geospatial intelligence products.</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -1723,6 +1780,10 @@
                                 <div class="htl-role">Project Assistant</div>
                                 <div class="htl-org">Technische Universit&#228;t Wien (TUW) &#183; Geodesy &amp; Geoinformation</div>
                                 <div class="htl-loc">Vienna, Austria</div>
+                                <ul class="htl-pts">
+                                    <li>Built and operated the Copernicus Global Land SCATSAR Soil Water Index pipeline, fusing Sentinel-1 and ASCAT at 0.5 km over Europe.</li>
+                                    <li>Developed ASCAT 6.25 km soil moisture drought indicators for humanitarian early warning over Eastern Africa; first-author journal paper under review.</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -1813,7 +1874,7 @@
             <div class="sec-label">Academic Background</div>
             <h2 class="sec-title">Education</h2>
         </div>
-        <div class="edu-grid fade-in delay-1">
+        <div class="edu-grid fade-in delay-1 stagger">
 
             <div class="edu-card phd">
                 <div class="edu-degree-tag">PhD</div>
@@ -1852,7 +1913,7 @@
             <div class="sec-label">Work</div>
             <h2 class="sec-title">Featured <span>Projects</span></h2>
         </div>
-        <div class="proj-grid fade-in delay-1">
+        <div class="proj-grid fade-in delay-1 stagger">
             <div class="proj-card">
                 <div class="proj-title">SCATSAR Soil Water Index Pipeline (Copernicus)</div>
                 <div class="proj-desc">Near-real-time fusion of Sentinel-1 SAR and ASCAT surface soil moisture for Copernicus CGLOPS. Produces Soil Water Index at 0.5 km resolution across Europe using recursive exponential filter formulations.</div>
@@ -1888,71 +1949,63 @@
             <div class="sec-label">Open Source</div>
             <h2 class="sec-title">Open-source <span>Tools</span></h2>
         </div>
-        <div class="tool-grid fade-in delay-1">
+        <div class="tool-grid fade-in delay-1 stagger">
 
             <!-- Equi7Grid Explorer -->
-            <div class="tool-card">
+            <a class="tool-card" href="https://www.pmuguda.com/equi7grid-explorer/" target="_blank" rel="noopener noreferrer">
                 <div class="tool-preview">
-                    <iframe src="https://www.pmuguda.com/equi7grid-explorer/"
-                            loading="lazy" scrolling="no"
-                            title="Equi7Grid Explorer preview" tabindex="-1"></iframe>
+                    <img src="tool-equi7.webp" width="1200" height="833" loading="lazy" decoding="async" alt="Equi7Grid Explorer console showing colored continental zones on a world map">
                     <div class="tool-preview-glass"></div>
                 </div>
                 <div class="tool-body">
                     <div class="tool-status live">LIVE</div>
                     <div class="tool-title">Equi7Grid Explorer</div>
                     <div class="tool-desc">Interactive explorer for the discrete global grid system developed at TU Wien. Visualise continental regions and intersect tiles at 600 / 300 / 100 km resolutions with any custom area of interest.</div>
-                    <a href="https://www.pmuguda.com/equi7grid-explorer/" target="_blank" class="tool-link">Launch tool &nbsp;→</a>
+                    <span class="tool-link">Launch tool &nbsp;→</span>
                 </div>
-            </div>
+            </a>
 
             <!-- BBoxer -->
-            <div class="tool-card">
+            <a class="tool-card" href="https://www.pmuguda.com/bboxer/" target="_blank" rel="noopener noreferrer">
                 <div class="tool-preview">
-                    <iframe src="https://www.pmuguda.com/bboxer/"
-                            loading="lazy" scrolling="no"
-                            title="BBoxer preview" tabindex="-1"></iframe>
+                    <img src="tool-bboxer.webp" width="1200" height="833" loading="lazy" decoding="async" alt="BBoxer console with a drawn bounding box and exported coordinates">
                     <div class="tool-preview-glass"></div>
                 </div>
                 <div class="tool-body">
                     <div class="tool-status live">LIVE</div>
                     <div class="tool-title">BBoxer</div>
                     <div class="tool-desc">Draw a bounding box on an interactive map and instantly export the coordinates in multiple formats, ready to drop into your geospatial workflows and area-of-interest queries.</div>
-                    <a href="https://www.pmuguda.com/bboxer/" target="_blank" rel="noopener noreferrer" class="tool-link">Launch tool &nbsp;→</a>
+                    <span class="tool-link">Launch tool &nbsp;→</span>
                 </div>
-            </div>
+            </a>
 
             <!-- Open SAR Triad -->
-            <div class="tool-card">
+            <a class="tool-card" href="https://www.pmuguda.com/open-sar-triad/" target="_blank" rel="noopener noreferrer">
                 <div class="tool-preview">
-                    <iframe src="https://www.pmuguda.com/open-sar-triad/"
-                            loading="lazy" scrolling="no"
-                            title="Open SAR Triad preview" tabindex="-1"></iframe>
+                    <img src="tool-triad.webp" width="1200" height="833" loading="lazy" decoding="async" alt="Open SAR Triad map with ICEYE, Umbra and Capella scene footprints">
                     <div class="tool-preview-glass"></div>
                 </div>
                 <div class="tool-body">
                     <div class="tool-status live">LIVE</div>
                     <div class="tool-title">Open SAR Triad</div>
                     <div class="tool-desc">Explore publicly available SAR scenes from ICEYE, Umbra, and Capella on an interactive map. Filter by provider, date range, sensor mode, and area of interest with scene thumbnails, metadata, download links, and STAC export. Data refreshed weekly via GitHub Actions.</div>
-                    <a href="https://www.pmuguda.com/open-sar-triad/" target="_blank" rel="noopener noreferrer" class="tool-link">Launch tool &nbsp;→</a>
+                    <span class="tool-link">Launch tool &nbsp;→</span>
                 </div>
-            </div>
+            </a>
 
             <!-- SNAP GPT for Conda -->
-            <div class="tool-card">
+            <a class="tool-card" href="https://www.pmuguda.com/snap-gpt-conda/" target="_blank" rel="noopener noreferrer">
                 <div class="tool-preview">
-                    <iframe src="https://www.pmuguda.com/snap-gpt-conda/"
-                            loading="lazy" scrolling="no"
-                            title="ESA SNAP GPT for Conda preview" tabindex="-1"></iframe>
+                    <img src="tool-snap.webp" width="1200" height="833" loading="lazy" decoding="async" alt="ESA SNAP GPT for Conda documentation page">
                     <div class="tool-preview-glass"></div>
                 </div>
                 <div class="tool-body">
                     <div class="tool-status live">LIVE</div>
                     <div class="tool-title">ESA SNAP GPT for Conda</div>
                     <div class="tool-desc">Headless ESA SNAP Graph Processing Tool with the Sentinel-1 and SAR stack, packaged for reproducible conda environments. Built for command-line, server, CI, notebook, and pyroSAR workflows without a GUI installer or Docker.</div>
-                    <a href="https://www.pmuguda.com/snap-gpt-conda/" target="_blank" rel="noopener noreferrer" class="tool-link">View package &nbsp;→</a>
+                    <span class="tool-link">View package &nbsp;→</span>
                 </div>
-            </div>
+            </a>
 
         </div>
     </div>
