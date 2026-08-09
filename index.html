@@ -1327,6 +1327,14 @@
         .clink:hover { box-shadow: none; transform: none; border-color: var(--green); color: var(--green); }
         #site-footer { font-family: 'DM Mono', monospace; background: var(--bg); }
 
+        /* Tactile press feedback on interactive elements */
+        .btn-primary:active, .btn-outline:active { transform: scale(0.97); }
+        .soc:active, .clink:active { transform: scale(0.94); }
+        .tool-link:active, .pub-link:active, .press-link:active, .blog-link:active { opacity: .7; }
+        .fade-in {
+            transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+        }
+
         @media (max-width: 900px) {
             .skills-grid, .edu-grid { grid-template-columns: 1fr 1fr; }
             .pub, .pub.journal, .pub.under-review { grid-template-columns: 1fr; gap: .7rem; }
@@ -1543,7 +1551,6 @@
         <span class="aoi-tag" id="aoi-tag">◎ AOI</span>
     </div>
     <div id="spotlight-glow"></div>
-    <div class="scroll-hint">SCROLL</div>
 </section>
 
 <!-- ══ ABOUT ══════════════════════════════════ -->
@@ -1552,7 +1559,7 @@
         <div class="about-grid fade-in">
             <div class="profile-col">
                 <div class="avatar-wrap">
-                    <img class="avatar-img" src="Pavan-bw.png" alt="Pavan Muguda Sanjeevamurthy">
+                    <img class="avatar-img" src="Pavan-bw.webp" width="1022" height="1538" loading="lazy" decoding="async" alt="Pavan Muguda Sanjeevamurthy">
                     <div class="avatar-ring"></div>
                     <div class="avatar-ring"></div>
                     <div class="avatar-ring"></div>
@@ -1585,7 +1592,7 @@
                 <div class="sec-label">About Me</div>
                 <h2 class="sec-title"><span id="typewriter"></span><span class="tw-cursor"></span></h2>
                 <p>I'm a Remote Sensing Data Scientist at <strong style="color:var(--text)">Space42</strong> in Abu Dhabi and a PhD researcher at TU Wien, Department of Geodesy and Geoinformation. I hold a Master's in Earth Oriented Space Science &amp; Technology (ESPACE) from TU Munich with specialisation in Remote Sensing.</p>
-                <p>My work spans the full SAR processing chain — from raw SLC co-registration and InSAR deformation monitoring to operational Copernicus soil moisture products fusing Sentinel-1 and ASCAT at sub-kilometre resolution.</p>
+                <p>My work spans the full SAR processing chain: from raw SLC co-registration and InSAR deformation monitoring to operational Copernicus soil moisture products fusing Sentinel-1 and ASCAT at sub-kilometre resolution.</p>
                 <p>Previously at DLR (German Aerospace Center), TU Munich, and Universität der Bundeswehr München, always at the intersection of radar signal processing, deep learning, and geospatial intelligence.</p>
             </div>
         </div>
@@ -1697,8 +1704,8 @@
                         <div class="vtl-card current">
                             <div class="vtl-text">
                                 <span class="org-badge">S42</span>
-                                <div class="htl-period">Oct 2025 &#8212; Present</div>
-                                <div class="htl-role">Data Scientist &#8211; Remote Sensing</div>
+                                <div class="htl-period">Oct 2025 - Present</div>
+                                <div class="htl-role">Data Scientist - Remote Sensing</div>
                                 <div class="htl-org">Space42</div>
                                 <div class="htl-loc">Abu Dhabi, UAE</div>
                             </div>
@@ -1712,7 +1719,7 @@
                         <div class="vtl-card">
                             <div class="vtl-text">
                                 <span class="org-badge">TUW</span>
-                                <div class="htl-period">Oct 2022 &#8212; Sep 2025</div>
+                                <div class="htl-period">Oct 2022 - Sep 2025</div>
                                 <div class="htl-role">Project Assistant</div>
                                 <div class="htl-org">Technische Universit&#228;t Wien (TUW) &#183; Geodesy &amp; Geoinformation</div>
                                 <div class="htl-loc">Vienna, Austria</div>
@@ -1727,7 +1734,7 @@
                         <div class="vtl-card">
                             <div class="vtl-text">
                                 <span class="org-badge">UBW</span>
-                                <div class="htl-period">Aug 2022 &#8212; Nov 2022</div>
+                                <div class="htl-period">Aug 2022 - Nov 2022</div>
                                 <div class="htl-role">Research Assistant</div>
                                 <div class="htl-org">Universit&#228;t der Bundeswehr M&#252;nchen</div>
                                 <div class="htl-loc">Munich, Germany</div>
@@ -1742,7 +1749,7 @@
                         <div class="vtl-card">
                             <div class="vtl-text">
                                 <span class="org-badge">TUM</span>
-                                <div class="htl-period">Nov 2021 &#8212; Jun 2022</div>
+                                <div class="htl-period">Nov 2021 - Jun 2022</div>
                                 <div class="htl-role">Master Thesis + Student Research Asst.</div>
                                 <div class="htl-org">Technische Universit&#228;t M&#252;nchen (TUM)</div>
                                 <div class="htl-loc">Munich, Germany</div>
@@ -1757,8 +1764,8 @@
                         <div class="vtl-card">
                             <div class="vtl-text">
                                 <span class="org-badge">DLR</span>
-                                <div class="htl-period">Apr 2020 &#8212; Sep 2021</div>
-                                <div class="htl-role">Student Asst. &#8211; SAR Signal Processing</div>
+                                <div class="htl-period">Apr 2020 - Sep 2021</div>
+                                <div class="htl-role">Student Asst. - SAR Signal Processing</div>
                                 <div class="htl-org">German Aerospace Center (DLR)</div>
                                 <div class="htl-loc">Oberpfaffenhofen, Germany</div>
                             </div>
@@ -1772,7 +1779,7 @@
                         <div class="vtl-card">
                             <div class="vtl-text">
                                 <span class="org-badge">CAE</span>
-                                <div class="htl-period">Sep 2018 &#8212; Aug 2019</div>
+                                <div class="htl-period">Sep 2018 - Aug 2019</div>
                                 <div class="htl-role">CAE Automation Engineer</div>
                                 <div class="htl-org">BETA CAE Systems</div>
                                 <div class="htl-loc">Bangalore, India</div>
@@ -1787,7 +1794,7 @@
                         <div class="vtl-card">
                             <div class="vtl-text">
                                 <span class="org-badge">RRI</span>
-                                <div class="htl-period">Jun 2017 &#8212; Mar 2018</div>
+                                <div class="htl-period">Jun 2017 - Mar 2018</div>
                                 <div class="htl-role">Visiting Student Researcher</div>
                                 <div class="htl-org">Raman Research Institute</div>
                                 <div class="htl-loc">Bangalore, India</div>
@@ -1813,7 +1820,7 @@
                 <div class="edu-degree">PhD in Remote Sensing</div>
                 <div class="edu-field">Dept. of Geodesy and Geoinformation</div>
                 <div class="edu-inst">Technische Universität Wien</div>
-                <div class="edu-meta">Vienna, Austria &nbsp;·&nbsp; Oct 2022 – Present</div>
+                <div class="edu-meta">Vienna, Austria &nbsp;·&nbsp; Oct 2022 - Present</div>
                 <span class="edu-badge ongoing">Ongoing</span>
             </div>
 
@@ -1822,7 +1829,7 @@
                 <div class="edu-degree">M.Sc. Earth Oriented Space Science &amp; Technology</div>
                 <div class="edu-field">ESPACE · Specialisation: Remote Sensing</div>
                 <div class="edu-inst">Technische Universität München</div>
-                <div class="edu-meta">Munich, Germany &nbsp;·&nbsp; Oct 2019 – May 2022</div>
+                <div class="edu-meta">Munich, Germany &nbsp;·&nbsp; Oct 2019 - May 2022</div>
                 <span class="edu-badge">Aerospace Geodesy</span>
             </div>
 
@@ -1831,7 +1838,7 @@
                 <div class="edu-degree">B.E. in Mechanical Engineering</div>
                 <div class="edu-field">Engineering Sciences</div>
                 <div class="edu-inst">Nitte Meenakshi Institute of Technology</div>
-                <div class="edu-meta">Bengaluru, India &nbsp;·&nbsp; Jun 2013 – Apr 2017</div>
+                <div class="edu-meta">Bengaluru, India &nbsp;·&nbsp; Jun 2013 - Apr 2017</div>
             </div>
 
         </div>
@@ -1863,7 +1870,7 @@
                 </div>
             </div>
             <div class="proj-card">
-                <div class="proj-title">Drought Monitoring – ASCAT over East Africa</div>
+                <div class="proj-title">Drought Monitoring: ASCAT over East Africa</div>
                 <div class="proj-desc">Operational drought indicator workflow for MetOp ASCAT SSM at 6.25 km, covering both climate data records and near-real-time applications for humanitarian early warning over East Africa (ROSSIHNI project).</div>
                 <div class="proj-tags">
                     <span class="ptag">ASCAT</span><span class="ptag">Python</span>
@@ -2007,7 +2014,7 @@
             <div class="pub">
                 <div class="pub-meta">
                     <span class="pub-yr conf">2025</span>
-                    <span class="pub-venue">EGU General Assembly — EGU25-20319</span>
+                    <span class="pub-venue">EGU General Assembly · EGU25-20319</span>
                 </div>
                 <div class="pub-title">Observing Changes of India's Summer Monsoon</div>
                 <div class="pub-authors">Vreugdenhil, M.; Roebling, R.; <strong>Sanjeevamurthy, P.</strong>; Hahn, S.; Wagner, W.</div>
@@ -2017,7 +2024,7 @@
             <div class="pub">
                 <div class="pub-meta">
                     <span class="pub-yr conf">2025</span>
-                    <span class="pub-venue">Living Planet Symposium — ESA</span>
+                    <span class="pub-venue">Living Planet Symposium · ESA</span>
                 </div>
                 <div class="pub-title">H SAF ASCAT Disaggregated Surface Soil Moisture at 0.5 km: First Validation Results with ISMN Data Over Europe</div>
                 <div class="pub-authors"><strong>Muguda Sanjeevamurthy, P.</strong>; Hahn, S.; Vreugdenhil, M.; Raml, B.; Wagner, W.</div>
@@ -2035,7 +2042,7 @@
             <div class="pub">
                 <div class="pub-meta">
                     <span class="pub-yr conf">2024</span>
-                    <span class="pub-venue">EGU General Assembly — EGU24-6782</span>
+                    <span class="pub-venue">EGU General Assembly · EGU24-6782</span>
                 </div>
                 <div class="pub-title">A Case Study on Agricultural Drought Monitoring using ASCAT Surface Soil Moisture at 6.25 km over Eastern Africa</div>
                 <div class="pub-authors"><strong>Muguda Sanjeevamurthy, P.</strong>; Vreugdenhil, M.; Hahn, S.; Massart, S.; Villegas-Lituma, C.; Lindorfer, R.; Wagner, W.</div>
@@ -2075,7 +2082,7 @@
             <div class="pub">
                 <div class="pub-meta">
                     <span class="pub-yr conf">2023</span>
-                    <span class="pub-venue">IGARSS 2023 — IEEE GRSS</span>
+                    <span class="pub-venue">IGARSS 2023 · IEEE GRSS</span>
                 </div>
                 <div class="pub-title">Self-Supervised Learning for InSAR Phase and Coherence Estimation</div>
                 <div class="pub-authors">Sica, F.; <strong>Muguda Sanjeevamurthy, P.</strong>; Schmitt, M.</div>
@@ -2085,7 +2092,7 @@
             <div class="pub">
                 <div class="pub-meta">
                     <span class="pub-yr conf">2023</span>
-                    <span class="pub-venue">EGU General Assembly — EGU23-7441</span>
+                    <span class="pub-venue">EGU General Assembly · EGU23-7441</span>
                 </div>
                 <div class="pub-title">Improving 1 km Sentinel-1 Soil Moisture Retrievals by Optimizing Backscatter Preprocessing Workflows</div>
                 <div class="pub-authors">Wagner, W.; Massart, S.; Raml, B.; Quast, R.; <strong>Muguda Sanjeevamurthy, P.</strong>; Navacchi, C.; Reuß, F.; Bauer-Marschallinger, B.; Vreugdenhil, M.</div>
@@ -2095,7 +2102,7 @@
             <div class="pub">
                 <div class="pub-meta">
                     <span class="pub-yr conf">2023</span>
-                    <span class="pub-venue">EGU General Assembly — EGU23-16205</span>
+                    <span class="pub-venue">EGU General Assembly · EGU23-16205</span>
                 </div>
                 <div class="pub-title">MetOp ASCAT Soil Moisture Trends: Mitigating the Effects of Long-term Land Cover Changes</div>
                 <div class="pub-authors">Hahn, S.; Wagner, W.; Alves, O.; <strong>Muguda Sanjeevamurthy, P.</strong>; Vreugdenhil, M.; Melzer, T.</div>
@@ -2135,7 +2142,7 @@
         <div class="pub-section-label fade-in delay-1" style="margin-top:3.5rem;">Honours &amp; Awards</div>
         <div class="honour-card fade-in delay-1">
             <div class="honour-title">Deutschlandstipendium Scholarship</div>
-            <div class="honour-org">Federal Government of Germany &nbsp;·&nbsp; Oct 2019 – Sep 2020</div>
+            <div class="honour-org">Federal Government of Germany &nbsp;·&nbsp; Oct 2019 - Sep 2020</div>
             <div class="honour-desc">Merit-based national scholarship awarded by the Federal Government of Germany for academic excellence, supporting studies at Technical University of Munich.</div>
         </div>
     </div>
@@ -2152,7 +2159,7 @@
             <a class="blog-card" href="https://medium.com/@pavan.sunag/open-sar-triad-a-web-tool-for-iceye-umbra-and-capellas-open-sar-data-discovery-a9438e8a5fc4" target="_blank" rel="noopener noreferrer">
                 <div class="blog-meta">Medium &nbsp;·&nbsp; August 2026</div>
                 <div class="blog-title">open-sar-triad: a web tool for ICEYE, Umbra &amp; Capella's open SAR data discovery</div>
-                <div class="blog-desc">A unified browser tool to search and access open SAR imagery across ICEYE, Umbra, and Capella at once — each operator keeps its own catalogue with its own conventions, so finding a scene across all three is the hard part.</div>
+                <div class="blog-desc">A unified browser tool to search and access open SAR imagery across ICEYE, Umbra, and Capella at once. Each operator keeps its own catalogue with its own conventions, so finding a scene across all three is the hard part.</div>
                 <span class="blog-link">Read on Medium &nbsp;→</span>
             </a>
         </div>
@@ -2205,20 +2212,34 @@
     document.querySelectorAll('.nav-links a').forEach(a => {
         a.addEventListener('click', () => navbar.classList.remove('open'));
     });
-    window.addEventListener('scroll', () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // Active nav link
+    // Navbar state + active nav link — single rAF-throttled scroll handler
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll', () => {
+    function onScroll() {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
         let cur = '';
         sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
         navLinks.forEach(a => {
             a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
         });
-    });
+    }
+    let scrollTick = false;
+    window.addEventListener('scroll', () => {
+        if (scrollTick) return;
+        scrollTick = true;
+        requestAnimationFrame(() => { scrollTick = false; onScroll(); });
+    }, { passive: true });
+    onScroll();
+
+    // Shared: hero visibility + motion preference (gates decorative animation work)
+    const heroSection = document.getElementById('hero');
+    const reduceMotionMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let heroVisible = true;
+    if (heroSection) {
+        new IntersectionObserver(es => {
+            heroVisible = es.some(e => e.isIntersecting);
+        }, { threshold: 0.02 }).observe(heroSection);
+    }
 
     // Fade-in on scroll
     const io = new IntersectionObserver(entries => {
@@ -2245,6 +2266,7 @@
     });
 
     function flashTile() {
+        if (!heroVisible || reduceMotionMq.matches) return;
         const n = Math.floor(Math.random() * 2) + 1;
         for (let i = 0; i < n; i++) {
             const t = tiles[Math.floor(Math.random() * tiles.length)];
@@ -2290,6 +2312,7 @@
         }
         // Clear glow residue periodically
         setInterval(() => {
+            if (!heroVisible) return;
             tiles.forEach(t => { t.style.background = ''; t.style.borderColor = ''; });
         }, 120);
         requestAnimationFrame(glow);
@@ -2323,6 +2346,10 @@
         const el = document.getElementById('typewriter');
         if (!el) return;
         const phrases = ['SAR Data Scientist.', 'PhD Researcher.', 'EO Data & Algorithms Enthusiast.'];
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            el.textContent = phrases[0];
+            return;
+        }
         let pi = 0, ci = 0, deleting = false;
         function tick() {
             const word = phrases[pi];
@@ -2363,6 +2390,14 @@
         const heroEl    = document.getElementById('hero');
         const nameEl    = document.querySelector('.hero-name');
         if (!svg || !satG || !nameEl) return;
+
+        // Reduced motion: no orbital pass — hide the moving layers and stop here.
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            if (aoiDiv) aoiDiv.style.display = 'none';
+            [beamFill, beamL, beamR, beamBL, beamBR].forEach(el => { if (el) el.style.display = 'none'; });
+            satG.setAttribute('display', 'none');
+            return;
+        }
 
         let SAT_Y    = 85;    // orbit track y in SVG viewBox coords (updated dynamically)
         const ANT_DY = 13;    // antenna bottom offset from SAT_Y
@@ -2693,7 +2728,7 @@
                 }
             }
 
-            requestAnimationFrame(frame);
+            rafId = requestAnimationFrame(frame);
         }
 
         // ── Reposition telemetry into visible SVG area (all viewports) ─────
@@ -2718,7 +2753,13 @@
             window.addEventListener('resize', posTelemetry);
         })();
 
-        requestAnimationFrame(frame);
+        // Run the orbital pass only while the hero is on screen
+        let rafId = 0;
+        new IntersectionObserver(es => {
+            const on = es.some(e => e.isIntersecting);
+            if (on && !rafId) { passStart = null; rafId = requestAnimationFrame(frame); }
+            else if (!on && rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+        }, { threshold: 0.02 }).observe(heroEl);
     }());
 
 </script>
