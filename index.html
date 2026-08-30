@@ -60,7 +60,8 @@
       "sameAs": [
         "https://github.com/pmuguda",
         "https://www.linkedin.com/in/pavan-muguda-sanjeevamurthy-318098114/",
-        "https://scholar.google.com/citations?hl=en&user=Mjl0znQAAAAJ"
+        "https://scholar.google.com/citations?hl=en&user=Mjl0znQAAAAJ",
+        "https://www.youtube.com/@range.azimuth"
       ]
     }
     </script>
@@ -1332,6 +1333,81 @@
         }
         .blog-card:hover .blog-link { color: var(--text); border-color: var(--text); }
 
+        /* ── YouTube: Range & Azimuth strip ── */
+        .yt-strip { margin-top: 3.2rem; }
+        .yt-strip-head {
+            display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+            border-top: 1px solid var(--border); padding-top: 1.9rem;
+        }
+        .yt-strip-label {
+            font-family: 'DM Mono', monospace; font-size: .62rem;
+            letter-spacing: .12em; text-transform: uppercase; color: var(--green);
+        }
+        .yt-strip-title {
+            font-family: 'Newsreader', Georgia, serif;
+            font-size: clamp(1.45rem, 2.6vw, 1.95rem); font-weight: 500;
+            color: var(--text); line-height: 1.2; width: 100%;
+        }
+        .yt-strip-sub {
+            font-family: 'Manrope', sans-serif; color: #9ea59f;
+            font-size: .92rem; line-height: 1.65; max-width: 680px;
+        }
+        .yt-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.4rem; margin-top: 1.6rem;
+        }
+        .yt-card {
+            display: block; text-decoration: none;
+            border: 1px solid var(--border); border-radius: var(--r);
+            overflow: hidden; background: var(--bg2);
+            transition: border-color var(--t), transform var(--t);
+        }
+        .yt-card:hover { border-color: rgba(208,160,75,.5); transform: translateY(-3px); }
+        .yt-thumb { position: relative; aspect-ratio: 16 / 9; overflow: hidden; }
+        .yt-thumb img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            transition: transform 380ms cubic-bezier(.2,.75,.25,1);
+        }
+        .yt-card:hover .yt-thumb img { transform: scale(1.035); }
+        .yt-play {
+            position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+            width: 52px; height: 36px; border-radius: 6px;
+            background: rgba(9,11,11,.72); border: 1px solid rgba(241,243,237,.45);
+            display: flex; align-items: center; justify-content: center;
+            transition: background var(--t), border-color var(--t);
+        }
+        .yt-play::after {
+            content: ''; margin-left: 2px;
+            border-left: 11px solid var(--text);
+            border-top: 7px solid transparent; border-bottom: 7px solid transparent;
+        }
+        .yt-card:hover .yt-play { background: rgba(9,11,11,.9); border-color: var(--green); }
+        .yt-body { padding: 1rem 1.1rem 1.15rem; }
+        .yt-ep {
+            font-family: 'DM Mono', monospace; font-size: .6rem;
+            letter-spacing: .12em; text-transform: uppercase; color: var(--green);
+        }
+        .yt-title {
+            font-family: 'Newsreader', Georgia, serif; font-size: 1.18rem; font-weight: 500;
+            color: var(--text); line-height: 1.25; margin-top: .4rem;
+        }
+        .yt-watch {
+            display: inline-block; margin-top: .65rem;
+            font-family: 'DM Mono', monospace; font-size: .62rem;
+            letter-spacing: .08em; text-transform: uppercase;
+            color: var(--text3); transition: color var(--t);
+        }
+        .yt-card:hover .yt-watch { color: var(--green); }
+        .yt-channel-link {
+            display: inline-block; margin-top: 1.5rem;
+            font-family: 'DM Mono', monospace; font-size: .64rem;
+            letter-spacing: .08em; text-transform: uppercase;
+            color: var(--green); text-decoration: none;
+            border-bottom: 1px solid rgba(208,160,75,.4); padding-bottom: 3px;
+            transition: color var(--t), border-color var(--t);
+        }
+        .yt-channel-link:hover { color: var(--text); border-color: var(--text); }
+
         .contact-wrap { max-width: 900px; }
         #contact .sec-title {
             margin-inline: auto;
@@ -2227,8 +2303,8 @@
 <section id="blogs">
     <div class="container">
         <div class="fade-in">
-            <div class="sec-label">Writing</div>
-            <h2 class="sec-title">Blog &amp; <span>Articles</span></h2>
+            <div class="sec-label">Writing &amp; Video</div>
+            <h2 class="sec-title">Articles &amp; <span>Videos</span></h2>
         </div>
         <div class="blog-list fade-in delay-1">
             <a class="blog-card" href="https://medium.com/@pavan.sunag/open-sar-triad-a-web-tool-for-iceye-umbra-and-capellas-open-sar-data-discovery-a9438e8a5fc4" target="_blank" rel="noopener noreferrer">
@@ -2236,6 +2312,48 @@
                 <div class="blog-title">open-sar-triad: a web tool for ICEYE, Umbra &amp; Capella's open SAR data discovery</div>
                 <div class="blog-desc">A unified browser tool to search and access open SAR imagery across ICEYE, Umbra, and Capella at once. Each operator keeps its own catalogue with its own conventions, so finding a scene across all three is the hard part.</div>
                 <span class="blog-link">Read on Medium &nbsp;→</span>
+            </a>
+        </div>
+
+        <!-- ── Range & Azimuth · YouTube ── -->
+        <div class="yt-strip fade-in delay-1">
+            <div class="yt-strip-head">
+                <span class="yt-strip-label">YouTube &nbsp;·&nbsp; Range &amp; Azimuth</span>
+                <div class="yt-strip-title">SAR from First Principles</div>
+                <p class="yt-strip-sub">
+                    Animated explainers that build synthetic aperture radar up from first
+                    principles — how the sensor works, why the math looks the way it does,
+                    and what the imagery actually means. New episodes in progress.
+                </p>
+            </div>
+            <div class="yt-grid">
+                <a class="yt-card" href="https://www.youtube.com/watch?v=XQDTXlxEe24&list=PLFe15SxHKlqw" target="_blank" rel="noopener noreferrer">
+                    <div class="yt-thumb">
+                        <img src="yt-synthetic.webp" width="1280" height="720" loading="lazy" decoding="async"
+                             alt="Video thumbnail: Why Synthetic Aperture?">
+                        <span class="yt-play" aria-hidden="true"></span>
+                    </div>
+                    <div class="yt-body">
+                        <div class="yt-ep">EP 01 &nbsp;·&nbsp; Aug 2026</div>
+                        <div class="yt-title">Why &ldquo;Synthetic Aperture&rdquo;?</div>
+                        <span class="yt-watch">Watch on YouTube &nbsp;→</span>
+                    </div>
+                </a>
+                <a class="yt-card" href="https://www.youtube.com/watch?v=nJHhTd2NnP8&list=PLFe15SxHKlqw" target="_blank" rel="noopener noreferrer">
+                    <div class="yt-thumb">
+                        <img src="yt-recorded.webp" width="1280" height="720" loading="lazy" decoding="async"
+                             alt="Video thumbnail: How SAR Data Is Recorded?">
+                        <span class="yt-play" aria-hidden="true"></span>
+                    </div>
+                    <div class="yt-body">
+                        <div class="yt-ep">EP 02 &nbsp;·&nbsp; Aug 2026</div>
+                        <div class="yt-title">How SAR Data Is Recorded?</div>
+                        <span class="yt-watch">Watch on YouTube &nbsp;→</span>
+                    </div>
+                </a>
+            </div>
+            <a class="yt-channel-link" href="https://www.youtube.com/@range.azimuth" target="_blank" rel="noopener noreferrer">
+                Visit the channel &nbsp;→
             </a>
         </div>
     </div>
@@ -2262,6 +2380,9 @@
                 </a>
                 <a href="https://scholar.google.com/citations?hl=en&amp;user=Mjl0znQAAAAJ" target="_blank" rel="noopener noreferrer" class="clink" aria-label="Google Scholar" title="Google Scholar">
                     <svg viewBox="0 0 24 24"><path d="M12 24a7 7 0 110-14 7 7 0 010 14zm0-24L0 9.5l4.838 3.94A8 8 0 0112 9a8 8 0 017.162 4.44L24 9.5z"/></svg>
+                </a>
+                <a href="https://www.youtube.com/@range.azimuth" target="_blank" rel="noopener noreferrer" class="clink" aria-label="YouTube — Range &amp; Azimuth" title="YouTube — Range &amp; Azimuth">
+                    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                 </a>
                 <a href="https://ko-fi.com/pavan_muguda" target="_blank" rel="noopener noreferrer" class="clink" aria-label="Ko-fi" title="Ko-fi">
                     <svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"/></svg>
