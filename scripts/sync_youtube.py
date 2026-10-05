@@ -103,7 +103,11 @@ def render(videos: list[dict]) -> str:
                         <span class="yt-watch">Watch on YouTube &nbsp;→</span>
                     </div>
                 </a>""")
-    return f'{START}\n            <div class="yt-grid">\n' + "\n".join(cards) + f"\n            </div>\n            {END}"
+    # The rail carries the tray classes; the .tray wrapper and its buttons
+    # live in index.html outside the markers, so they survive this rewrite.
+    rail = ('<div class="yt-grid tray-rail" tabindex="0" role="region" '
+            'aria-label="SAR from First Principles episodes, scrollable">')
+    return f"{START}\n            {rail}\n" + "\n".join(cards) + f"\n            </div>\n            {END}"
 
 
 def prune(keep: set[str]) -> None:
