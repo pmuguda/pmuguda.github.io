@@ -1293,9 +1293,9 @@
         .press-card { grid-template-columns: minmax(280px, .85fr) 1.15fr; background: transparent; border: 0; border-top: 1px solid var(--border); }
         .press-card:hover { box-shadow: none; border-top-color: rgba(208,160,75,.5); }
         /* Fix the thumbnail to one shape so a longer story does not stretch
-           its image taller than the rest. align-self stops the grid from
-           pulling it to the full row height. */
-        .press-img { aspect-ratio: 16/10; align-self: start; }
+           its image taller than the rest, and sit it against the middle of
+           the text instead of the top of the row. */
+        .press-img { aspect-ratio: 16/10; align-self: center; }
         .press-img img { height: 100%; min-height: 0; }
         .press-body { padding: clamp(1.5rem, 4vw, 3.5rem); }
         .press-source { color: var(--green); }
